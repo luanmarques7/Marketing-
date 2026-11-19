@@ -1,7 +1,6 @@
 # Prompt de construção — Artefato do aplicativo de Marketing e Vendas para PMEs
 
 > **Como usar:** copie tudo abaixo da linha "INÍCIO DO PROMPT" e entregue à IA que vai construir o artefato.
-> Os trechos marcados com **[DECIDIR]** são escolhas nossas que ainda estão em aberto; o prompt já traz um padrão para a construção não travar.
 
 ---
 
@@ -272,7 +271,7 @@ Acima das skills há um orquestrador que conduz o cliente pela jornada: sabe em 
 - **Pacote inicial:** etapas Conhecer, Potencializar e Corrigir completas (identidade, missão, visão, valores, diferenciais, plano de correção, pesquisa com clientes); rotina Evoluir (lembrete, desafio e pergunta diários); estudo do setor; pautas das reuniões de equipe; relatório geral de marketing e vendas; configuração dos perfis; posts com fotos; direcionamentos e roteiros para Stories e Reels.
 - **Pacote avançado (mais caro):** tudo do inicial, mais **vídeos e imagens realistas gerados por IA** a partir das fotos da empresa, dos donos e dos colaboradores autorizados, no contexto dos produtos e da marca e guiados pelas referências escolhidas; agente de atendimento no WhatsApp; treinador de equipe com simulações e relatórios; pautas das reuniões individuais com cada vendedor (que dependem das notas e das conversas analisadas); gestão de anúncios patrocinados.
 
-**[DECIDIR]** em qual pacote entra a gestão de anúncios patrocinados; o padrão acima a coloca no avançado. A verba dos anúncios é sempre paga pela empresa à plataforma, à parte.
+A verba dos anúncios é sempre paga pela empresa diretamente à plataforma, à parte do pacote.
 
 No artefato, mostre os recursos do pacote avançado como visíveis porém bloqueados para quem está no inicial, com uma prévia do que fazem.
 
