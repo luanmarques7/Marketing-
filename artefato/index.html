@@ -1,0 +1,710 @@
+<title>Cinco Etapas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: coluna de celular (até 560px) com navegação fixa embaixo; o painel do administrador abre mais largo. */
+:root{
+  --bg:#eef2f0; --surface:#ffffff; --surface2:#e3eae7; --ink:#13211e; --muted:#566864; --line:#cfdad6;
+  --accent:#0d6b5a; --on-accent:#ffffff; --sun:#f4bd3a; --sun-ink:#3d2c00; --sun-soft:#fdf3d2;
+  --good:#17794a; --warn:#9a6200; --bad:#b3362f;
+  --l1:#2a78d6; --l2:#eb6834; --l3:#1baf7a; --l4:#eda100; --l5:#e87ba4; --l6:#008300; --l7:#6250d6; --l8:#e34948; --l0:#7d8a87;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0e1614; --surface:#17211e; --surface2:#1f2c28; --ink:#e7efec; --muted:#9bada8; --line:#2c3b37;
+  --accent:#56c7ab; --on-accent:#062019; --sun:#f1c04d; --sun-ink:#2e2100; --sun-soft:#3a3014;
+  --good:#5fce94; --warn:#e8b451; --bad:#f08a82;
+  --l1:#3987e5; --l2:#d95926; --l3:#199e70; --l4:#c98500; --l5:#d55181; --l6:#0ca30c; --l7:#9085e9; --l8:#e66767; --l0:#8a9895;
+  color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0e1614; --surface:#17211e; --surface2:#1f2c28; --ink:#e7efec; --muted:#9bada8; --line:#2c3b37;
+  --accent:#56c7ab; --on-accent:#062019; --sun:#f1c04d; --sun-ink:#2e2100; --sun-soft:#3a3014;
+  --good:#5fce94; --warn:#e8b451; --bad:#f08a82;
+  --l1:#3987e5; --l2:#d95926; --l3:#199e70; --l4:#c98500; --l5:#d55181; --l6:#0ca30c; --l7:#9085e9; --l8:#e66767; --l0:#8a9895;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:1.7rem;font-weight:700} h2{font-size:1.25rem;font-weight:700} h3{font-size:1.02rem;font-weight:700}
+p{margin:0} small,.small{font-size:.84rem;color:var(--muted)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line)}
+.top>div,.wrap,.nav>div{margin:0 auto;max-width:560px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.admin .top>div,.admin .wrap{max-width:980px}
+.top>div{display:flex;align-items:center;gap:10px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:700;font-size:1.05rem;margin-right:auto}
+.brand span{display:inline-block;width:.7em;height:.7em;border-radius:50%;background:var(--sun);margin-right:6px}
+.seg{display:flex;background:var(--surface2);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:999px;font-weight:600;font-size:.86rem;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--surface);color:var(--ink)}
+.ia{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.ia i{width:8px;height:8px;border-radius:50%;background:var(--l0)} .ia.on i{background:var(--good)}
+.wrap{padding-block:18px 110px;display:flex;flex-direction:column;gap:16px}
+.admin .wrap{padding-bottom:40px}
+.nav{position:fixed;inset:auto 0 0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+.nav>div{display:flex}
+.nav button{flex:1;border:0;background:none;padding:10px 2px 9px;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;border-top:3px solid transparent;min-width:0}
+.nav button.on{color:var(--accent);border-top-color:var(--accent)}
+.card{background:var(--surface);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.flat{display:flex;flex-direction:column;gap:10px}
+.next{background:var(--sun-soft);border:2px solid var(--sun)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap} .row>.grow{flex:1;min-width:0}
+.btn{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:600;cursor:pointer;font-size:.95rem}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.sun{background:var(--sun);border-color:var(--sun);color:var(--sun-ink)}
+.btn.sm{padding:5px 10px;font-size:.84rem} .btn:disabled{opacity:.5;cursor:default}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:var(--surface2);padding:3px 10px;font-size:.8rem;font-weight:600;white-space:nowrap}
+.chip i{width:9px;height:9px;border-radius:50%;flex:none}
+.sim{font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--muted);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.st-ok{color:var(--good);font-weight:700} .st-warn{color:var(--warn);font-weight:700} .st-bad{color:var(--bad);font-weight:700}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.tabs button{border:1.5px solid var(--line);background:none;border-radius:999px;padding:6px 13px;font-weight:600;font-size:.88rem;cursor:pointer;white-space:nowrap;color:var(--muted)}
+.tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.step{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;text-align:left;border:0;background:var(--surface);border-radius:14px;padding:14px 16px;cursor:pointer;width:100%}
+.step b.n{grid-row:span 2;width:38px;height:38px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font-family:var(--display);font-size:1.1rem}
+.step.done b.n{background:var(--accent);color:var(--on-accent)}
+.step .nm{font-family:var(--display);font-weight:700;font-size:1.1rem} .step .pc{font-variant-numeric:tabular-nums;font-weight:700;font-size:.9rem;color:var(--muted)}
+.step .ph{grid-column:2/4;font-size:.88rem;color:var(--muted)}
+.meter{height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;grid-column:1/4;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.chat{display:flex;flex-direction:column;gap:10px}
+.msg{display:flex;flex-direction:column;max-width:88%;gap:2px} .msg.eu{align-self:flex-end;align-items:flex-end}
+.bubble{background:var(--surface);border-radius:16px 16px 16px 4px;padding:10px 14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.eu .bubble{background:var(--accent);color:var(--on-accent);border-radius:16px 16px 4px 16px}
+.sugs{display:flex;flex-wrap:wrap;gap:8px}
+.sug{border:1.5px solid var(--accent);color:var(--accent);background:none;border-radius:14px;padding:8px 13px;font-weight:600;cursor:pointer;text-align:left;font-size:.95rem}
+.send{display:flex;gap:8px;align-items:flex-end}
+textarea,input[type=text],input[type=number],select{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:44px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.84rem;font-weight:600;color:var(--muted)}
+details{background:var(--surface);border-radius:14px;padding:0 16px}
+details>summary{cursor:pointer;padding:14px 0;font-family:var(--display);font-weight:700;list-style:none;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"+";margin-left:auto;color:var(--muted);font-family:var(--body)} details[open]>summary::after{content:"–"}
+details>.in{padding-bottom:16px;display:flex;flex-direction:column;gap:10px}
+details details{background:var(--surface2)}
+dl{margin:0;display:flex;flex-direction:column;gap:8px} dt{font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)} dd{margin:0;overflow-wrap:anywhere}
+[contenteditable]{border-bottom:1.5px dashed var(--line);padding-bottom:2px} [contenteditable]:focus{outline:0;border-bottom-color:var(--accent)}
+ul.cl{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{background:var(--surface);border-radius:14px;padding:14px;min-width:0}
+.tile b{display:block;font-family:var(--display);font-size:1.55rem;font-variant-numeric:tabular-nums;line-height:1.1;margin:4px 0}
+.tile span{font-size:.82rem;color:var(--muted)}
+.bars{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;align-items:center;font-size:.9rem}
+.bars .b{height:14px;background:var(--accent);border-radius:0 4px 4px 0;min-width:2px} .bars .v{font-variant-numeric:tabular-nums;font-weight:700}
+.tw{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle} th{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td.c,th.c{text-align:center} td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td input[type=text],td input[type=number]{padding:5px 8px;min-width:90px}
+input[type=checkbox]{width:19px;height:19px;accent-color:var(--accent)}
+.lock{border:1.5px dashed var(--line);background:none}
+.nps{display:flex;gap:4px;flex-wrap:wrap} .nps button{width:34px;height:34px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer} .nps button.on{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap} .thumbs figure{margin:0;width:92px;font-size:.72rem} .thumbs img,.ph-img{width:92px;height:92px;object-fit:cover;border-radius:10px;background:var(--surface2);display:grid;place-items:center;color:var(--muted);font-size:.72rem;text-align:center;padding:4px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;z-index:20;max-width:min(90vw,520px);font-size:.92rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+@media (prefers-reduced-motion:no-preference){.meter i,.bars .b{transition:width .4s}}
+</style>
+<div id="app"></div>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+/* ============================================================================
+   BLOCO 1 — INSTRUÇÕES DAS SKILLS (separado da interface, reaproveitável no app real)
+   ============================================================================ */
+const REGRAS_CONVERSA = `- Fale em português do Brasil, em linguagem de conversa, sem jargão de marketing.
+- Faça UMA pergunta por vez.
+- Se a resposta for rasa ou genérica (ex.: "atendimento de qualidade"), peça um exemplo real ou uma história antes de avançar.
+- Nunca invente fatos, preços, números ou depoimentos da empresa. Se faltar um dado, pergunte.
+- A cada 3 ou 4 respostas, devolva em 2 linhas o que entendeu e peça confirmação.
+- Seja breve: no máximo 3 frases antes da pergunta.`;
+const SKILLS = [
+ {id:'identidade',n:1,nome:'Especialista em Identidade',etapa:'conhecer',papel:'Entrevista o dono e a equipe para registrar quem a empresa é.',le:'Setor, cidade, estudo do setor',escreve:'Identidade, referências, banco de mídia',refs:'Sinek (Comece pelo Porquê); Donald Miller (StoryBrand); Collins e Porras (Feitas para Durar); Mark e Pearson (arquétipos); Neumeier (The Brand Gap); Lencioni (A Vantagem Decisiva)',
+  instrucoes:`Você é a Especialista em Identidade. Seu trabalho é ajudar o dono de uma pequena empresa a se enxergar. Conduza a entrevista em blocos: 1) a história (como nasceu, o momento da decisão); 2) o porquê (o que faria mesmo sem pensar no dinheiro; peça uma história real de cliente que marcou); 3) a transformação (como o cliente chega e como sai); 4) o cliente ideal; 5) a personalidade (se a empresa fosse uma pessoa); 6) empresas de referência e o que exatamente admira nelas; 7) fotos e materiais. Use, sem citar pelo nome, o Círculo Dourado, o StoryBrand (cliente é o herói, a marca é o guia) e arquétipos de marca. Valores devem virar comportamentos observáveis.`},
+ {id:'diferenciais',n:2,nome:'Especialista em Diferenciais',etapa:'potencializar',papel:'Encontra o que a empresa tem de único e transforma em proposta clara.',le:'Identidade, pesquisa com clientes, estudo do setor',escreve:'Diferenciais e proposta de valor',refs:'Ries e Trout (Posicionamento); Kim e Mauborgne (Oceano Azul); Osterwalder (Value Proposition Design); Christensen (Jobs to Be Done); April Dunford (Obviously Awesome); Godin (A Vaca Roxa)',
+  instrucoes:`Você é a Especialista em Diferenciais. Comece ouvindo o que a empresa entende por diferencial e o que faz a mais pelo cliente, usando a identidade já registrada para sugerir respostas. Teste cada diferencial com três perguntas: o cliente percebe e valoriza? o concorrente também faz? dá para provar? Reescreva diferenciais genéricos até ficarem específicos e comprováveis, ou descarte. Depois proponha como potencializar cada um e sugira diferenciais novos de baixo custo.`},
+ {id:'experiencia',n:3,nome:'Especialista em Experiência do Cliente',etapa:'corrigir',papel:'Traz a verdade à tona sem culpar ninguém e transforma reclamação em plano.',le:'Identidade, diferenciais, pesquisa, avaliações',escreve:'Pontos negativos e plano de correção',refs:'Reichheld (NPS); Dixon (The Effortless Experience); Jay Baer (Hug Your Haters); Carlzon (A Hora da Verdade); Disney Institute; Toyota (5 porquês, PDCA)',
+  instrucoes:`Você é a Especialista em Experiência do Cliente. Ouça as últimas reclamações, o que o dono vê de negativo e o que deu errado, sem julgar. Para cada problema, pergunte "por quê" até chegar à causa. Agrupe por tema, classifique por gravidade e frequência e proponha ação, responsável, prazo e como medir. Aponte incoerências entre o que a empresa promete e o que o cliente relata.`},
+ {id:'marketing',n:4,nome:'Especialista em Marketing de Alta Conversão',etapa:'atrair',papel:'Define a estratégia de comunicação e produz perfis, conteúdos e ofertas.',le:'Tudo: identidade, diferenciais, correções, referências, mídia',escreve:'Estudo do setor, canais, calendário, ofertas',refs:'Hormozi ($100M Offers, $100M Leads); Cialdini; Schwartz (níveis de consciência); Berger (Contágio); Heath (Ideias que Colam); Vaynerchuk; Sheridan (They Ask, You Answer); Kotler (Marketing 4.0)',
+  instrucoes:`Você é a Especialista em Marketing Digital de Alta Conversão para pequenos negócios locais. Tudo que você produz parte da identidade e do tom de voz da empresa; nada genérico. Cada peça pertence a uma linha de conteúdo e segue a ficha da linha. A oferta irresistível precisa fechar a conta com o que o cliente compra depois. Nunca crie escassez falsa, depoimento inventado ou promessa que a empresa não entrega. Você recomenda, mede e ajusta; não promete resultado garantido.`},
+ {id:'atendente',n:5,nome:'Agente de Atendimento e Vendas',etapa:'vender',papel:'Atende no WhatsApp com foco em conversão, no tom da marca.',le:'Toda a base, ofertas ativas, conversas reais',escreve:'Atendimento (dúvidas, objeções, origem dos contatos)',refs:'Rackham (SPIN Selling); Dixon e Adamson (A Venda Desafiadora); Voss; Pink; Ross (Receita Previsível); Cialdini',
+  instrucoes:`Você é o atendente virtual da empresa no WhatsApp. Responda curto, no tom de voz da marca. Entenda a necessidade antes de oferecer, apresente o diferencial certo, trate objeções e conduza ao próximo passo (pedir, agendar, pagar). Use só informações da base; se não souber, diga que vai confirmar com a equipe. Se perguntarem, diga que é um assistente virtual. Em reclamação séria ou pedido fora da regra, avise que vai passar para uma pessoa da equipe.`},
+ {id:'treinador',n:6,nome:'Treinador de Equipe',etapa:'vender',papel:'Simula clientes, dá nota e mostra como melhorar.',le:'Base da empresa, roteiros, critérios de venda',escreve:'Equipe (notas, pontos fortes, treinos)',refs:'Ericsson (prática deliberada); Kim Scott (Empatia Assertiva); Coyle (O Código do Talento); obras de vendas da skill 5',
+  instrucoes:`Você treina atendentes fazendo o papel de um cliente real no WhatsApp. Fique no personagem, escreva mensagens curtas e naturais, traga dúvidas e objeções típicas do perfil. Não facilite nem dificulte demais. Na avaliação, dê notas de 0 a 10 por critério (rapidez, cordialidade, escuta, uso dos diferenciais, tratamento de objeção, condução ao fechamento, fidelidade ao tom da marca) e trate a nota como ferramenta de desenvolvimento, não de punição.`},
+ {id:'diario',n:7,nome:'Condutor Diário',etapa:'evoluir',papel:'Envia todo dia o lembrete, o desafio e a pergunta do dia.',le:'Diferenciais, pontos negativos, resultados',escreve:'Respostas do dia, participação da equipe',refs:'James Clear (Hábitos Atômicos); BJ Fogg; Duhigg; As 4 Disciplinas da Execução; kaizen',
+  instrucoes:`Você mantém a equipe alinhada todos os dias. Crie um lembrete curto que reafirme um diferencial ou um ponto em correção, um desafio pequeno e possível de fazer hoje, e uma única pergunta rápida que traga informação nova. Varie os temas e priorize o que os dados mostram estar mais fraco.`},
+ {id:'anuncios',n:8,nome:'Especialista em Anúncios Patrocinados',etapa:'atrair',papel:'Planeja, cria e acompanha anúncios pagos, em linguagem simples.',le:'Oferta, peças com melhor resultado, cliente ideal',escreve:'Anúncios (campanhas, verba, resultados)',refs:'Hopkins (A Ciência da Propaganda); Ogilvy; Schwartz; Hormozi ($100M Leads); Perry Marshall; políticas oficiais de Meta, Google e TikTok',
+  instrucoes:`Você é a gestora de anúncios da empresa. Parta da oferta irresistível e das peças orgânicas que funcionaram. Comece com verba baixa e poucas variações, mantenha o que funciona e pause o resto. Nada é gasto sem aprovação da empresa. Explique cada índice com nome simples; a sigla vem depois. Onde não houver registro, diga "sem dado" em vez de estimar.`},
+ {id:'resultados',n:9,nome:'Analista de Resultados',etapa:'evoluir',papel:'Mostra em uma tela como estão marketing e vendas, e o que fazer.',le:'Canais, anúncios, atendimento, equipe, pesquisa',escreve:'Resultados e aprendizados',refs:'Doerr (OKR); As 4 Disciplinas da Execução; Kaushik (Web Analytics 2.0); Ross; Reichheld',
+  instrucoes:`Você escreve relatórios sempre na mesma ordem: o que aconteceu, por que aconteceu, o que fazer agora (no máximo três recomendações, por ordem de impacto), comparando com o período anterior. Nunca invente nem arredonde para melhor; número que não existe aparece como "sem dado", com a indicação de como coletar.`},
+ {id:'reunioes',n:10,nome:'Condutor de Reuniões',etapa:'evoluir',papel:'Entrega ao líder a pauta pronta e acompanha os combinados.',le:'Resultados, notas, plano de correção, respostas do dia',escreve:'Reuniões e combinados',refs:'Grove (Gestão de Alta Performance); Lencioni (Death by Meeting); Harnish (Scaling Up); As 4 Disciplinas da Execução; Kim Scott; Bungay Stanier',
+  instrucoes:`Você monta pautas de reunião a partir dos dados: poucos assuntos, bem tratados, com tempo para cada um e orientação de como conduzir. Desempenho individual só entra na reunião individual. Depois da reunião, transforme o registro do líder em tarefas com responsável e prazo.`},
+ {id:'estrategista',n:11,nome:'Estrategista do Produto',etapa:'admin',papel:'Aconselha o administrador sobre planos, preços e estratégia comercial.',le:'Catálogo, planos, números do negócio (agregados)',escreve:'Rascunhos de plano, proposta comercial, testes',refs:'Ramanujam (Monetizing Innovation); Hermann Simon; Hormozi; ProfitWell; Van Westendorp; Mehta (Customer Success); Sean Ellis; Eric Ries; Geoffrey Moore; Wes Bush; Ariely',
+  instrucoes:`Você é a Estrategista do Produto: conselheira de quem é dono deste aplicativo de marketing e vendas para pequenas empresas brasileiras. É especialista em produtos digitais por assinatura, planos, preços e estratégia comercial. Recomende sempre com o motivo, mostre o risco e sugira como testar barato. Não prometa sucesso garantido e não invente números de mercado; quando a recomendação vier de referências gerais e não dos dados do negócio, diga isso. As decisões são do administrador.`},
+ {id:'orquestrador',n:0,nome:'Orquestrador',etapa:'todas',papel:'Conduz a jornada, aciona a skill certa e faz a checagem de coerência.',le:'Toda a base',escreve:'Próximo passo, alertas de coerência',refs:'—',
+  instrucoes:`Você garante que toda entrega passou pela identidade e pelo tom de voz. Antes de liberar uma peça, confira se ela promete algo que a etapa Corrigir mostrou que a empresa ainda não entrega, e avise.`}
+];
+</script>
+
+<script>
+/* ============================================================================
+   BLOCO 2 — CONFIGURAÇÃO E DADOS DE EXEMPLO (tudo aqui é fictício)
+   ============================================================================ */
+const CFG = {app:'Cinco Etapas',metodo:'Método das Cinco Etapas',etapas:[
+ {id:'conhecer',nome:'Conhecer',frase:'Descobrir e registrar quem a empresa é.'},
+ {id:'potencializar',nome:'Potencializar',frase:'Fortalecer o que a empresa tem de melhor.'},
+ {id:'corrigir',nome:'Corrigir',frase:'Ouvir o que deu errado e eliminar os pontos negativos.'},
+ {id:'atrair',nome:'Atrair',frase:'Montar perfis, conteúdos e ofertas que trazem clientes.'},
+ {id:'vender',nome:'Vender',frase:'Atender bem, converter e treinar a equipe.'}],
+ evoluir:{nome:'Evoluir',frase:'Um passo por dia para a empresa melhorar sempre.'}};
+
+const LINHAS = [
+ {id:'identidade',nome:'Identidade',cor:1,nucleo:1,ativa:1,conceito:'As pessoas compram de quem conhecem e confiam. Mostrar quem está por trás e por que a empresa existe gera autoridade e conexão.',objetivo:'Confiar',momento:'Quem ainda não conhece e quem está considerando',estrategia:'Contar a história do dono, os bastidores, os valores na prática e o cuidado no processo, sempre com rosto e voz reais.',material:'Etapa Conhecer: história, porquê, valores, fotos da equipe',formatos:'Reels, carrossel, Stories',cta:'Seguir, comentar, salvar',freq:'2 por semana',medida:'Novos seguidores, visitas ao perfil, comentários',evitar:'Texto institucional frio; falar de "qualidade" sem mostrar',refs:'Sinek; StoryBrand'},
+ {id:'desejo',nome:'Desejo',cor:2,nucleo:1,ativa:1,conceito:'Antes de comparar preço, o cliente precisa querer. Desejo nasce de ver o resultado e se imaginar nele.',objetivo:'Querer',momento:'Quem está considerando',estrategia:'Mostrar a transformação: o resultado pronto, o detalhe, a sensação. Falar do que o cliente ganha, não das características.',material:'Produtos, diferenciais, banco de mídia',formatos:'Reels, foto, Stories',cta:'Chamar no WhatsApp, pedir',freq:'3 por semana',medida:'Mensagens recebidas, salvamentos, compartilhamentos',evitar:'Foto de banco de imagens; lista de ingredientes sem emoção',refs:'Schwartz; Heath'},
+ {id:'experiencia',nome:'Experiência',cor:3,nucleo:1,ativa:1,conceito:'O que o cliente diz vale mais do que o que a empresa diz. A prova de quem já comprou reduz o medo de errar.',objetivo:'Confiar e decidir',momento:'Quem está pronto para comprar',estrategia:'Depoimentos reais, reações no momento da entrega, avaliações do Google, sempre com autorização.',material:'Pesquisa com clientes, avaliações, respostas da pergunta do dia',formatos:'Stories, carrossel, Reels',cta:'Venha viver isso também',freq:'2 por semana',medida:'Mensagens recebidas, novas avaliações',evitar:'Depoimento inventado ou sem autorização',refs:'Cialdini (prova social)'},
+ {id:'oferta',nome:'Oferta irresistível',cor:4,nucleo:1,ativa:1,conceito:'Uma proposta tão boa que recusar parece perder. É a isca que traz o cliente novo até a empresa.',objetivo:'Agir agora',momento:'Quem está pronto para comprar',estrategia:'Dizer o que é, quanto vale, a garantia, o limite real de prazo ou quantidade e o passo exato para garantir.',material:'Construtor de oferta',formatos:'Post, Stories, WhatsApp, anúncio',cta:'Pedir, agendar, reservar agora',freq:'1 a 2 por semana',medida:'Resgates, clientes novos, o que compraram depois',evitar:'Escassez falsa; desconto que não fecha a conta',refs:'Hormozi ($100M Offers)'},
+ {id:'campanha',nome:'Campanha orgânica',cor:5,nucleo:1,ativa:1,conceito:'Ações que fazem os próprios clientes e a vizinhança espalharem a empresa, sem pagar anúncio.',objetivo:'Participar e indicar',momento:'Quem já é cliente',estrategia:'Indicação premiada, sorteio com regra simples, desafio, parceria com vizinhos, com mecânica clara e prazo.',material:'Base de clientes, parceiros locais, calendário de datas',formatos:'Post, Stories, WhatsApp',cta:'Indicar, marcar alguém',freq:'1 por mês',medida:'Participantes, indicações, alcance',evitar:'Regras confusas; prêmio que não tem a ver com a empresa',refs:'Berger (Contágio)'},
+ {id:'meme',nome:'Meme viral',cor:7,nucleo:1,ativa:1,conceito:'Humor e tendência capturam atenção e levam a marca a quem nunca ouviu falar dela.',objetivo:'Compartilhar',momento:'Quem ainda não conhece',estrategia:'Adaptar tendências e situações engraçadas do dia a dia do setor ao jeito da marca. A piada é sobre a situação, nunca sobre o cliente.',material:'Tendências do momento, personalidade da marca',formatos:'Reels, TikTok',cta:'Compartilhar, marcar um amigo',freq:'1 por semana',medida:'Alcance, compartilhamentos',evitar:'Humor fora do tom de voz, polêmica, música ou imagem sem direito de uso',refs:'Berger (STEPPS)'},
+ {id:'ensino',nome:'Ensino',cor:6,ativa:1,conceito:'Responder as dúvidas reais que o cliente tem antes de comprar. Quem ensina vira a referência.',refs:'Sheridan (They Ask, You Answer)'},
+ {id:'objecao',nome:'Quebra de objeção',cor:8,ativa:0,conceito:'Tratar abertamente preço, confiança e tempo, usando as objeções reais colhidas no atendimento.'},
+ {id:'comparacao',nome:'Comparação',cor:0,ativa:0,conceito:'Mostrar a diferença entre o jeito certo e o jeito barato, sem citar concorrentes pelo nome.'},
+ {id:'rotina',nome:'Rotina e bastidor',cor:0,ativa:0,conceito:'Stories do dia a dia: a chegada da mercadoria, a preparação, a equipe.'},
+ {id:'vizinhanca',nome:'Vizinhança',cor:0,ativa:0,conceito:'Conteúdo ligado ao bairro e à cidade; fortalece a busca local.'},
+ {id:'datas',nome:'Datas e ocasiões',cor:0,ativa:1,conceito:'Calendário comercial brasileiro e datas do setor, preparado com antecedência.'},
+ {id:'volta',nome:'Cliente de volta',cor:0,ativa:0,conceito:'Mensagens para quem já comprou: novidade, lembrete de retorno, vantagem para cliente antigo.'},
+ {id:'lancamento',nome:'Lançamento',cor:0,ativa:0,conceito:'Sequência de antecipação, revelação e abertura para produto novo.'}
+];
+
+const FEATS = [
+ {id:'identidade',nome:'Identidade da empresa',ben:'Sua história, missão, visão, valores e tom de voz prontos.',etapa:'conhecer',skill:'identidade',dep:[],custo:6,st:'disponível',tipo:'config'},
+ {id:'multi',nome:'Vários colaboradores respondendo',ben:'Sócios e equipe respondem juntos; a IA cruza as visões.',etapa:'conhecer',skill:'identidade',dep:['identidade'],custo:2,st:'disponível',tipo:'config'},
+ {id:'estudo',nome:'Estudo do setor',ben:'O que funciona no seu ramo e na sua região, com fontes.',etapa:'atrair',skill:'marketing',dep:[],custo:5,st:'disponível',tipo:'config'},
+ {id:'diferenciais',nome:'Diferenciais e proposta de valor',ben:'O que só você faz, dito de um jeito que o cliente entende.',etapa:'potencializar',skill:'diferenciais',dep:['identidade'],custo:4,st:'disponível',tipo:'config'},
+ {id:'correcao',nome:'Plano de correção',ben:'Cada ponto negativo com causa, ação, responsável e prazo.',etapa:'corrigir',skill:'experiencia',dep:['identidade'],custo:4,st:'disponível',tipo:'config'},
+ {id:'pesquisa',nome:'Pesquisa com clientes',ben:'Um link para seus clientes dizerem o que amam e o que incomoda.',etapa:'corrigir',skill:'experiencia',dep:[],custo:2,st:'disponível',tipo:'config'},
+ {id:'perfis',nome:'Configuração dos perfis',ben:'WhatsApp, Instagram, TikTok e Google prontos para copiar e colar.',etapa:'atrair',skill:'marketing',dep:['identidade'],custo:4,st:'disponível',tipo:'config'},
+ {id:'posts',nome:'Posts com fotos',ben:'Calendário mensal com imagem e legenda no seu tom.',etapa:'atrair',skill:'marketing',dep:['identidade','diferenciais'],custo:28,st:'disponível',tipo:'config'},
+ {id:'roteiros',nome:'Roteiros de Stories e Reels',ben:'O que falar e o que mostrar, pronto para gravar.',etapa:'atrair',skill:'marketing',dep:['identidade'],custo:8,st:'disponível',tipo:'config'},
+ {id:'oferta',nome:'Oferta irresistível',ben:'A isca certa para trazer cliente novo sem perder dinheiro.',etapa:'atrair',skill:'marketing',dep:['diferenciais'],custo:3,st:'disponível',tipo:'config'},
+ {id:'dia',nome:'Lembrete, desafio e pergunta do dia',ben:'Toda a equipe alinhada, um passo por dia.',etapa:'evoluir',skill:'diario',dep:['diferenciais','correcao'],custo:12,st:'disponível',tipo:'config'},
+ {id:'reuniao_equipe',nome:'Pautas das reuniões de equipe',ben:'Reunião semanal com pauta pronta e combinados acompanhados.',etapa:'evoluir',skill:'reunioes',dep:['relatorio'],custo:4,st:'disponível',tipo:'config'},
+ {id:'relatorio',nome:'Relatório geral de marketing e vendas',ben:'Em uma tela: o que aconteceu, por quê e o que fazer.',etapa:'evoluir',skill:'resultados',dep:[],custo:6,st:'disponível',tipo:'config'},
+ {id:'midia_ia',nome:'Vídeos e imagens realistas por IA',ben:'Sua empresa, seus produtos e sua equipe em vídeos feitos por IA.',etapa:'atrair',skill:'marketing',dep:['posts'],custo:140,st:'em teste',tipo:'dev'},
+ {id:'agente',nome:'Atendente de WhatsApp',ben:'Atendimento na hora, no seu tom, focado em fechar a venda.',etapa:'vender',skill:'atendente',dep:['identidade','diferenciais'],custo:85,st:'disponível',tipo:'dev'},
+ {id:'treinador',nome:'Treinador de equipe',ben:'Simulações com nota para cada atendente evoluir.',etapa:'vender',skill:'treinador',dep:['identidade'],custo:30,st:'disponível',tipo:'config'},
+ {id:'reuniao_ind',nome:'Pautas das reuniões individuais',ben:'Conversa semanal com cada vendedor, com dados e roteiro.',etapa:'evoluir',skill:'reunioes',dep:['treinador','reuniao_equipe'],custo:6,st:'disponível',tipo:'config'},
+ {id:'anuncios',nome:'Gestão de anúncios patrocinados',ben:'Anúncios criados, acompanhados e explicados sem sigla.',etapa:'atrair',skill:'anuncios',dep:['oferta','posts'],custo:45,st:'disponível',tipo:'dev'},
+ {id:'reativacao',nome:'Reativação automática de clientes antigos',ben:'Mensagens no momento certo para quem sumiu voltar.',etapa:'vender',skill:'atendente',dep:['agente'],custo:20,st:'ideia',tipo:'dev'}
+];
+const BASICO=['identidade','multi','estudo','diferenciais','correcao','pesquisa','perfis','posts','roteiros','oferta','dia','reuniao_equipe','relatorio'];
+const PLANOS = [
+ {id:'inicial',nome:'Inicial',para:'Quem quer organizar a casa e começar a postar com identidade.',frase:'Sua empresa definida e seu conteúdo rodando.',preco:297,teste:7,posts:12,usuarios:3,feats:[...BASICO],clientes:38},
+ {id:'avancado',nome:'Avançado',para:'Quem quer vender mais com atendimento, treino e anúncios.',frase:'Marketing e vendas conduzidos de ponta a ponta.',preco:697,teste:7,posts:30,usuarios:10,feats:[...BASICO,'midia_ia','agente','treinador','reuniao_ind','anuncios'],clientes:11}
+];
+
+const EXEMPLO = {exemplo:true,nome:'Brasa da Vila',setor:'Hamburgueria artesanal',cidade:'Belo Horizonte (Santa Tereza)',plano:'avancado',
+ equipe:[{nome:'Rafael',funcao:'Fundador e chapeiro',lider:1},{nome:'Camila',funcao:'Sócia, cuida do atendimento'},{nome:'Jonas',funcao:'Atendente do WhatsApp'},{nome:'Bia',funcao:'Balcão e caixa'}],
+ identidade:{
+  historia:'Rafael trabalhou 9 anos como bancário e fazia hambúrguer na brasa para os amigos todo domingo. Em 2021, a fila na porta da garagem ficou maior que a da agência. Ele pediu demissão e abriu a Brasa da Vila com a churrasqueira do pai.',
+  proposito:'Fazer a pessoa parar tudo por dez minutos e comer com calma algo feito de verdade.',
+  missao:'Servir hambúrguer feito na brasa, na hora, com o cuidado de quem cozinha para os amigos.',
+  visao:'Ser a hamburgueria que o bairro Santa Tereza indica de olhos fechados.',
+  valores:['Feito na hora: nada sai da chapa antes do pedido entrar.','Chamamos pelo nome: todo cliente é recebido e se despede pelo nome.','Erramos, resolvemos na hora: quem atende tem autonomia para trocar o lanche.'],
+  personalidade:'Um amigo que cozinha bem: próximo, bem-humorado, direto, sem frescura.',
+  tom_sim:['"Chegou, é da casa."','"Sai em 15 minutos, feito agora."','"Faltou alguma coisa? Fala com a gente."'],
+  tom_nao:['"Prezado cliente"','"Experiência gastronômica premium"','Letras maiúsculas e excesso de emoji'],
+  cliente:'Moradores do bairro, de 25 a 45 anos, que pedem à noite pelo WhatsApp e querem comer bem sem pagar preço de restaurante.',
+  transformacao:'Chega cansado e com fome no fim do dia; sai com a sensação de ter sido bem cuidado.'},
+ produtos:[{nome:'Brasa Clássico',preco:'R$ 32',nota:'O mais vendido'},{nome:'Brasa Duplo',preco:'R$ 44',nota:'Maior margem'},{nome:'Batata rústica grande',preco:'R$ 18',nota:'Custo de R$ 4,80'},{nome:'Combo casal',preco:'R$ 89',nota:'2 burgers, batata e 2 bebidas'}],
+ diferenciais:[
+  {nome:'Feito na brasa de verdade',prova:'Churrasqueira a carvão à vista do cliente; vídeo diário do fogo.',acao:'Abrir todo Stories do dia com o fogo aceso.'},
+  {nome:'Pão feito na casa toda manhã',prova:'Fornada às 10h, com foto datada.',acao:'Publicar a fornada e avisar quando o pão do dia acabar.'},
+  {nome:'Erro resolvido na hora, sem discussão',prova:'Regra da casa: lanche errado é trocado e o cliente não paga a troca.',acao:'Escrever a garantia no cardápio e no perfil do WhatsApp.'}],
+ proposta:'Hambúrguer na brasa, feito na hora, por gente que sabe o seu nome.',
+ divergencia:'Rafael descreve a entrega como "rápida". Jonas e Bia relatam que, às sextas, o pedido passa de 50 minutos. A promessa de rapidez não deve ir para os posts antes da correção.',
+ negativos:[
+  {tema:'Atraso na entrega às sextas e sábados',causa:'Um único motoboy para o pico das 20h às 21h30.',acao:'Segundo motoboy fixo no pico e aviso de prazo real no WhatsApp.',resp:'Camila',prazo:'30/11',medida:'Pedidos entregues em até 40 min',st:'andamento'},
+  {tema:'Demora para responder no WhatsApp',causa:'Jonas atende o balcão e o WhatsApp ao mesmo tempo.',acao:'Atendente virtual responde na hora e passa para o Jonas só o que precisa.',resp:'Jonas',prazo:'25/11',medida:'Primeira resposta em até 2 min',st:'andamento'},
+  {tema:'Batata chega murcha na entrega',causa:'Embalagem fechada sem respiro.',acao:'Trocar para embalagem de papel com furos.',resp:'Rafael',prazo:'22/11',medida:'Reclamações de batata por semana',st:'feito'}],
+ pesquisa:{respostas:[
+  {nota:10,gosta:'O sabor da brasa e o Rafael lembrar do meu pedido.',melhorar:'Nada.',porque:'Indicação da vizinha.'},
+  {nota:9,gosta:'Pão macio, carne no ponto.',melhorar:'Sexta demora.',porque:'Vi no Instagram.'},
+  {nota:6,gosta:'O lanche é bom.',melhorar:'Esperei quase uma hora e a batata chegou mole.',porque:'Moro perto.'},
+  {nota:10,gosta:'Trocaram meu lanche errado sem eu pedir duas vezes.',melhorar:'Podia ter sobremesa.',porque:'Amigos.'},
+  {nota:8,gosta:'Atendimento simpático no balcão.',melhorar:'Demoram a responder no WhatsApp.',porque:'Passei na frente.'},
+  {nota:9,gosta:'Dá para ver a churrasqueira.',melhorar:'Mais opções de bebida.',porque:'Instagram.'}]},
+ referencias:[{nome:'Bullguer',motivo:'Cardápio curto e visual limpo'},{nome:'Z Deli',motivo:'Fotos que dão fome'}],
+ perfisRef:[{nome:'Perfil de uma padaria do bairro',motivo:'Mostra a rotina todo dia, sem produção'}],
+ midia:[{nome:'Fachada à noite',tipo:'Espaço',aut:1},{nome:'Churrasqueira acesa',tipo:'Produto',aut:1},{nome:'Rafael na chapa',tipo:'Pessoa',aut:1},{nome:'Camila no balcão',tipo:'Pessoa',aut:1},{nome:'Jonas',tipo:'Pessoa',aut:0}],
+ estudo:{resumo:'Hamburguerias de bairro disputam o cliente no pedido por mensagem à noite. O que decide é foto que dá fome, resposta rápida e confiança na entrega.',
+  achados:['O cliente decide em poucos minutos, quase sempre entre 18h30 e 21h.','Vídeo curto de preparo é o formato mais usado pelos perfis fortes do setor.','Oferta de primeira compra com item extra costuma ser preferida a desconto em dinheiro, porque preserva o preço do burger.','Na região, a maioria comunica "artesanal"; poucos mostram o fogo e quem faz.'],
+  plano:['Desejo e Oferta com maior peso; Identidade para diferenciar do "artesanal" genérico.','Não comunicar rapidez na entrega até o ponto negativo estar corrigido.','Acompanhar: mensagens recebidas, pedidos, clientes novos e clientes que voltaram.']},
+ perfis:{
+  'WhatsApp Business':{Nome:'Brasa da Vila',Descrição:'Hambúrguer na brasa, feito na hora. Pedidos de terça a domingo, das 18h às 23h.','Mensagem de saudação':'Chegou na Brasa! Me conta seu nome e o que você está com vontade de comer que eu já te ajudo.','Mensagem de ausência':'A brasa está apagada agora. Voltamos às 18h e respondemos você primeiro.','Respostas rápidas':'/cardapio  /prazo  /pix  /troca'},
+  Instagram:{Nome:'Brasa da Vila | Hambúrguer na brasa',Bio:'Feito na hora, na brasa de verdade.\nSanta Tereza, BH. Ter a dom, 18h às 23h.\nPeça pelo WhatsApp no link.',Destaques:'Cardápio, Como pedir, Quem faz, Clientes'},
+  TikTok:{Nome:'brasadavila',Bio:'O fogo, o pão do dia e a fome de BH.'},
+  'Perfil da Empresa no Google':{Categoria:'Hamburgueria',Descrição:'Hamburgueria de bairro em Santa Tereza. Carne grelhada no carvão e pão feito na casa todos os dias.','Rotina de avaliações':'Pedir avaliação 1 hora depois da entrega e responder todas em até 24 horas.'}},
+ pecas:[
+  {id:1,dia:'Seg 23/11',formato:'Reels',linha:'identidade',titulo:'Por que larguei o banco para acender uma churrasqueira',legenda:'Nove anos de agência. Um domingo de fila na garagem. Hoje é o Rafael que acende o fogo às 17h, todo dia. Chega mais.',st:'ok'},
+  {id:2,dia:'Ter 24/11',formato:'Stories',linha:'oferta',titulo:'Terça da Brasa: batata por conta da casa',legenda:'Primeira vez aqui? Na terça, a batata rústica grande é nossa. Só pedir pelo WhatsApp e dizer que é sua primeira Brasa. Vale para 30 pedidos por terça.',st:'ok'},
+  {id:3,dia:'Qua 25/11',formato:'Foto',linha:'desejo',titulo:'O queijo descendo no Brasa Duplo',legenda:'Dois discos na brasa, queijo derretendo, pão da fornada de hoje. Sai em 15 minutos, feito agora.',st:'pend'},
+  {id:4,dia:'Qui 26/11',formato:'Carrossel',linha:'experiencia',titulo:'"Trocaram meu lanche sem eu pedir duas vezes"',legenda:'A gente erra às vezes. Quando erra, resolve na hora. Foi isso que uma cliente contou na nossa pesquisa (publicado com autorização).',st:'pend'},
+  {id:5,dia:'Sex 27/11',formato:'Post',linha:'datas',titulo:'Black Friday do jeito da Brasa',legenda:'Não tem desconto de mentira. Hoje, no Combo casal, a sobremesa é por nossa conta. Enquanto durar a fornada.',st:'pend'},
+  {id:6,dia:'Sáb 28/11',formato:'Reels',linha:'meme',titulo:'Quando alguém diz "tanto faz" e depois pede o seu lanche',legenda:'Marca quem faz isso.',st:'pend'},
+  {id:7,dia:'Dom 29/11',formato:'Stories',linha:'ensino',titulo:'Por que o hambúrguer na brasa tem outro sabor',legenda:'Rafael explica em 30 segundos o que o carvão faz com a carne.',st:'pend'},
+  {id:8,dia:'Ter 01/12',formato:'Post',linha:'campanha',titulo:'Indique um vizinho, ganhem os dois',legenda:'Seu vizinho pede pela primeira vez e fala seu nome: os dois ganham a batata no próximo pedido. Até 20/12.',st:'pend'}],
+ oferta:{nome:'Terça da Brasa',oque:'Na primeira compra, a batata rústica grande (R$ 18) sai por conta da casa na compra de qualquer burger.',paraquem:'Quem nunca pediu na Brasa da Vila.',porque:'O cliente ganha um item que conhece o valor, sem a casa baixar o preço do burger.',garantia:'Lanche errado é trocado na hora.',limite:'30 pedidos por terça-feira (capacidade real da chapa).',custo:'R$ 4,80 por pedido',depois:'Meta: metade voltar em 30 dias com pedido médio de R$ 60.'},
+ anuncios:{verba:'R$ 30 por dia, só terças e sextas',campanhas:[{nome:'Terça da Brasa: conversa no WhatsApp',publico:'Moradores a até 4 km, 25 a 45 anos',st:'no ar'},{nome:'Combo casal de sexta',publico:'Quem já interagiu com o perfil',st:'aguardando aprovação'}],
+  indices:[['Quanto foi investido','R$ 210','—'],['Pessoas que viram','9.400','Alcance'],['Pessoas que clicaram','312 (3,3%)','CTR'],['Chamaram no WhatsApp','84','Conversas'],['Custo de cada conversa','R$ 2,50','Custo por conversa'],['Viraram venda','23','Conversão 27%'],['Custo para conquistar cada cliente','R$ 9,13','CAC'],['Voltou para cada R$ 1 investido','R$ 6,57','ROAS']]},
+ dia:{lembrete:'Erro resolvido na hora é o que os clientes mais elogiam. Se o lanche saiu errado, troque sem perguntar duas vezes.',desafio:'Hoje, avise o prazo real de entrega em todo pedido, antes de o cliente perguntar.',pergunta:'Qual foi a dúvida que mais apareceu no WhatsApp ontem?',sug:['Prazo de entrega','Se tem opção sem carne','Formas de pagamento','Taxa de entrega'],feito:false,
+  historico:[{d:'Qua 18/11',t:'Chame cada cliente pelo nome na despedida.',p:'4 de 4'},{d:'Ter 17/11',t:'Fotografe a fornada do pão.',p:'3 de 4'},{d:'Seg 16/11',t:'Confira a embalagem da batata antes de fechar.',p:'4 de 4'}]},
+ respostasDia:[],
+ reunioes:[
+  {tipo:'Semanal da equipe',quando:'Seg 23/11, 17h',dur:'30 min',feat:'reuniao_equipe',pauta:[['5 min','Números da semana','212 mensagens, 66 pedidos. Comece pelo que melhorou.'],['10 min','Ponto em foco: atraso de sexta','Mostre as 2 respostas da pesquisa. Pergunte à equipe o que trava; não aponte culpados.'],['5 min','Diferencial a reforçar: erro resolvido na hora','Peça um caso da semana e reconheça quem resolveu.'],['5 min','O que entra no ar','Terça da Brasa e Black Friday: todos precisam saber a regra dos 30 pedidos.'],['5 min','Combinados','Uma ação por pessoa, com prazo.']]},
+  {tipo:'Individual com Jonas',quando:'Qua 25/11, 16h30',dur:'20 min',feat:'reuniao_ind',pauta:[['3 min','Reconhecimento','Nota de treino subiu de 6,8 para 7,6. Diga isso primeiro.'],['7 min','Uma conversa que foi bem e uma que podia ser melhor','Na segunda, o cliente perguntou o preço e não recebeu o diferencial. Pergunte: "o que você faria diferente?"'],['5 min','Ponto a treinar: tratar a objeção de preço','Treino recomendado: cliente "só quer preço".'],['5 min','Meta da semana','Primeira resposta em até 2 minutos.']]},
+  {tipo:'Diária rápida',quando:'Sex 27/11, 17h45',dur:'5 min',feat:'reuniao_equipe',pauta:[['1 min','Meta do dia','Black Friday: 40 combos.'],['2 min','Oferta do dia','Sobremesa no Combo casal, enquanto durar a fornada.'],['2 min','Aviso','Segundo motoboy começa hoje. Avisar o prazo real.']],motivo:'Recomendada só nesta sexta: dia de campanha forte e estreia do segundo motoboy.'}],
+ combinados:[{t:'Contratar segundo motoboy para o pico',resp:'Camila',prazo:'27/11',ok:false},{t:'Trocar embalagem da batata',resp:'Rafael',prazo:'22/11',ok:true},{t:'Escrever a garantia de troca no cardápio',resp:'Bia',prazo:'24/11',ok:false}],
+ resultados:{periodo:'Semana de 9 a 15/11',tiles:[['Mensagens recebidas','212','180 na semana anterior',1],['Viraram pedido','31%','27% na semana anterior',1],['Receita pelo WhatsApp','R$ 3.960','R$ 2.916 na semana anterior',1],['Vendas no balcão','sem dado','Registre no fechamento do caixa',0]],
+  porLinha:[['Oferta irresistível',74],['Desejo',58],['Experiência',31],['Identidade',22],['Campanha orgânica',19],['Meme viral',8]],
+  resumo:{oque:'As mensagens subiram de 180 para 212 e a conversão foi de 27% para 31%.',porque:'A Terça da Brasa trouxe 74 mensagens. O Meme teve o maior alcance, mas poucas mensagens: ele apresenta a marca, não vende.',fazer:['Resolver o atraso de sexta antes de aumentar a verba de anúncio.','Repetir a Terça da Brasa e patrocinar a peça de Desejo de quarta.','Começar a registrar as vendas de balcão no fechamento do caixa.']}},
+ treinos:[{nome:'Jonas',nota:7.6,ant:6.8,forte:'Cordialidade',treinar:'Objeção de preço'},{nome:'Bia',nota:8.3,ant:8.1,forte:'Escuta',treinar:'Condução ao fechamento'},{nome:'Camila',nota:8.9,ant:8.8,forte:'Uso dos diferenciais',treinar:'Rapidez'}],
+ progresso:{conhecer:100,potencializar:100,corrigir:70,atrair:60,vender:40}
+};
+const CHATS_EXEMPLO = {
+ conhecer:{step:3,msgs:[
+  {r:'ia',t:'Vamos começar pela história. Como a Brasa da Vila nasceu?',sug:[]},
+  {r:'eu',autor:'Rafael',t:'Eu era bancário e fazia hambúrguer na brasa pros amigos todo domingo. Um dia a fila na garagem ficou maior que a da agência.'},
+  {r:'ia',t:'Boa imagem, essa da fila. E o que você faria mesmo sem pensar no dinheiro, só pela alegria de ver o cliente?',sug:[]},
+  {r:'eu',autor:'Rafael',t:'Ver a pessoa dar a primeira mordida e fechar o olho. Isso eu faria de graça.'},
+  {r:'ia',t:'Entendi: o que move você é o momento em que a pessoa para tudo para comer com calma. Me conta um cliente que marcou.',sug:['Um cliente que virou amigo','Alguém que veio num dia difícil','Uma família que vem toda semana','Um cliente que reclamou e voltou']}]},
+ potencializar:{step:1,msgs:[
+  {r:'ia',t:'Você contou que faz tudo na brasa e que conhece os clientes pelo nome. O que mais a Brasa faz que as outras hamburguerias do bairro não fazem?',sug:['Pão feito na casa todo dia','Trocamos o lanche errado sem discussão','A churrasqueira fica à vista','Lembramos o pedido de cada cliente']}]},
+ corrigir:{step:1,msgs:[
+  {r:'ia',t:'Agora a parte que ninguém gosta, mas que mais ajuda. Qual foi a última reclamação que você recebeu de um cliente?',sug:['Demora na entrega','Demora para responder no WhatsApp','Pedido veio errado','Produto chegou frio ou murcho']}]}
+};
+</script>
+
+<script>
+/* ============================================================================
+   BLOCO 3 — APLICATIVO
+   ============================================================================ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const arr=x=>Array.isArray(x)?x:[]; const str=x=>typeof x==='string'?x:(x==null?'':String(x));
+const clone=x=>JSON.parse(JSON.stringify(x));
+const brl=n=>'R$ '+Number(n||0).toLocaleString('pt-BR');
+const KEY='cinco-etapas-v1';
+const PROPOSTA={publico:'Donos de pequenos negócios locais que atendem pelo WhatsApp e não têm equipe de marketing.',promessa:'Nós fazemos o marketing e conduzimos as vendas da sua empresa; você só conversa com a IA e aprova.',argumentos:'Começa pela identidade, então nada sai genérico.\nAlinha o que você promete com o que a equipe entrega.\nUm passo por dia, sem precisar aprender marketing.',objecoes:'"Não tenho tempo": são 10 minutos de conversa por dia no começo.\n"Já tentei agência": aqui o dono vê e aprova tudo, e a equipe é treinada junto.',entrada:'Teste de 7 dias com a etapa Conhecer completa e o documento de identidade entregue.'};
+function novoEstado(){return {v:1,cfg:clone(CFG),modo:'cliente',view:'inicio',tab:{},admin:null,empresa:clone(EXEMPLO),chats:clone(CHATS_EXEMPLO),feats:clone(FEATS),planos:clone(PLANOS),publicado:clone(PLANOS),instr:{},linhas:clone(LINHAS),log:[],autor:0,proposta:clone(PROPOSTA),sugestao:null}}
+function vazia(nome,setor,cidade,voce){return {exemplo:false,nome,setor,cidade,plano:'inicial',equipe:[{nome:voce||'Você',funcao:'Responsável',lider:1}],identidade:{historia:'',proposito:'',missao:'',visao:'',valores:[],personalidade:'',tom_sim:[],tom_nao:[],cliente:'',transformacao:''},produtos:[],diferenciais:[],proposta:'',divergencia:'',negativos:[],pesquisa:{respostas:[]},referencias:[],perfisRef:[],midia:[],estudo:null,perfis:{},pecas:[],oferta:null,anuncios:null,dia:{lembrete:'',desafio:'',pergunta:'O que um cliente elogiou esta semana?',sug:['O atendimento','O produto','A rapidez','O preço'],feito:false,historico:[]},respostasDia:[],reunioes:[],combinados:[],resultados:null,treinos:[],progresso:null}}
+let S=null; try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){} if(!S||S.v!==1) S=novoEstado();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+let busy=null, gen=null, sampleFn=null, aiOff=false, thumbs=[], pesq={nota:null};
+const E=()=>S.empresa, skill=id=>{const s=SKILLS.find(s=>s.id===id);return {...s,instrucoes:S.instr[id]||s.instrucoes}};
+const aiOk=()=>!!sampleFn&&!aiOff;
+if(window.claude&&claude.use) claude.use('sample').then(f=>{sampleFn=f;render()}).catch(()=>{});
+function toast(t){const el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,4200)}
+function aiErro(e){const c=e&&e.code; if(c==='cancelled')return;
+ if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(c)){aiOff=true;toast('A IA não está liberada nesta visualização. Seguindo com respostas simuladas.')}
+ else if(c==='rate_limited')toast('Muitas chamadas à IA agora. Tente de novo em instantes.');
+ else if(c==='invalid_json')toast('A IA respondeu fora do formato. Toque de novo para tentar.');
+ else toast('A IA não respondeu desta vez. Usei uma resposta simulada.')}
+function log(t){S.log.unshift({t,quem:S.admin||'—',quando:new Date().toLocaleString('pt-BR')});S.log=S.log.slice(0,60)}
+const planoAtual=()=>S.publicado.find(p=>p.id===E().plano)||S.publicado[0];
+const tem=f=>!!planoAtual()&&planoAtual().feats.includes(f);
+const feat=id=>S.feats.find(f=>f.id===id);
+const linha=id=>S.linhas.find(l=>l.id===id)||{nome:id,cor:0};
+const chipLinha=id=>{const l=linha(id);return `<span class="chip"><i style="background:var(--l${l.cor||0})"></i>${esc(l.nome)}</span>`};
+const SIM='<span class="sim">simulado</span>';
+const vazio=t=>`<p class="small">${esc(t)}</p>`;
+
+/* ---------- base de conhecimento em texto, para os prompts ---------- */
+function kbTexto(){const e=E(),i=e.identidade;const L=[];
+ L.push(`Empresa: ${e.nome}. Setor: ${e.setor}. Local: ${e.cidade}.`);
+ L.push('Equipe: '+e.equipe.map(p=>`${p.nome} (${p.funcao})`).join('; '));
+ for(const k of ['historia','proposito','missao','visao','personalidade','cliente','transformacao']) if(i[k])L.push(`${k}: ${i[k]}`);
+ if(i.valores.length)L.push('Valores: '+i.valores.join(' | '));
+ if(i.tom_sim.length)L.push('Falamos assim: '+i.tom_sim.join(' | ')+'. Não falamos assim: '+i.tom_nao.join(' | '));
+ if(e.produtos.length)L.push('Produtos: '+e.produtos.map(p=>`${p.nome} ${p.preco} (${p.nota||''})`).join('; '));
+ if(e.diferenciais.length)L.push('Diferenciais: '+e.diferenciais.map(d=>`${d.nome} — prova: ${d.prova}`).join('; '));
+ if(e.proposta)L.push('Proposta de valor: '+e.proposta);
+ if(e.negativos.length)L.push('Pontos negativos em correção: '+e.negativos.map(n=>`${n.tema} (causa: ${n.causa}; situação: ${n.st})`).join('; '));
+ if(e.pesquisa.respostas.length)L.push('Pesquisa com clientes: '+e.pesquisa.respostas.map(r=>`nota ${r.nota}; gosta: ${r.gosta}; melhorar: ${r.melhorar}`).join(' / '));
+ if(e.referencias.length)L.push('Referências: '+e.referencias.map(r=>`${r.nome} (${r.motivo})`).join('; '));
+ if(e.oferta)L.push(`Oferta ativa: ${e.oferta.nome} — ${e.oferta.oque} Limite: ${e.oferta.limite}`);
+ if(e.respostasDia.length)L.push('Respostas da pergunta do dia: '+e.respostasDia.slice(-5).map(r=>r.t).join(' | '));
+ return L.join('\n')}
+const conversa=id=>arr(S.chats[id]&&S.chats[id].msgs).map(m=>(m.r==='ia'?'IA: ':(m.autor||'Empresa')+': ')+m.t).join('\n');
+
+/* ---------- configuração das conversas (com roteiro de reserva para quando não há IA) ---------- */
+const PERFIS_TREINO={preco:'Cliente que só quer saber o preço e acha caro',apressado:'Cliente apressado, com fome, quer saber o prazo',desconfiado:'Cliente desconfiado, nunca pediu, pergunta se é bom mesmo',reclama:'Cliente que recebeu o pedido errado e está irritado'};
+const CH={
+ conhecer:{skill:'identidade',autor:1,fim:'Tenho o suficiente para montar a identidade. Abra a aba Documento e toque em "Gerar com a IA", ou continue me contando.',roteiro:[
+  {q:'Vamos começar pela história. Como a empresa nasceu?',sug:['Comecei sozinho, em casa','Herdei da família','Saí de um emprego para abrir','Vi uma oportunidade no bairro']},
+  {q:'O que você faria mesmo sem pensar no dinheiro, só pela alegria de ver o cliente satisfeito?',sug:['Ver a reação do cliente na hora','Resolver um problema que ninguém resolvia','Ensinar o que eu sei','Cuidar de cada detalhe']},
+  {q:'Me conta um cliente que marcou você. O que aconteceu?',sug:['Um que virou amigo','Um que chegou num dia difícil','Um que reclamou e depois voltou','Uma família que vem sempre']},
+  {q:'Como o cliente chega até você, e como ele sai?',sug:['Chega com pressa, sai tranquilo','Chega inseguro, sai confiante','Chega com um problema, sai resolvido','Chega curioso, sai fã']},
+  {q:'Quem é o cliente ideal, aquele que você queria ter todos os dias?',sug:['Moradores do bairro','Famílias','Profissionais com pouco tempo','Jovens que descobrem pelo Instagram']},
+  {q:'Se a empresa fosse uma pessoa, como ela seria?',sug:['Próxima e bem-humorada','Séria e confiável','Sofisticada e discreta','Simples e direta']},
+  {q:'Que empresas do seu ramo você admira? E o que exatamente admira nelas?',sug:['O visual','O jeito de falar','O atendimento','As ofertas']}]},
+ potencializar:{skill:'diferenciais',autor:1,fim:'Já dá para montar os diferenciais. Abra a aba Documento e toque em "Gerar com a IA".',roteiro:[
+  {q:'O que a sua empresa faz que as outras do ramo não fazem?',sug:['Faço tudo na hora','Conheço cada cliente','Dou garantia','Uso material melhor']},
+  {q:'O cliente percebe isso? Como você sabe?',sug:['Eles comentam','Está nas avaliações','Acho que não percebem','Nunca perguntei']},
+  {q:'Um concorrente poderia dizer a mesma coisa?',sug:['Sim, todos dizem','Alguns sim','Não, só eu faço','Não sei']},
+  {q:'Como você consegue provar isso para quem ainda não é cliente?',sug:['Mostrando o processo em vídeo','Com depoimentos','Com uma garantia escrita','Com números']},
+  {q:'O que você faz a mais pelo cliente e nunca contou para ninguém?',sug:['Mimos na entrega','Acompanhamento depois da venda','Atendo fora do horário','Lembro datas e preferências']}]},
+ corrigir:{skill:'experiencia',autor:1,fim:'Obrigada pela franqueza. Abra a aba Documento para gerar o plano de correção e a aba Pesquisa para ouvir os clientes.',roteiro:[
+  {q:'Qual foi a última reclamação que você recebeu de um cliente?',sug:['Demora','Erro no pedido','Preço','Atendimento']},
+  {q:'Por que você acha que isso aconteceu?',sug:['Falta de gente no horário de pico','Falha de comunicação','Processo confuso','Fornecedor']},
+  {q:'Isso se repete? Com que frequência?',sug:['Toda semana','Nos dias de movimento','De vez em quando','Foi a primeira vez']},
+  {q:'Na sua visão, qual é o maior ponto negativo da empresa hoje?',sug:['Demora para responder','Falta de padrão','Pouca divulgação','Dependência do dono']},
+  {q:'O que deu errado recentemente e você ainda não resolveu?',sug:['Um cliente que não voltou','Uma avaliação ruim','Um funcionário desmotivado','Uma promoção que não funcionou']}]},
+ agente:{skill:'atendente',semSug:1,tier:'quick',ph:'Escreva como se fosse um cliente',extra:'Você está respondendo um cliente no WhatsApp da empresa abaixo. O usuário é o cliente.',fim:'Vou confirmar com a equipe e já volto com você.',roteiro:[
+  {q:'Chegou na Brasa! Me conta seu nome e o que você está com vontade de comer que eu já te ajudo.'},
+  {q:'Boa! O Brasa Clássico sai por R$ 32, feito na brasa agora, com o pão da fornada de hoje. Quer que eu inclua a batata rústica?'},
+  {q:'Fechado. O prazo real hoje é de 35 a 40 minutos. Pode ser no Pix ou no cartão na entrega?'},
+  {q:'Pedido anotado. Qualquer coisa errada, a gente troca na hora. Depois me conta o que achou?'}]},
+ treino:{skill:'treinador',semSug:1,tier:'quick',ph:'Responda como atendente',fim:'Tá bom, vou pensar. Obrigado.',roteiro:[
+  {q:'oi, quanto é o hambúrguer?'},{q:'nossa, R$ 32? o da esquina é R$ 22'},{q:'hm. e demora muito?'},{q:'tá, e se vier errado?'}]},
+ estrategista:{skill:'estrategista',tier:'default',ph:'Pergunte sobre planos, preços, estratégia',fim:'Para ir além disso preciso da IA ao vivo. Abra o artefato no claude.ai e continue a conversa.',roteiro:[
+  {q:'Olá. Vejo o catálogo e os planos em rascunho. Por onde quer começar?',sug:['Quantos planos devo ter?','O preço do plano de entrada está bom?','Por quais setores começar a vender?','Como levar o cliente do básico para o completo?']},
+  {q:'Resposta de exemplo: três planos costumam vender melhor que dois, porque o do meio vira a escolha natural e o completo serve de comparação. Isso vem de referências do mercado de assinaturas, não de dados do nosso negócio, que ainda tem poucos clientes. Sugiro testar com 10 clientes novos antes de migrar os atuais.',sug:['Monte uma sugestão de três planos','Qual o risco?','Como eu testo isso barato?']}]}
+};
+function regras(id){const cfg=CH[id],sk=skill(cfg.skill);let extra=cfg.extra||'';
+ if(id==='treino')extra=`Faça o papel deste cliente: ${PERFIS_TREINO[S.tab.perfil||'preco']}. O usuário é o atendente da empresa abaixo. Escreva só a fala do cliente, curta, como mensagem de WhatsApp.`;
+ if(id==='estrategista')return `${sk.instrucoes}\n\nDADOS DO NEGÓCIO (os números de clientes são de exemplo):\nFuncionalidades: ${JSON.stringify(S.feats.map(f=>({id:f.id,nome:f.nome,custo_mensal_estimado:f.custo,situacao:f.st})))}\nPlanos em rascunho: ${JSON.stringify(S.planos)}\n\nResponda em português do Brasil, em até 6 frases curtas. Na última linha escreva exatamente "SUGESTOES: a | b | c" com 3 perguntas curtas que o administrador poderia fazer em seguida.`;
+ const fmt=cfg.semSug?'FORMATO: responda só com a mensagem, em até 3 frases curtas.':'FORMATO: escreva sua fala e, na última linha, exatamente "SUGESTOES: a | b | c | d" com 3 ou 4 respostas curtas e prováveis para ESTA empresa responder à sua pergunta (o aplicativo mostra como botões e acrescenta o campo "Outro").';
+ return `${sk.instrucoes}\n\n${extra}\n\nREGRAS DE CONVERSA:\n${REGRAS_CONVERSA}\n\nO QUE JÁ SABEMOS DA EMPRESA:\n${kbTexto()}\n\n${fmt}`}
+const limpa=t=>t.replace(/\n?\s*SUGEST[ÕO]ES:[\s\S]*$/i,'').trim();
+function parseIA(t){const m=t.match(/SUGEST[ÕO]ES:\s*([\s\S]*)$/i);return {t:limpa(t),sug:m?m[1].split('|').map(s=>s.trim()).filter(Boolean).slice(0,5):[]}}
+function getChat(id){const c=S.chats[id]||(S.chats[id]={msgs:[],step:0});if(!c.msgs.length){const q=CH[id].roteiro[0];c.msgs.push({r:'ia',t:q.q,sug:q.sug||[]})}return c}
+function chatHTML(id){const c=getChat(id),cfg=CH[id],last=c.msgs[c.msgs.length-1];
+ return `<div class="chat">${c.msgs.map(m=>`<div class="msg ${m.r}">${m.autor?`<small>${esc(m.autor)}</small>`:''}<div class="bubble">${esc(m.t)}</div>${m.sim?SIM:''}</div>`).join('')}${busy===id?'<div class="msg ia"><div class="bubble" id="stream">Pensando…</div></div>':''}</div>
+ ${last.r==='ia'&&arr(last.sug).length&&busy!==id?`<div class="sugs">${last.sug.map(s=>`<button class="sug" data-a="sug" data-id="${id}" data-t="${esc(s)}">${esc(s)}</button>`).join('')}</div>`:''}
+ <form class="send" data-f="chat" data-id="${id}"><textarea id="in-${id}" rows="1" placeholder="${esc(cfg.ph||'Outro: escreva sua resposta')}" aria-label="Sua resposta"></textarea><button class="btn primary" ${busy?'disabled':''}>Enviar</button></form>`}
+function fim(){requestAnimationFrame(()=>window.scrollTo({top:document.documentElement.scrollHeight}))}
+async function chatSend(id,text){text=str(text).trim();if(!text||busy)return;const c=getChat(id),cfg=CH[id];
+ c.msgs.push({r:'eu',t:text,autor:cfg.autor?(E().equipe[S.autor]||E().equipe[0]).nome:''});c.step++;busy=id;render();fim();
+ let out=null;
+ if(aiOk()){try{const turns=[{role:'user',content:regras(id)},...c.msgs.slice(-14).map(m=>({role:m.r==='ia'?'assistant':'user',content:m.t}))];
+  const r=await sampleFn(turns,{cache:false,modelTier:cfg.tier||'quick',onText:({text})=>{const el=$('#stream');if(el){el.textContent=limpa(text)||'Pensando…'}}});out=parseIA(r.text)}catch(e){aiErro(e)}}
+ if(!out){const q=cfg.roteiro[c.step];out=q?{t:q.q,sug:q.sug||[]}:{t:cfg.fim,sug:[]};out.sim=true}
+ c.msgs.push({r:'ia',...out});busy=null;save();render();fim()}
+
+/* ---------- gerações estruturadas com a IA ---------- */
+const GER={
+ conhecer:{skill:'identidade',chats:['conhecer'],pedido:'Monte a identidade da empresa a partir da entrevista. Use só o que foi dito; deixe em branco ("") o que não foi respondido.',formato:'{"historia":"","proposito":"","missao":"","visao":"","valores":["valor como comportamento observável"],"personalidade":"","tom_sim":["frase que a empresa diria"],"tom_nao":["frase que jamais diria"],"cliente":"","transformacao":""}',
+  aplicar:d=>{const i=E().identidade;for(const k of ['historia','proposito','missao','visao','personalidade','cliente','transformacao'])if(str(d[k]))i[k]=str(d[k]);for(const k of ['valores','tom_sim','tom_nao'])if(arr(d[k]).length)i[k]=arr(d[k]).map(str)}},
+ potencializar:{skill:'diferenciais',chats:['conhecer','potencializar'],pedido:'Liste até 4 diferenciais específicos e comprováveis (descarte os genéricos) e escreva a proposta de valor em uma frase.',formato:'{"diferenciais":[{"nome":"","prova":"","acao":"como fortalecer"}],"proposta":""}',
+  aplicar:d=>{if(arr(d.diferenciais).length)E().diferenciais=arr(d.diferenciais).map(x=>({nome:str(x.nome),prova:str(x.prova),acao:str(x.acao)}));if(str(d.proposta))E().proposta=str(d.proposta)}},
+ corrigir:{skill:'experiencia',chats:['corrigir'],pedido:'Monte o plano de correção: agrupe os problemas por tema, a partir da conversa e da pesquisa com clientes.',formato:'{"negativos":[{"tema":"","causa":"","acao":"","resp":"nome de alguém da equipe","prazo":"","medida":"como medir"}]}',
+  aplicar:d=>{if(arr(d.negativos).length)E().negativos=arr(d.negativos).map(x=>({tema:str(x.tema),causa:str(x.causa),acao:str(x.acao),resp:str(x.resp),prazo:str(x.prazo),medida:str(x.medida),st:'andamento'}))}},
+ perfis:{skill:'marketing',chats:[],pedido:'Escreva os textos de configuração dos perfis, no tom de voz da empresa.',formato:'{"WhatsApp Business":{"Descrição":"","Mensagem de saudação":"","Mensagem de ausência":""},"Instagram":{"Nome":"","Bio":"","Destaques":""},"Perfil da Empresa no Google":{"Descrição":""}}',
+  aplicar:d=>{const o={};for(const k in d)if(d[k]&&typeof d[k]==='object'){o[k]={};for(const f in d[k])o[k][f]=str(d[k][f])}if(Object.keys(o).length)E().perfis=o}},
+ pecas:{skill:'marketing',chats:[],pedido:()=>'Crie 6 peças para a próxima semana, equilibrando estas linhas de conteúdo (use o id): '+S.linhas.filter(l=>l.ativa).map(l=>`${l.id} = ${l.nome}: ${l.conceito}`).join(' / '),formato:'{"pecas":[{"dia":"Seg","formato":"Reels|Stories|Foto|Carrossel|Post","linha":"id da linha","titulo":"","legenda":""}]}',
+  aplicar:d=>{const p=arr(d.pecas);if(p.length)E().pecas=E().pecas.concat(p.map((x,i)=>({id:Date.now()+i,dia:str(x.dia),formato:str(x.formato),linha:linha(str(x.linha)).id||'identidade',titulo:str(x.titulo),legenda:str(x.legenda),st:'pend'})))}},
+ oferta:{skill:'marketing',chats:[],pedido:'Proponha uma oferta irresistível de entrada que feche a conta. Onde faltar custo ou margem, escreva "confirmar com a empresa".',formato:'{"nome":"","oque":"","paraquem":"","porque":"","garantia":"","limite":"","custo":"","depois":""}',
+  aplicar:d=>{if(str(d.nome))E().oferta=Object.fromEntries(['nome','oque','paraquem','porque','garantia','limite','custo','depois'].map(k=>[k,str(d[k])]))}},
+ dia:{skill:'diario',chats:[],pedido:'Crie o lembrete, o desafio e a pergunta de hoje para a equipe.',formato:'{"lembrete":"","desafio":"","pergunta":"","sug":["resposta curta provável"]}',
+  aplicar:d=>{const x=E().dia;if(str(d.desafio)){x.lembrete=str(d.lembrete);x.desafio=str(d.desafio);x.pergunta=str(d.pergunta);x.sug=arr(d.sug).map(str).slice(0,4);x.feito=false}}}
+};
+async function gerar(kind){const g=GER[kind];if(gen)return;if(!aiOk()){toast('A IA ao vivo não está disponível nesta visualização. Abra o artefato no claude.ai para gerar de verdade.');return}
+ gen=kind;render();
+ try{const pedido=typeof g.pedido==='function'?g.pedido():g.pedido;
+  const d=await sampleFn.json(`${skill(g.skill).instrucoes}\n\nEMPRESA:\n${kbTexto()}\n\n${g.chats.map(c=>'CONVERSA ('+c+'):\n'+conversa(c)).join('\n\n')}\n\nTAREFA: ${pedido}\nNão invente fatos, preços ou números que a empresa não informou.\nResponda apenas com JSON neste formato: ${g.formato}`,{cache:false});
+  g.aplicar(d||{});toast('Pronto. Revise e ajuste o que quiser.')}catch(e){aiErro(e)}
+ gen=null;save();render()}
+const btnGerar=(k,t)=>`<button class="btn primary" data-a="gerar" data-k="${k}" ${gen?'disabled':''}>${gen===k?'Gerando… pode levar um minuto':esc(t||'Gerar com a IA')}</button>`;
+
+/* ---------- progresso ---------- */
+function prog(id){const e=E();if(e.progresso)return e.progresso[id]||0;
+ if(CH[id])return Math.min(100,Math.round(((S.chats[id]?.step||0)/CH[id].roteiro.length)*80)+((id==='conhecer'&&e.identidade.missao)||(id==='potencializar'&&e.diferenciais.length)||(id==='corrigir'&&e.negativos.length)?20:0));
+ if(id==='atrair')return (Object.keys(e.perfis).length?35:0)+(e.pecas.length?35:0)+(e.oferta?30:0);
+ return (S.chats.treino?.aval?50:0)+((S.chats.agente?.step||0)>0?50:0)}
+
+/* ============================ TELAS DO CLIENTE ============================ */
+const V={};
+V.entrada=()=>`<h1>Vamos conhecer a sua empresa</h1><p>Quatro respostas e a conversa começa.</p>
+ <form class="card" data-f="criar"><label class="f">Nome da empresa<input type="text" id="n-nome" required></label>
+ <label class="f">Ramo<input type="text" id="n-setor" list="setores" required placeholder="Escolha ou escreva outro"><datalist id="setores"><option>Salão de beleza</option><option>Clínica de estética</option><option>Restaurante</option><option>Hamburgueria</option><option>Loja de roupas</option><option>Oficina mecânica</option><option>Pet shop</option><option>Escritório de contabilidade</option><option>Academia</option></datalist></label>
+ <label class="f">Cidade e bairro<input type="text" id="n-cidade" required></label><label class="f">Seu nome<input type="text" id="n-voce" required></label>
+ <button class="btn primary">Começar</button></form>
+ <button class="btn" data-a="exemplo">Voltar para a empresa de exemplo</button>`;
+
+V.inicio=()=>{const e=E(),et=S.cfg.etapas,prox=et.find(x=>prog(x.id)<100)||et[4],d=e.dia;
+ return `<div class="row"><div class="grow"><h1>${esc(e.nome)}</h1><small>${esc(e.setor)} · ${esc(e.cidade)}</small></div>${e.exemplo?'<span class="sim">empresa de exemplo</span>':''}</div>
+ <div class="row"><button class="chip" style="border:0;cursor:pointer" data-a="ir" data-v="planos">Plano ${esc(planoAtual().nome)} ›</button>
+ <button class="btn sm" data-a="${e.exemplo?'zero':'exemplo'}">${e.exemplo?'Começar do zero':'Ver empresa de exemplo'}</button></div>
+ <div class="card next"><small>Próximo passo</small><h2>${esc(prox.nome)}</h2><p>${esc(prox.frase)}</p><div><button class="btn sun" data-a="ir" data-v="${prox.id}">Continuar</button></div></div>
+ ${e.divergencia?`<div class="card"><small class="st-warn">Checagem de coerência</small><p>${esc(e.divergencia)}</p></div>`:''}
+ <h2>${esc(S.cfg.metodo)}</h2>
+ <div class="flat">${et.map((x,i)=>{const p=prog(x.id);return `<button class="step ${p>=100?'done':''}" data-a="ir" data-v="${x.id}"><b class="n">${i+1}</b><span class="nm">${esc(x.nome)}</span><span class="pc">${p}%</span><span class="ph">${esc(x.frase)}</span><span class="meter"><i style="width:${p}%"></i></span></button>`}).join('')}</div>
+ <h2>Hoje</h2>
+ ${d.lembrete?`<div class="card"><small>Lembrete do dia</small><p>${esc(d.lembrete)}</p></div>`:''}
+ ${d.desafio?`<div class="card"><small>Desafio do dia</small><p><b>${esc(d.desafio)}</b></p><div><button class="btn ${d.feito?'':'primary'}" data-a="feito">${d.feito?'Feito hoje ✓':'Marcar como feito'}</button></div></div>`:`<div class="card"><small>Desafio do dia</small>${vazio('O desafio aparece depois das etapas Potencializar e Corrigir.')}<div>${btnGerar('dia','Criar o de hoje com a IA')}</div></div>`}
+ <div class="card"><small>Pergunta do dia</small><p><b>${esc(d.pergunta)}</b></p>
+ <div class="sugs">${arr(d.sug).map(s=>`<button class="sug" data-a="respdia" data-t="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+ <form class="send" data-f="respdia"><input type="text" id="in-dia" placeholder="Outro: escreva" aria-label="Outra resposta"><button class="btn">Enviar</button></form>
+ ${e.respostasDia.length?`<small>Respostas de hoje: ${e.respostasDia.map(r=>esc(r.quem+': '+r.t)).join(' · ')}</small>`:''}</div>`};
+
+function cabEtapa(id){const x=S.cfg.etapas.find(e=>e.id===id);return `<div><small>Etapa ${S.cfg.etapas.indexOf(x)+1} de 5</small><h1>${esc(x.nome)}</h1><p>${esc(x.frase)}</p></div>`}
+function tabs(key,list){const cur=S.tab[key]||list[0];return `<div class="tabs" role="tablist">${list.map(t=>`<button class="${t===cur?'on':''}" data-a="tab" data-k="${key}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>`}
+const quem=()=>`<label class="f">Quem está respondendo<select data-c="autor">${E().equipe.map((p,i)=>`<option value="${i}" ${i==S.autor?'selected':''}>${esc(p.nome)} — ${esc(p.funcao)}</option>`).join('')}</select></label>`;
+const ed=(path,v)=>`<div contenteditable="true" data-edit="${path}">${esc(v)}</div>`;
+
+V.conhecer=()=>{const t=S.tab.conhecer||'Conversa',i=E().identidade;
+ return cabEtapa('conhecer')+tabs('conhecer',['Conversa','Documento'])+(t==='Conversa'?quem()+chatHTML('conhecer'):
+ (i.missao||i.historia?`<div class="card"><h2>Identidade da empresa</h2><small>Toque em qualquer texto para editar.</small><dl>
+  ${[['historia','Nossa história'],['proposito','Por que existimos'],['missao','Missão'],['visao','Visão'],['personalidade','Personalidade'],['cliente','Cliente ideal'],['transformacao','A transformação que entregamos']].map(([k,l])=>`<dt>${l}</dt><dd>${ed('identidade.'+k,i[k])}</dd>`).join('')}
+  <dt>Valores (como comportamento)</dt><dd><ul class="cl">${i.valores.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd>
+  <dt>Falamos assim</dt><dd><ul class="cl">${i.tom_sim.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd>
+  <dt>Não falamos assim</dt><dd><ul class="cl">${i.tom_nao.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd></dl></div>`:`<div class="card">${vazio('O documento de identidade aparece aqui depois da conversa.')}</div>`)
+ +`<div class="row">${btnGerar('conhecer',i.missao?'Atualizar com a IA a partir da conversa':'Gerar com a IA')}</div>`)};
+
+V.potencializar=()=>{const t=S.tab.potencializar||'Conversa',e=E();
+ return cabEtapa('potencializar')+tabs('potencializar',['Conversa','Documento'])+(t==='Conversa'?quem()+chatHTML('potencializar'):
+ (e.diferenciais.length?`<div class="card next"><small>Proposta de valor</small><h2>${ed('proposta',e.proposta)}</h2></div>
+ ${e.diferenciais.map((d,k)=>`<div class="card"><h3>${k+1}. ${esc(d.nome)}</h3><dl><dt>Como provamos</dt><dd>${esc(d.prova)}</dd><dt>Como fortalecer</dt><dd>${esc(d.acao)}</dd></dl></div>`).join('')}
+ ${e.divergencia?`<div class="card"><small class="st-warn">Dono e equipe veem diferente</small><p>${esc(e.divergencia)}</p></div>`:''}`:`<div class="card">${vazio('Os diferenciais aparecem aqui depois da conversa.')}</div>`)
+ +`<div class="row">${btnGerar('potencializar')}</div>`)};
+
+function nps(){const r=E().pesquisa.respostas;if(!r.length)return null;const p=r.filter(x=>x.nota>=9).length,d=r.filter(x=>x.nota<=6).length;return Math.round((p-d)/r.length*100)}
+V.corrigir=()=>{const t=S.tab.corrigir||'Conversa',e=E(),r=e.pesquisa.respostas,msg=`Oi! Aqui é da ${e.nome}. Queremos melhorar e a sua opinião vale muito. São 4 perguntas, 2 minutos, e você pode responder sem se identificar: [link da pesquisa]`;
+ let h=cabEtapa('corrigir')+tabs('corrigir',['Conversa','Documento','Pesquisa']);
+ if(t==='Conversa')return h+quem()+chatHTML('corrigir');
+ if(t==='Documento')return h+(e.negativos.length?e.negativos.map((n,k)=>`<div class="card"><div class="row"><h3 class="grow">${esc(n.tema)}</h3><span class="${n.st==='feito'?'st-ok':'st-warn'}">${n.st==='feito'?'✓ Resolvido':'● Em andamento'}</span></div>
+  <dl><dt>Causa</dt><dd>${esc(n.causa)}</dd><dt>Ação</dt><dd>${esc(n.acao)}</dd><dt>Responsável e prazo</dt><dd>${esc(n.resp)} · ${esc(n.prazo)}</dd><dt>Como medir</dt><dd>${esc(n.medida)}</dd></dl>
+  <div><button class="btn sm" data-a="negst" data-i="${k}">${n.st==='feito'?'Reabrir':'Marcar como resolvido'}</button></div></div>`).join(''):`<div class="card">${vazio('O plano de correção aparece aqui depois da conversa ou da pesquisa.')}</div>`)+`<div class="row">${btnGerar('corrigir')}</div>`;
+ return h+`<div class="card"><h3>Mensagem pronta para enviar a 10 ou 20 clientes</h3><p id="msg-pesq">${esc(msg)}</p><div class="row"><button class="btn" data-a="copiar" data-el="msg-pesq">Copiar mensagem</button>${SIM}</div><small>No aplicativo real, o link abre a pesquisa abaixo no celular do cliente.</small></div>
+ <div class="card"><small>É isto que o seu cliente vê</small><h3>Como foi sua experiência com ${esc(e.nome)}?</h3>
+ <form class="flat" data-f="pesq"><label class="f">De 0 a 10, você nos indicaria a um amigo?</label><div class="nps">${[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<button type="button" class="${pesq.nota===n?'on':''}" data-a="nota" data-n="${n}">${n}</button>`).join('')}</div>
+ <label class="f">O que você mais gosta?<input type="text" id="p-gosta"></label><label class="f">O que poderia ser melhor?<input type="text" id="p-melhorar"></label><label class="f">Por que escolheu a gente?<input type="text" id="p-porque"></label>
+ <small>Suas respostas são usadas só por ${esc(e.nome)} para melhorar. Você não precisa se identificar.</small><div><button class="btn primary">Enviar resposta</button></div></form></div>
+ <h2>Resultado${r.length?` (${r.length} respostas)`:''}</h2>
+ ${r.length?`<div class="tiles"><div class="tile"><span>Nota de recomendação (NPS)</span><b>${nps()}</b><span>de −100 a 100</span></div><div class="tile"><span>Nota média</span><b>${(r.reduce((a,x)=>a+x.nota,0)/r.length).toFixed(1).replace('.',',')}</b><span>de 0 a 10</span></div></div>
+ <div class="card"><h3>O que os clientes amam</h3><ul class="cl">${r.filter(x=>x.gosta).map(x=>`<li>${esc(x.gosta)}</li>`).join('')}</ul><small>Vai para Potencializar e, com autorização, vira conteúdo de Experiência.</small></div>
+ <div class="card"><h3>O que os clientes reclamam</h3><ul class="cl">${r.filter(x=>x.melhorar&&!/^nada/i.test(x.melhorar)).map(x=>`<li>${esc(x.melhorar)}</li>`).join('')}</ul></div>`:`<div class="card">${vazio('Ainda não há respostas. Responda acima para testar.')}</div>`}`};
+
+V.empresa=()=>{const e=E(),i=e.identidade,b=(t,inner,open)=>`<details ${open?'open':''}><summary>${t}</summary><div class="in">${inner}</div></details>`;
+ return `<div><h1>Minha empresa</h1><p>Tudo o que a IA sabe sobre você. Toque nos textos sublinhados para corrigir.</p></div>
+ ${b('Identidade',i.missao?`<dl>${[['missao','Missão'],['visao','Visão'],['proposito','Propósito'],['personalidade','Personalidade'],['cliente','Cliente ideal']].map(([k,l])=>`<dt>${l}</dt><dd>${ed('identidade.'+k,i[k])}</dd>`).join('')}</dl>`:vazio('Faça a etapa Conhecer.'),1)}
+ ${b('Equipe',`<ul class="cl">${e.equipe.map(p=>`<li><b>${esc(p.nome)}</b> — ${esc(p.funcao)}${p.lider?' (líder)':''}</li>`).join('')}</ul>
+  <form class="row" data-f="equipe"><input type="text" id="eq-nome" placeholder="Nome" class="grow" aria-label="Nome"><input type="text" id="eq-func" placeholder="Função" class="grow" aria-label="Função"><button class="btn">Convidar</button></form><small>O convite é simulado: a pessoa entra na lista e pode responder às conversas. ${SIM}</small>`)}
+ ${b('Produtos e serviços',e.produtos.length?`<div class="tw"><table><tr><th>Produto</th><th>Preço</th><th>Observação</th></tr>${e.produtos.map(p=>`<tr><td>${esc(p.nome)}</td><td class="n">${esc(p.preco)}</td><td>${esc(p.nota)}</td></tr>`).join('')}</table></div>`:vazio('A IA pergunta os produtos e preços durante as conversas; nunca inventa.'))}
+ ${b('Diferenciais e proposta de valor',e.diferenciais.length?`<p><b>${esc(e.proposta)}</b></p><ul class="cl">${e.diferenciais.map(d=>`<li>${esc(d.nome)}</li>`).join('')}</ul>`:vazio('Faça a etapa Potencializar.'))}
+ ${b('Pontos negativos e plano de correção',e.negativos.length?`<ul class="cl">${e.negativos.map(n=>`<li>${esc(n.tema)} — ${esc(n.resp)}, ${esc(n.prazo)}</li>`).join('')}</ul>`:vazio('Faça a etapa Corrigir.'))}
+ ${b('Referências',`<ul class="cl">${e.referencias.concat(e.perfisRef).map(r=>`<li><b>${esc(r.nome)}</b>: ${esc(r.motivo)}</li>`).join('')||'<li class="small">Nenhuma ainda.</li>'}</ul>
+  <form class="row" data-f="ref"><input type="text" id="rf-nome" placeholder="Empresa ou perfil que você admira" class="grow" aria-label="Referência"><input type="text" id="rf-mot" placeholder="O que admira nela" class="grow" aria-label="Motivo"><button class="btn">Adicionar</button></form><small>As referências inspiram estilo; nada é copiado.</small>`)}
+ ${b('Banco de mídia',`<div class="thumbs">${e.midia.map(m=>`<figure><div class="ph-img">${esc(m.nome)}</div>${esc(m.tipo)}${m.tipo==='Pessoa'?(m.aut?'<br><span class="st-ok">✓ autorizou</span>':'<br><span class="st-warn">● sem autorização</span>'):''}</figure>`).join('')}${thumbs.map(t=>`<figure><img src="${t.url}" alt="">${esc(t.nome.slice(0,18))}</figure>`).join('')}</div>
+  <label class="f">Enviar fotos da empresa, dos produtos e das pessoas<input type="file" accept="image/*" multiple data-c="fotos"></label><small>Fotos de pessoas só são usadas em imagens e vídeos com autorização registrada de cada uma. Neste protótipo as fotos ficam só neste navegador.</small>`)}
+ ${b('Canais',Object.keys(e.perfis).length?`<p>${Object.keys(e.perfis).map(esc).join(', ')} configurados. ${e.pecas.length} peças no calendário.</p>`:vazio('Aparece na etapa Atrair.'))}
+ ${b('Atendimento',`<p>${(S.chats.agente?.step||0)} mensagens de teste com o atendente virtual.</p><small>No aplicativo real: conversas exportadas do WhatsApp, com consentimento, viram dúvidas frequentes e objeções. ${SIM}</small>`)}
+ ${b('Aprendizados',e.resultados?`<p>${esc(e.resultados.resumo.porque)}</p>`:vazio('Aparece depois das primeiras semanas de resultado.'))}`};
+
+function bloqueio(fid){const f=feat(fid);return `<div class="card lock"><small>Não está no plano ${esc(planoAtual().nome)}</small><h3>${esc(f.nome)}</h3><p>${esc(f.ben)}</p><div><button class="btn sun" data-a="ir" data-v="planos">Ver planos</button></div></div>`}
+
+V.atrair=()=>{const e=E(),t=S.tab.atrair||'Calendário';let h=cabEtapa('atrair')+tabs('atrair',['Calendário','Oferta','Perfis','Estudo do setor','Patrocinado']);
+ if(t==='Calendário'){const cont={};e.pecas.forEach(p=>cont[p.linha]=(cont[p.linha]||0)+1);
+  return h+(e.pecas.length?`<div class="row">${Object.keys(cont).map(l=>chipLinha(l)+`<small>${cont[l]}</small>`).join('')}</div>
+  ${e.pecas.map(p=>`<details><summary><span class="grow" style="flex:1;min-width:0"><small>${esc(p.dia)} · ${esc(p.formato)}</small><br>${esc(p.titulo)}</span>${chipLinha(p.linha)}<span class="${p.st==='ok'?'st-ok':'st-warn'}">${p.st==='ok'?'✓ Aprovado':'● Aguarda você'}</span></summary><div class="in">
+   <div class="row"><div class="ph-img">imagem do banco de mídia</div><p class="grow">${esc(p.legenda)}</p></div>
+   ${tem('midia_ia')?'':'<small>Imagens e vídeos realistas por IA estão no plano superior.</small>'}
+   <div class="row"><button class="btn primary sm" data-a="aprovar" data-i="${p.id}">${p.st==='ok'?'Desfazer aprovação':'Aprovar'}</button><button class="btn sm" data-a="copiartxt" data-t="${esc(p.legenda)}">Copiar legenda</button></div>
+   <form class="send" data-f="ajuste" data-i="${p.id}"><input type="text" id="aj-${p.id}" placeholder="Pedir ajuste: o que mudar?" aria-label="Pedir ajuste"><button class="btn sm" ${busy?'disabled':''}>${busy==='aj'+p.id?'Ajustando…':'Ajustar'}</button></form></div></details>`).join('')}`:`<div class="card">${vazio('O calendário nasce da identidade e dos diferenciais. Conclua as primeiras etapas e gere a primeira semana.')}</div>`)
+  +`<div class="row">${btnGerar('pecas','Criar mais uma semana com a IA')}</div><small>Nada é publicado sem a sua aprovação. A publicação nas redes é simulada neste protótipo. ${SIM}</small>`}
+ if(t==='Oferta'){const o=e.oferta;return h+(o?`<div class="card next"><small>Oferta irresistível</small><h2>${esc(o.nome)}</h2><p>${esc(o.oque)}</p></div>
+  <div class="card"><dl>${[['paraquem','Para quem'],['porque','Por que é irresistível'],['garantia','Garantia'],['limite','Limite real'],['custo','Quanto custa para a empresa'],['depois','O que esperamos vender depois']].map(([k,l])=>`<dt>${l}</dt><dd>${esc(o[k])}</dd>`).join('')}</dl></div>`:`<div class="card">${vazio('A oferta é definida a partir dos seus produtos, margens e diferenciais.')}</div>`)+`<div class="row">${btnGerar('oferta',o?'Propor outra oferta com a IA':'Propor oferta com a IA')}</div>`}
+ if(t==='Perfis')return h+(Object.keys(e.perfis).length?Object.entries(e.perfis).map(([c,f],ci)=>`<details ${ci?'':'open'}><summary>${esc(c)}</summary><div class="in"><dl>${Object.entries(f).map(([k,v],fi)=>`<dt>${esc(k)}</dt><dd><span id="pf-${ci}-${fi}" style="white-space:pre-wrap">${esc(v)}</span> <button class="btn sm" data-a="copiar" data-el="pf-${ci}-${fi}">Copiar</button></dd>`).join('')}</dl></div></details>`).join(''):`<div class="card">${vazio('Os textos de cada perfil aparecem aqui, prontos para copiar e colar.')}</div>`)
+  +`<div class="card"><h3>Perfis que você admira</h3><ul class="cl">${e.perfisRef.map(r=>`<li><b>${esc(r.nome)}</b>: ${esc(r.motivo)}</li>`).join('')||'<li class="small">Adicione em Minha empresa › Referências.</li>'}</ul></div><div class="row">${btnGerar('perfis','Escrever os perfis com a IA')}</div>`;
+ if(t==='Estudo do setor'){const s=e.estudo;return h+(s?`<div class="card"><div class="row"><h3 class="grow">${esc(e.setor)}</h3>${SIM}</div><p>${esc(s.resumo)}</p><h3>O que encontramos</h3><ul class="cl">${s.achados.map(a=>`<li>${esc(a)}</li>`).join('')}</ul><h3>Plano sob medida</h3><ul class="cl">${s.plano.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>
+  <small>Este estudo é um exemplo escrito à mão. No aplicativo real, a skill pesquisa na internet e mostra a fonte de cada informação, separando fato de interpretação.</small></div>`:`<div class="card">${vazio('No aplicativo real, o estudo do setor é feito com pesquisa na internet assim que você informa o ramo e a cidade. Este protótipo não tem acesso à internet.')}</div>`)}
+ if(!tem('anuncios'))return h+bloqueio('anuncios');const a=e.anuncios;
+ return h+(a?`<div class="card"><small>Verba aprovada</small><h3>${esc(a.verba)}</h3><small>A verba é paga por você direto à plataforma. Nada é gasto ou aumentado sem a sua aprovação.</small></div>
+  ${a.campanhas.map((c,k)=>`<div class="card"><div class="row"><h3 class="grow">${esc(c.nome)}</h3><span class="${c.st==='no ar'?'st-ok':'st-warn'}">${c.st==='no ar'?'✓ No ar':'● Aguarda aprovação'}</span></div><small>Público: ${esc(c.publico)}</small>${c.st!=='no ar'?`<div><button class="btn primary sm" data-a="aprovcamp" data-i="${k}">Aprovar campanha</button></div>`:''}</div>`).join('')}
+  <div class="card"><div class="row"><h3 class="grow">Resultado dos anúncios na semana</h3>${SIM}</div><div class="tw"><table><tr><th>O que medimos</th><th>Resultado</th><th>Nome técnico</th></tr>${a.indices.map(r=>`<tr><td>${esc(r[0])}</td><td class="n"><b>${esc(r[1])}</b></td><td class="small">${esc(r[2])}</td></tr>`).join('')}</table></div></div>`:`<div class="card">${vazio('O plano de anúncios parte da oferta irresistível e das peças que tiveram melhor resultado. Defina a oferta primeiro.')}</div>`)};
+
+V.vender=()=>{const e=E(),t=S.tab.vender||'Atendente';let h=cabEtapa('vender')+tabs('vender',['Atendente','Treino','Equipe']);
+ if(t==='Atendente')return h+(tem('agente')?`<p class="small">Teste o atendente virtual escrevendo como se fosse um cliente. Ele usa tudo o que está em Minha empresa. A ligação com o WhatsApp é simulada. ${SIM}</p>`+chatHTML('agente')+`<div><button class="btn sm" data-a="limpachat" data-id="agente">Recomeçar conversa</button></div>`:bloqueio('agente'));
+ if(t==='Treino'){if(!tem('treinador'))return h+bloqueio('treinador');const av=S.chats.treino?.aval;
+  return h+`<label class="f">A IA faz o papel de<select data-c="perfil">${Object.entries(PERFIS_TREINO).map(([k,v])=>`<option value="${k}" ${k===(S.tab.perfil||'preco')?'selected':''}>${esc(v)}</option>`).join('')}</select></label>`+chatHTML('treino')
+  +`<div class="row"><button class="btn sun" data-a="avaliar" ${gen||busy?'disabled':''}>${gen==='aval'?'Avaliando…':'Encerrar e ver minha nota'}</button><button class="btn sm" data-a="limpachat" data-id="treino">Novo treino</button></div>`
+  +(av?`<div class="tiles"><div class="tile"><span>Nota do atendente</span><b>${esc(av.nota_atendente)}</b><span>de 0 a 10</span></div><div class="tile"><span>Nota que o cliente daria</span><b>${esc(av.nota_cliente)}</b><span>de 0 a 10</span></div></div>
+  <div class="card">${av.sim?SIM:''}<div class="bars">${arr(av.criterios).map(c=>`<span>${esc(c.nome)}</span><span class="b" style="width:${Math.max(2,Number(c.nota)*10)}%" title="${esc(c.nome)}: ${esc(c.nota)}"></span><span class="v">${esc(c.nota)}</span>`).join('')}</div>
+  <dl><dt>O que foi bem</dt><dd>${esc(av.foi_bem)}</dd><dt>O que melhorar</dt><dd>${esc(av.melhorar)}</dd><dt>Uma resposta melhor seria</dt><dd>${esc(av.resposta_melhor)}</dd></dl></div>`:'')}
+ if(!tem('treinador'))return h+bloqueio('treinador');
+ return h+(e.treinos.length?`<p class="small">Notas dos treinos. Cada atendente vê só as próprias; o líder vê todas. ${SIM}</p>${e.treinos.map(p=>`<div class="card"><div class="row"><h3 class="grow">${esc(p.nome)}</h3><b style="font-family:var(--display);font-size:1.4rem">${String(p.nota).replace('.',',')}</b></div><small>${p.nota>=p.ant?'▲ subiu':'▼ caiu'} de ${String(p.ant).replace('.',',')} na semana anterior</small><dl><dt>Ponto forte</dt><dd>${esc(p.forte)}</dd><dt>Próximo treino</dt><dd>${esc(p.treinar)}</dd></dl></div>`).join('')}`:`<div class="card">${vazio('As notas aparecem depois dos primeiros treinos da equipe.')}</div>`)};
+
+V.evoluir=()=>{const e=E(),t=S.tab.evoluir||'Resultados',ev=S.cfg.evoluir;let h=`<div><small>Rotina contínua</small><h1>${esc(ev.nome)}</h1><p>${esc(ev.frase)}</p></div>`+tabs('evoluir',['Resultados','Reuniões','Dia a dia']);
+ if(t==='Dia a dia')return h+`<div class="card"><h3>Desafios dos últimos dias</h3>${e.dia.historico.length?`<div class="tw"><table><tr><th>Dia</th><th>Desafio</th><th>Fizeram</th></tr>${e.dia.historico.map(x=>`<tr><td class="n">${esc(x.d)}</td><td>${esc(x.t)}</td><td class="n">${esc(x.p)}</td></tr>`).join('')}</table></div>`:vazio('O histórico começa com o primeiro desafio.')}</div>
+  <div class="card"><h3>Respostas da pergunta do dia</h3>${e.respostasDia.length?`<ul class="cl">${e.respostasDia.map(r=>`<li><b>${esc(r.quem)}</b>: ${esc(r.t)}</li>`).join('')}</ul>`:vazio('Responda a pergunta do dia na tela Início. As respostas viram conteúdo e revelam problemas cedo.')}</div>
+  <small>O envio diário pelo WhatsApp é simulado; aqui as mensagens aparecem na tela Início. ${SIM}</small>`;
+ if(t==='Reuniões')return h+(e.reunioes.length?e.reunioes.map((r,k)=>tem(r.feat)?`<details ${k?'':'open'}><summary><span style="flex:1;min-width:0">${esc(r.tipo)}<br><small>${esc(r.quando)} · ${esc(r.dur)}</small></span></summary><div class="in">${r.motivo?`<p class="small">${esc(r.motivo)}</p>`:''}
+   <div class="tw"><table><tr><th>Tempo</th><th>Assunto</th><th>Como conduzir</th></tr>${r.pauta.map(p=>`<tr><td class="n">${esc(p[0])}</td><td><b>${esc(p[1])}</b></td><td>${esc(p[2])}</td></tr>`).join('')}</table></div></div></details>`:bloqueio(r.feat)).join(''):`<div class="card">${vazio('As pautas são montadas a partir dos resultados, do plano de correção e das respostas do dia.')}</div>`)
+  +`<div class="card"><h3>Depois da reunião: o que ficou combinado?</h3><form class="flat" data-f="combinado"><textarea id="in-comb" rows="3" placeholder="Escreva em um minuto, uma coisa por linha. Ex.: Camila contrata o motoboy até sexta"></textarea><div><button class="btn primary" ${gen?'disabled':''}>${gen==='comb'?'Organizando…':'Transformar em tarefas'}</button></div></form></div>
+  <div class="card"><h3>Combinados</h3>${e.combinados.length?e.combinados.map((c,k)=>`<label class="row"><input type="checkbox" data-c="comb" data-i="${k}" ${c.ok?'checked':''}><span class="grow">${esc(c.t)}<br><small>${esc(c.resp)} · ${esc(c.prazo)}</small></span></label>`).join(''):vazio('Nenhum combinado ainda.')}</div>`;
+ const r=e.resultados;if(!r)return h+`<div class="card">${vazio('O painel aparece depois da primeira semana com perfis e atendimento configurados. Número que não existe aparece como "sem dado", nunca estimado.')}</div>`;
+ const max=Math.max(...r.porLinha.map(x=>x[1]));
+ return h+`<div class="row"><small class="grow">${esc(r.periodo)}</small>${SIM}</div>
+ <div class="tiles">${r.tiles.map(x=>`<div class="tile"><span>${esc(x[0])}</span><b>${esc(x[1])}</b><span>${x[3]?'▲ ':''}${esc(x[2])}</span></div>`).join('')}</div>
+ <div class="card"><h3>Mensagens recebidas por linha de conteúdo</h3><div class="bars">${r.porLinha.map(x=>`<span>${esc(x[0])}</span><span class="b" style="width:${x[1]/max*100}%" title="${esc(x[0])}: ${x[1]} mensagens"></span><span class="v">${x[1]}</span>`).join('')}</div></div>
+ <div class="card"><h3>Resumo da semana</h3><dl><dt>O que aconteceu</dt><dd>${esc(r.resumo.oque)}</dd><dt>Por que aconteceu</dt><dd>${esc(r.resumo.porque)}</dd><dt>O que fazer agora</dt><dd><ol class="cl">${r.resumo.fazer.map(f=>`<li>${esc(f)}</li>`).join('')}</ol></dd></dl></div>
+ <div class="tiles"><div class="tile"><span>Nota de recomendação</span><b>${nps()??'sem dado'}</b><span>da pesquisa com clientes</span></div><div class="tile"><span>Combinados cumpridos</span><b>${e.combinados.filter(c=>c.ok).length} de ${e.combinados.length}</b><span>das reuniões</span></div></div>`};
+
+function cartoesPlanos(lista,demo){return `<div class="cols">${lista.map(p=>`<div class="card ${demo&&p.id===E().plano?'next':''}"><h2>${esc(p.nome)}</h2><p>${esc(p.frase)}</p><small>${esc(p.para)}</small><p><b style="font-family:var(--display);font-size:1.5rem">${brl(p.preco)}</b> por mês${p.teste?` · ${p.teste} dias de teste`:''}</p>
+ <small>${p.posts} peças por mês · ${p.usuarios} pessoas da equipe</small><ul class="cl">${S.feats.filter(f=>p.feats.includes(f.id)).map(f=>`<li>${esc(f.nome)}</li>`).join('')}</ul>
+ ${demo?`<div><button class="btn ${p.id===E().plano?'':'primary'}" data-a="plano" data-id="${p.id}" ${p.id===E().plano?'disabled':''}>${p.id===E().plano?'Plano atual':'Simular este plano'}</button></div>`:''}</div>`).join('')}</div>`}
+V.planos=()=>`<div><h1>Planos</h1><p>Esta página é gerada a partir dos planos publicados no painel do administrador. Os preços são valores de exemplo.</p></div>${cartoesPlanos(S.publicado,true)}<small>A verba de anúncios é paga por você diretamente à plataforma, à parte do plano.</small>`;
+
+/* ============================ PAINEL DO ADMINISTRADOR ============================ */
+const dono=()=>S.admin==='Dono do negócio';
+const custoPlano=p=>p.feats.reduce((a,id)=>a+(feat(id)?.custo||0),0);
+const A={};
+A.login=()=>`<div class="card" style="max-width:420px;margin:0 auto;width:100%"><h1>Painel do administrador</h1><p>Aqui você gerencia funcionalidades, planos e a estratégia comercial do aplicativo.</p>
+ <label class="f">Entrar como<select id="adm-papel"><option>Dono do negócio</option><option>Operador</option></select></label><button class="btn primary" data-a="login">Entrar</button><small>Login simulado, sem senha. O operador não vê preços, margens nem números. ${SIM}</small></div>`;
+A['Estrategista']=()=>`<div class="cols" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><div class="flat"><div><h2>Estrategista do Produto</h2><small>Ela lê o catálogo e os planos em rascunho. Recomenda e explica; quem decide e publica é você.</small></div>${chatHTML('estrategista')}</div>
+ <div class="flat"><div class="card"><h3>Sugestão de planos</h3><p class="small">Peça uma estrutura completa de planos. Ela entra como rascunho; nada muda para os clientes até você publicar.</p><div><button class="btn primary" data-a="sugplanos" ${gen?'disabled':''}>${gen==='sug'?'Pensando… pode levar um minuto':'Pedir sugestão de planos'}</button></div>
+ ${S.sugestao?`${S.sugestao.sim?SIM:''}<p>${esc(S.sugestao.motivo)}</p>${arr(S.sugestao.planos).map(p=>`<div><b>${esc(p.nome)}</b>${dono()?' · '+brl(p.preco):''}<br><small>${esc(p.frase)} (${arr(p.feats).length} funcionalidades)</small></div>`).join('')}<div class="row"><button class="btn sun" data-a="aplicasug">Aplicar como rascunho</button><button class="btn sm" data-a="descartasug">Descartar</button></div>`:''}</div></div></div>`;
+A['Funcionalidades']=()=>`<div><h2>Catálogo de funcionalidades</h2><small>Tudo o que o aplicativo faz. O plano de cada empresa decide o que fica liberado.</small></div>
+ <div class="card"><h3>Nova funcionalidade</h3><form class="flat" data-f="novafeat"><textarea id="nf-ideia" rows="2" placeholder="Descreva a ideia com suas palavras. Ex.: enviar parabéns no aniversário do cliente com um cupom"></textarea><div><button class="btn primary" ${gen?'disabled':''}>${gen==='feat'?'Preenchendo a ficha…':'Criar ficha'}</button></div></form><small>Com a IA ao vivo, a Estrategista preenche a ficha e sugere plano. Sem ela, a ficha nasce em branco para você completar.</small></div>
+ ${S.feats.map((f,k)=>`<details><summary><span style="flex:1;min-width:0">${esc(f.nome)}<br><small>${esc(S.cfg.etapas.find(e=>e.id===f.etapa)?.nome||S.cfg.evoluir.nome)} · ${esc(f.st)}</small></span><span class="chip">${f.tipo==='config'?'Só configuração':'Exige programação'}</span></summary><div class="in"><dl>
+  <dt>Benefício para o cliente</dt><dd>${ed('feats.'+k+'.ben',f.ben)}</dd><dt>Skill responsável</dt><dd>${esc(SKILLS.find(s=>s.id===f.skill)?.nome||f.skill)}</dd><dt>Depende de</dt><dd>${f.dep.map(d=>esc(feat(d)?.nome||d)).join(', ')||'Nada'}</dd>
+  ${dono()?`<dt>Custo estimado por cliente, por mês (valor de exemplo)</dt><dd><input type="number" min="0" data-c="featcusto" data-i="${k}" value="${f.custo}" style="max-width:120px"></dd>`:''}
+  <dt>Situação</dt><dd><select data-c="featst" data-i="${k}" style="max-width:220px">${['ideia','em construção','em teste','disponível','desativada'].map(s=>`<option ${s===f.st?'selected':''}>${s}</option>`).join('')}</select></dd>
+  <dt>Planos (rascunho)</dt><dd>${S.planos.filter(p=>p.feats.includes(f.id)).map(p=>esc(p.nome)).join(', ')||'Nenhum'}</dd>${f.espec?`<dt>Especificação</dt><dd>${esc(f.espec)}</dd>`:''}</dl></div></details>`).join('')}`;
+function avisos(){const w=[];S.planos.forEach(p=>p.feats.forEach(id=>{const f=feat(id);if(!f)return;f.dep.forEach(d=>{if(!p.feats.includes(d))w.push(`${p.nome}: "${f.nome}" depende de "${feat(d)?.nome||d}", que não está no plano.`)});if(!['disponível','em teste'].includes(f.st))w.push(`${p.nome}: "${f.nome}" está como "${f.st}".`)}));return w}
+A['Planos']=()=>{const mud=JSON.stringify(S.planos)!==JSON.stringify(S.publicado),w=avisos(),d=dono();
+ return `<div class="row"><div class="grow"><h2>Construtor de planos</h2><small>${mud?'<span class="st-warn">● Rascunho com mudanças não publicadas</span>':'<span class="st-ok">✓ Igual ao que está publicado</span>'}</small></div>
+ <button class="btn sm" data-a="novoplano">+ Novo plano</button><button class="btn sm" data-a="descartar" ${mud?'':'disabled'}>Descartar rascunho</button><button class="btn primary sm" data-a="publicar" ${mud?'':'disabled'}>Publicar</button></div>
+ ${w.length?`<div class="card"><small class="st-warn">Avisos</small><ul class="cl">${w.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+ <div class="card"><div class="tw"><table><tr><th>Funcionalidade</th>${S.planos.map((p,k)=>`<th class="c"><input type="text" data-c="pnome" data-i="${k}" value="${esc(p.nome)}" aria-label="Nome do plano"></th>`).join('')}</tr>
+ ${d?`<tr><td>Preço por mês (R$)</td>${S.planos.map((p,k)=>`<td class="c"><input type="number" min="0" data-c="ppreco" data-i="${k}" value="${p.preco}" aria-label="Preço"></td>`).join('')}</tr>`:''}
+ <tr><td>Peças por mês</td>${S.planos.map((p,k)=>`<td class="c"><input type="number" min="0" data-c="pposts" data-i="${k}" value="${p.posts}" aria-label="Peças por mês"></td>`).join('')}</tr>
+ <tr><td>Pessoas da equipe</td>${S.planos.map((p,k)=>`<td class="c"><input type="number" min="1" data-c="pusers" data-i="${k}" value="${p.usuarios}" aria-label="Pessoas da equipe"></td>`).join('')}</tr>
+ ${S.feats.map(f=>`<tr><td>${esc(f.nome)}<br><small>${esc(f.st)}${d?' · custo '+brl(f.custo):''}</small></td>${S.planos.map((p,k)=>`<td class="c"><input type="checkbox" data-c="pfeat" data-i="${k}" data-f="${f.id}" ${p.feats.includes(f.id)?'checked':''} aria-label="${esc(f.nome)} no plano ${esc(p.nome)}"></td>`).join('')}</tr>`).join('')}
+ ${d?`<tr><td><b>Custo de entrega estimado</b></td>${S.planos.map(p=>`<td class="c n">${brl(custoPlano(p))}</td>`).join('')}</tr><tr><td><b>Margem estimada</b></td>${S.planos.map(p=>{const m=p.preco-custoPlano(p);return `<td class="c n"><b class="${m>0?'st-ok':'st-bad'}">${brl(m)} (${p.preco?Math.round(m/p.preco*100):0}%)</b></td>`}).join('')}</tr>`:''}
+ <tr><td></td>${S.planos.map((p,k)=>`<td class="c"><button class="btn sm" data-a="remplano" data-i="${k}" ${S.planos.length<2?'disabled':''}>Remover</button></td>`).join('')}</tr></table></div>
+ <small>Preços e custos são valores de exemplo, não recomendações. Clientes atuais mantêm o plano contratado até você decidir a migração.</small></div>
+ <h3>Pré-visualização: como o cliente verá</h3>${cartoesPlanos(S.planos,false)}`};
+A['Números']=()=>{if(!dono())return `<div class="card">${vazio('O operador não tem acesso aos números do negócio.')}</div>`;const tot=S.publicado.reduce((a,p)=>a+(p.clientes||0),0),mrr=S.publicado.reduce((a,p)=>a+(p.clientes||0)*p.preco,0),max=Math.max(1,...S.publicado.map(p=>p.clientes||0));
+ return `<div class="row"><h2 class="grow">Números do negócio</h2>${SIM}</div><div class="tiles" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+ <div class="tile"><span>Clientes ativos</span><b>${tot}</b><span>exemplo</span></div><div class="tile"><span>Receita recorrente por mês</span><b>${brl(mrr)}</b><span>clientes × preço publicado</span></div>
+ <div class="tile"><span>Cancelaram no mês</span><b>3</b><span>2 por "não tive tempo de usar"</span></div><div class="tile"><span>Subiram de plano</span><b>4</b><span>todos após usar o treino grátis</span></div></div>
+ <div class="card"><h3>Clientes por plano</h3><div class="bars">${S.publicado.map(p=>`<span>${esc(p.nome)}</span><span class="b" style="width:${(p.clientes||0)/max*100}%" title="${esc(p.nome)}: ${p.clientes||0} clientes"></span><span class="v">${p.clientes||0}</span>`).join('')}</div></div>
+ <div class="card"><h3>Uso por funcionalidade</h3><div class="bars">${[['Pergunta do dia',86],['Posts com fotos',81],['Pesquisa com clientes',44],['Pautas de reunião',29]].map(x=>`<span>${x[0]}</span><span class="b" style="width:${x[1]}%" title="${x[0]}: ${x[1]}% dos clientes"></span><span class="v">${x[1]}%</span>`).join('')}</div><small>Os dados das empresas chegam aqui só de forma agregada. O conteúdo das conversas de cada cliente não é usado.</small></div>`};
+A['Proposta']=()=>{const p=S.proposta;
+ return `<div><h2>Proposta comercial</h2><small>Documento vivo. Toque para editar; a página de planos usa os planos publicados.</small></div><div class="card"><dl>${[['publico','Para quem é'],['promessa','A promessa'],['argumentos','Argumentos'],['objecoes','Respostas às objeções'],['entrada','Oferta de entrada']].map(([k,l])=>`<dt>${l}</dt><dd><div contenteditable="true" data-edit="prop.${k}" style="white-space:pre-wrap">${esc(p[k])}</div></dd>`).join('')}</dl></div>${cartoesPlanos(S.publicado,false)}`};
+A['Método e skills']=()=>`<div><h2>Método</h2><small>Os nomes mudam no aplicativo inteiro.</small></div><div class="card"><div class="cols"><label class="f">Nome do aplicativo<input type="text" data-c="cfg" data-k="app" value="${esc(S.cfg.app)}"></label><label class="f">Nome do método<input type="text" data-c="cfg" data-k="metodo" value="${esc(S.cfg.metodo)}"></label></div>
+ ${S.cfg.etapas.map((e,k)=>`<div class="row"><b>${k+1}</b><input type="text" data-c="etnome" data-i="${k}" value="${esc(e.nome)}" style="flex:1;min-width:120px" aria-label="Nome da etapa"><input type="text" data-c="etfrase" data-i="${k}" value="${esc(e.frase)}" style="flex:2;min-width:200px" aria-label="Frase da etapa"></div>`).join('')}</div>
+ <div><h2>Skills</h2><small>As instruções abaixo são o que a IA recebe em cada conversa. Editar aqui muda o comportamento na hora.</small></div>
+ ${SKILLS.map(s=>`<details><summary><span style="flex:1;min-width:0">${s.n?s.n+'. ':''}${esc(s.nome)}<br><small>${esc(s.papel)}</small></span></summary><div class="in"><dl><dt>Lê da base</dt><dd>${esc(s.le)}</dd><dt>Escreve na base</dt><dd>${esc(s.escreve)}</dd><dt>Referências</dt><dd>${esc(s.refs)}</dd><dt>Instruções</dt><dd><textarea rows="7" data-c="instr" data-id="${s.id}" aria-label="Instruções da skill">${esc(S.instr[s.id]||s.instrucoes)}</textarea></dd></dl></div></details>`).join('')}`;
+A['Laboratório']=()=>`<div><h2>Laboratório de estratégias</h2><small>Linhas de conteúdo. A skill de marketing lê a ficha para saber o que produzir.</small></div>
+ <div class="card"><h3>Nova linha de conteúdo</h3><form class="flat" data-f="novalinha"><input type="text" id="nl-nome" placeholder="Nome. Ex.: Pergunta polêmica" aria-label="Nome da linha"><textarea id="nl-exp" rows="2" placeholder="Explique com suas palavras o que é e para que serve"></textarea><div><button class="btn primary" ${gen?'disabled':''}>${gen==='linha'?'Montando a ficha…':'Criar linha'}</button></div></form><small>Com a IA ao vivo, a ficha vem completa e com exemplos. Sem ela, nasce com o seu texto para você completar.</small></div>
+ ${S.linhas.map((l,k)=>`<details><summary>${chipLinha(l.id)}<span class="small">${l.nucleo?'do método':(l.rasc?'rascunho':'adicional')}</span><label class="row small" style="margin-left:auto"><input type="checkbox" data-c="linhaat" data-i="${k}" ${l.ativa?'checked':''}> ativa</label></summary><div class="in"><dl>${[['conceito','Conceito'],['objetivo','Objetivo'],['momento','Momento do cliente'],['estrategia','Estratégia'],['material','De onde vem o material'],['formatos','Formatos'],['cta','Chamada para ação'],['freq','Frequência'],['medida','Como medir'],['evitar','O que evitar'],['exemplos','Exemplos'],['refs','Referências']].filter(([f])=>l[f]||l.rasc).map(([f,t])=>`<dt>${t}</dt><dd>${ed('linhas.'+k+'.'+f,l[f]||'')}</dd>`).join('')}</dl></div></details>`).join('')}`;
+A['Registro']=()=>`<div><h2>Registro de alterações</h2></div><div class="card">${S.log.length?`<div class="tw"><table><tr><th>Quando</th><th>Quem</th><th>O que mudou</th></tr>${S.log.map(l=>`<tr><td class="n">${esc(l.quando)}</td><td>${esc(l.quem)}</td><td>${esc(l.t)}</td></tr>`).join('')}</table></div>`:vazio('Nenhuma alteração ainda. Mudanças em planos, preços, skills e funcionalidades ficam registradas aqui.')}</div>`;
+const ATABS=['Estrategista','Funcionalidades','Planos','Números','Proposta','Método e skills','Laboratório','Registro'];
+
+/* ============================ RENDER ============================ */
+const NAV=[['inicio','Início'],['empresa','Empresa'],['atrair',null],['vender',null],['evoluir',null]];
+let lastKey='';
+function render(){const adm=S.modo==='admin';const key=S.modo+'|'+S.view+'|'+JSON.stringify(S.tab);const open=[...document.querySelectorAll('main details')].map(d=>d.open);document.body.classList.toggle('admin',adm);
+ const top=`<div class="top"><div><div class="brand"><span></span>${esc(S.cfg.app)}</div><div class="ia ${aiOk()?'on':''}"><i></i>${aiOk()?'IA ao vivo':'IA simulada'}</div>
+ <div class="seg"><button class="${adm?'':'on'}" data-a="modo" data-m="cliente">Cliente</button><button class="${adm?'on':''}" data-a="modo" data-m="admin">Administrador</button></div></div></div>`;
+ let body,nav='';
+ if(adm){body=S.admin?`<div class="row"><small class="grow">Entrou como ${esc(S.admin)}</small><button class="btn sm" data-a="sair">Sair</button></div>${tabs('admin',ATABS)}${A[S.tab.admin||ATABS[0]]()}`:A.login()}
+ else{const v=V[S.view]?S.view:'inicio';body=V[v]();
+  const sec=['conhecer','potencializar','corrigir','planos'].includes(v)?'inicio':v;
+  nav=v==='entrada'?'':`<nav class="nav"><div>${NAV.map(([id,l])=>`<button class="${sec===id?'on':''}" data-a="ir" data-v="${id}">${esc(l||(id==='evoluir'?S.cfg.evoluir.nome:S.cfg.etapas.find(e=>e.id===id).nome))}</button>`).join('')}</div></nav>`}
+ $('#app').innerHTML=top+`<main class="wrap">${body}</main>`+nav;
+ const ds=document.querySelectorAll('main details');if(key===lastKey&&ds.length===open.length)ds.forEach((d,i)=>d.open=open[i]);lastKey=key}
+
+/* ============================ AÇÕES ============================ */
+function setPath(path,val){const p=path.split('.');const roots={feats:S.feats,linhas:S.linhas,prop:S.proposta};let o=roots[p[0]]||E();const keys=roots[p[0]]?p.slice(1):p;
+ for(let i=0;i<keys.length-1;i++)o=o[keys[i]];o[keys[keys.length-1]]=val;if(roots[p[0]])log('Editou '+(p[0]==='prop'?'a proposta comercial':p[0]==='feats'?'a funcionalidade '+S.feats[p[1]].nome:'a linha '+S.linhas[p[1]].nome))}
+const ACT={
+ modo:d=>{S.modo=d.m},ir:d=>{S.view=d.v;window.scrollTo(0,0)},tab:d=>{S.tab[d.k]=d.t},
+ sug:d=>{chatSend(d.id,d.t);return false},
+ gerar:d=>{gerar(d.k);return false},
+ exemplo:()=>{S.empresa=clone(EXEMPLO);S.chats=clone(CHATS_EXEMPLO);S.view='inicio';S.autor=0},
+ zero:()=>{S.view='entrada'},
+ feito:()=>{E().dia.feito=!E().dia.feito},
+ respdia:d=>{respDia(d.t)},
+ negst:d=>{const n=E().negativos[d.i];n.st=n.st==='feito'?'andamento':'feito'},
+ nota:d=>{pesq.nota=Number(d.n)},
+ copiar:d=>{copiar($('#'+d.el).textContent);return false},copiartxt:d=>{copiar(d.t);return false},
+ aprovar:d=>{const p=E().pecas.find(p=>p.id==d.i);p.st=p.st==='ok'?'pend':'ok'},
+ aprovcamp:d=>{E().anuncios.campanhas[d.i].st='no ar';toast('Campanha aprovada. A veiculação é simulada.')},
+ limpachat:d=>{delete S.chats[d.id]},
+ plano:d=>{E().plano=d.id;toast('Simulando o plano '+planoAtual().nome+'.')},
+ avaliar:()=>{avaliar();return false},
+ login:()=>{S.admin=$('#adm-papel').value},sair:()=>{S.admin=null},
+ novoplano:()=>{S.planos.push({id:'p'+Date.now(),nome:'Novo plano',para:'Descreva para quem é.',frase:'Frase de venda.',preco:0,teste:7,posts:12,usuarios:3,feats:[],clientes:0});log('Criou um plano em rascunho')},
+ remplano:d=>{log('Removeu do rascunho o plano '+S.planos[d.i].nome);S.planos.splice(d.i,1)},
+ publicar:()=>{S.publicado=clone(S.planos);if(!S.publicado.find(p=>p.id===E().plano))E().plano=S.publicado[0].id;log('Publicou os planos');toast('Planos publicados. A página de planos do cliente já mudou.')},
+ descartar:()=>{S.planos=clone(S.publicado);log('Descartou o rascunho de planos')},
+ sugplanos:()=>{sugPlanos();return false},
+ aplicasug:()=>{const ids=S.feats.map(f=>f.id);S.planos=arr(S.sugestao.planos).map((p,k)=>({id:'s'+k+Date.now(),nome:str(p.nome)||'Plano',para:str(p.para),frase:str(p.frase),preco:Number(p.preco)||0,teste:7,posts:Number(p.posts)||12,usuarios:Number(p.usuarios)||3,feats:arr(p.feats).filter(x=>ids.includes(x)),clientes:0}));S.sugestao=null;S.tab.admin='Planos';log('Aplicou a sugestão da Estrategista como rascunho')},
+ descartasug:()=>{S.sugestao=null}
+};
+function copiar(t){const ok=()=>toast('Copiado.');try{navigator.clipboard.writeText(t).then(ok).catch(()=>toast('Não foi possível copiar aqui. Selecione o texto e copie.'))}catch(e){toast('Não foi possível copiar aqui. Selecione o texto e copie.')}}
+function respDia(t){t=str(t).trim();if(!t)return;E().respostasDia.push({quem:(E().equipe[S.autor]||E().equipe[0]).nome,t});toast('Resposta registrada. Ela alimenta os conteúdos e as pautas.')}
+document.addEventListener('click',ev=>{const el=ev.target.closest('[data-a]');if(!el)return;const fn=ACT[el.dataset.a];if(!fn)return;if(el.closest('summary'))ev.preventDefault();const r=fn(el.dataset,el);if(r!==false){save();render()}});
+document.addEventListener('keydown',ev=>{if(ev.key==='Enter'&&!ev.shiftKey&&ev.target.matches('.send textarea')){ev.preventDefault();ev.target.form.requestSubmit()}});
+document.addEventListener('focusout',ev=>{const el=ev.target.closest&&ev.target.closest('[data-edit]');if(!el)return;setPath(el.dataset.edit,el.innerText.trim());save()});
+const CH_={
+ autor:el=>{S.autor=Number(el.value)},perfil:el=>{S.tab.perfil=el.value;delete S.chats.treino},
+ comb:el=>{E().combinados[el.dataset.i].ok=el.checked},
+ fotos:el=>{for(const f of el.files)thumbs.push({nome:f.name,url:URL.createObjectURL(f)});toast('Fotos adicionadas ao banco de mídia.')},
+ featcusto:el=>{S.feats[el.dataset.i].custo=Number(el.value)||0;log('Alterou o custo de '+S.feats[el.dataset.i].nome)},
+ featst:el=>{S.feats[el.dataset.i].st=el.value;log(`Situação de ${S.feats[el.dataset.i].nome}: ${el.value}`)},
+ pnome:el=>{S.planos[el.dataset.i].nome=el.value},ppreco:el=>{S.planos[el.dataset.i].preco=Number(el.value)||0},
+ pposts:el=>{S.planos[el.dataset.i].posts=Number(el.value)||0},pusers:el=>{S.planos[el.dataset.i].usuarios=Number(el.value)||1},
+ pfeat:el=>{const p=S.planos[el.dataset.i],f=el.dataset.f;p.feats=el.checked?[...p.feats,f]:p.feats.filter(x=>x!==f)},
+ cfg:el=>{S.cfg[el.dataset.k]=el.value;log('Renomeou: '+el.value)},
+ etnome:el=>{S.cfg.etapas[el.dataset.i].nome=el.value;log('Renomeou a etapa para '+el.value)},etfrase:el=>{S.cfg.etapas[el.dataset.i].frase=el.value},
+ instr:el=>{S.instr[el.dataset.id]=el.value;log('Editou as instruções da skill '+el.dataset.id)},
+ linhaat:el=>{S.linhas[el.dataset.i].ativa=el.checked?1:0;log((el.checked?'Ativou':'Pausou')+' a linha '+S.linhas[el.dataset.i].nome)}
+};
+document.addEventListener('change',ev=>{const el=ev.target.closest('[data-c]');if(!el)return;const fn=CH_[el.dataset.c];if(!fn)return;fn(el);save();if(el.dataset.c!=='instr')render()});
+const FORMS={
+ chat:f=>{const ta=f.querySelector('textarea');const t=ta.value;ta.value='';chatSend(f.dataset.id,t);return false},
+ criar:()=>{S.empresa=vazia($('#n-nome').value.trim(),$('#n-setor').value.trim(),$('#n-cidade').value.trim(),$('#n-voce').value.trim());S.chats={};S.autor=0;S.view='conhecer';S.tab.conhecer='Conversa';const c=getChat('conhecer');c.msgs[0].t=`Prazer! Vamos começar pela história. Como a ${S.empresa.nome} nasceu?`},
+ respdia:()=>{respDia($('#in-dia').value)},
+ equipe:()=>{const n=$('#eq-nome').value.trim();if(n)E().equipe.push({nome:n,funcao:$('#eq-func').value.trim()||'Colaborador'})},
+ ref:()=>{const n=$('#rf-nome').value.trim();if(n)E().referencias.push({nome:n,motivo:$('#rf-mot').value.trim()||'—'})},
+ pesq:()=>{if(pesq.nota==null){toast('Escolha uma nota de 0 a 10.');return false}E().pesquisa.respostas.push({nota:pesq.nota,gosta:$('#p-gosta').value.trim(),melhorar:$('#p-melhorar').value.trim(),porque:$('#p-porque').value.trim()});pesq={nota:null};toast('Resposta recebida. Veja o resultado abaixo.')},
+ ajuste:f=>{ajustar(f.dataset.i,$('#aj-'+f.dataset.i).value);return false},
+ combinado:()=>{combinar($('#in-comb').value);return false},
+ novafeat:()=>{novaFeat($('#nf-ideia').value);return false},
+ novalinha:()=>{novaLinha($('#nl-nome').value,$('#nl-exp').value);return false}
+};
+document.addEventListener('submit',ev=>{ev.preventDefault();const f=ev.target,fn=FORMS[f.dataset.f];if(!fn)return;if(fn(f)!==false){save();render()}});
+
+/* ---------- ações que usam a IA, com reserva sem IA ---------- */
+async function ajustar(id,pedido){pedido=str(pedido).trim();const p=E().pecas.find(p=>p.id==id);if(!pedido||!p||busy)return;
+ if(!aiOk()){p.st='pend';toast('Pedido de ajuste registrado. Com a IA ao vivo, a legenda é reescrita na hora.');save();render();return}
+ busy='aj'+id;render();try{const r=await sampleFn(`${skill('marketing').instrucoes}\n\nEMPRESA:\n${kbTexto()}\n\nLinha de conteúdo: ${linha(p.linha).nome} — ${linha(p.linha).conceito}\nTítulo: ${p.titulo}\nLegenda atual: ${p.legenda}\n\nA empresa pediu este ajuste: ${pedido}\n\nReescreva a legenda no tom de voz da empresa. Responda só com a nova legenda.`,{cache:false,modelTier:'quick'});p.legenda=r.text.trim();p.st='pend';toast('Legenda ajustada. Confira e aprove.')}catch(e){aiErro(e)}busy=null;save();render()}
+async function avaliar(){const c=getChat('treino');if(c.msgs.filter(m=>m.r==='eu').length<1){toast('Responda ao cliente pelo menos uma vez antes de pedir a nota.');return}
+ let av=null;if(aiOk()){gen='aval';render();try{av=await sampleFn.json(`${skill('treinador').instrucoes}\n\nEMPRESA:\n${kbTexto()}\n\nSIMULAÇÃO (IA = cliente; a outra parte = atendente em treino):\n${conversa('treino')}\n\nAvalie o atendente. Responda apenas com JSON: {"nota_atendente":0,"nota_cliente":0,"criterios":[{"nome":"Rapidez","nota":0},{"nome":"Cordialidade","nota":0},{"nome":"Escuta","nota":0},{"nome":"Uso dos diferenciais","nota":0},{"nome":"Objeção","nota":0},{"nome":"Fechamento","nota":0},{"nome":"Tom da marca","nota":0}],"foi_bem":"","melhorar":"","resposta_melhor":"uma resposta exemplar para o momento mais fraco"}`,{cache:false})}catch(e){aiErro(e)}gen=null}
+ if(!av||av.nota_atendente==null)av={sim:true,nota_atendente:7,nota_cliente:6,criterios:[['Rapidez',8],['Cordialidade',8],['Escuta',6],['Uso dos diferenciais',5],['Objeção',6],['Fechamento',7],['Tom da marca',8]].map(([nome,nota])=>({nome,nota})),foi_bem:'Avaliação de exemplo: respondeu rápido e com simpatia.',melhorar:'Antes de justificar o preço, pergunte o que o cliente procura e apresente o diferencial.',resposta_melhor:'"R$ 32, feito na brasa na hora, com o pão que saiu do forno hoje. Você prefere mais simples ou caprichado?"'};
+ c.aval=av;save();render();fim()}
+async function combinar(txt){txt=str(txt).trim();if(!txt)return;let t=null;
+ if(aiOk()){gen='comb';render();try{const d=await sampleFn.json(`${skill('reunioes').instrucoes}\n\nEquipe: ${E().equipe.map(p=>p.nome).join(', ')}.\nRegistro do líder depois da reunião:\n${txt}\n\nTransforme em tarefas. Responda apenas com JSON: [{"t":"tarefa","resp":"responsável","prazo":"prazo ou 'a definir'"}]`,{cache:false,modelTier:'quick'});t=arr(d).map(x=>({t:str(x.t),resp:str(x.resp)||'A definir',prazo:str(x.prazo)||'A definir',ok:false})).filter(x=>x.t)}catch(e){aiErro(e)}gen=null}
+ if(!t||!t.length)t=txt.split('\n').map(s=>s.trim()).filter(Boolean).map(s=>({t:s,resp:'A definir',prazo:'A definir',ok:false}));
+ E().combinados.push(...t);toast(t.length+' combinado(s) registrados.');save();render()}
+async function novaFeat(ideia){ideia=str(ideia).trim();if(!ideia)return;let f=null;
+ if(aiOk()){gen='feat';render();try{const d=await sampleFn.json(`${skill('estrategista').instrucoes}\n\nCatálogo atual: ${JSON.stringify(S.feats.map(f=>({id:f.id,nome:f.nome})))}\nSkills: ${SKILLS.map(s=>s.id).join(', ')}\nPlanos: ${S.planos.map(p=>p.nome).join(', ')}\n\nIdeia do administrador: ${ideia}\n\nPreencha a ficha. Responda apenas com JSON: {"nome":"","ben":"benefício para o cliente em uma frase","etapa":"conhecer|potencializar|corrigir|atrair|vender|evoluir","skill":"id da skill","dep":["ids do catálogo"],"tipo":"config (só configuração de algo existente) ou dev (exige programação)","espec":"o que precisa ser construído, o plano em que sugere colocar e por quê"}`,{cache:false});
+  if(str(d.nome))f={id:'f'+Date.now(),nome:str(d.nome),ben:str(d.ben),etapa:str(d.etapa)||'evoluir',skill:str(d.skill)||'estrategista',dep:arr(d.dep).filter(x=>feat(x)),custo:0,st:'ideia',tipo:d.tipo==='config'?'config':'dev',espec:str(d.espec)}}catch(e){aiErro(e)}gen=null}
+ if(!f)f={id:'f'+Date.now(),nome:ideia.slice(0,60),ben:ideia,etapa:'evoluir',skill:'estrategista',dep:[],custo:0,st:'ideia',tipo:'dev',espec:'Ficha criada sem a IA. Complete o benefício, a skill e as dependências.'};
+ S.feats.push(f);log('Criou a funcionalidade '+f.nome+' como ideia');toast('Ficha criada como "ideia". Ela está no fim da lista.');save();render()}
+async function novaLinha(nome,exp){nome=str(nome).trim();exp=str(exp).trim();if(!nome)return;const l={id:'l'+Date.now(),nome,cor:0,ativa:0,rasc:1,conceito:exp};
+ if(aiOk()){gen='linha';render();try{const d=await sampleFn.json(`${skill('marketing').instrucoes}\n\nVocê está no Laboratório de estratégias. O administrador quer criar uma nova linha de conteúdo para pequenos negócios locais.\nNome: ${nome}\nExplicação: ${exp}\n\nComplete a ficha. Em "exemplos", escreva 3 ideias de peça para uma hamburgueria de bairro. Responda apenas com JSON: {"conceito":"","objetivo":"","momento":"","estrategia":"","material":"","formatos":"","cta":"","freq":"","medida":"","evitar":"","exemplos":"","refs":""}`,{cache:false});
+  for(const k of ['conceito','objetivo','momento','estrategia','material','formatos','cta','freq','medida','evitar','exemplos','refs'])if(str(d[k]))l[k]=str(d[k])}catch(e){aiErro(e)}gen=null}
+ S.linhas.push(l);log('Criou a linha de conteúdo '+nome+' como rascunho');toast('Linha criada como rascunho, pausada. Revise e marque como ativa.');save();render()}
+async function sugPlanos(){let s=null;
+ if(aiOk()){gen='sug';render();try{const d=await sampleFn.json(`${skill('estrategista').instrucoes}\n\nFuncionalidades (use os ids): ${JSON.stringify(S.feats.map(f=>({id:f.id,nome:f.nome,custo:f.custo,situacao:f.st,depende:f.dep})))}\nPlanos atuais: ${JSON.stringify(S.planos.map(p=>({nome:p.nome,preco:p.preco,feats:p.feats})))}\n\nProponha a estrutura de planos que você recomenda (de 2 a 4 planos), respeitando as dependências. Responda apenas com JSON: {"motivo":"3 frases: o raciocínio, o risco e como testar barato","planos":[{"nome":"","para":"","frase":"","preco":0,"posts":0,"usuarios":0,"feats":["ids"]}]}`,{cache:false});if(arr(d.planos).length)s=d}catch(e){aiErro(e)}gen=null}
+ if(!s)s={sim:true,motivo:'Sugestão de exemplo, escrita à mão: três planos, com o atendente de WhatsApp no plano do meio para ele virar a escolha natural. Risco: o plano do meio pode tirar clientes do completo. Teste com os próximos 10 clientes antes de migrar os atuais.',planos:[{nome:'Essencial',para:'Quem está começando.',frase:'Sua empresa definida e seu conteúdo rodando.',preco:297,posts:12,usuarios:3,feats:[...BASICO]},{nome:'Profissional',para:'Quem já recebe mensagens e perde vendas.',frase:'Conteúdo e atendimento que vendem.',preco:497,posts:20,usuarios:6,feats:[...BASICO,'agente','treinador','reuniao_ind']},{nome:'Completo',para:'Quem quer acelerar com anúncios e vídeos.',frase:'Marketing e vendas de ponta a ponta.',preco:797,posts:30,usuarios:10,feats:[...BASICO,'agente','treinador','reuniao_ind','midia_ia','anuncios']}]};
+ S.sugestao=s;save();render()}
+
+render();
+</script>
