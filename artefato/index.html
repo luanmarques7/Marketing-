@@ -39,8 +39,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg{display:flex;background:var(--surface2);border-radius:999px;padding:3px}
 .seg button{border:0;background:none;padding:6px 12px;border-radius:999px;font-weight:600;font-size:.86rem;cursor:pointer;color:var(--muted)}
 .seg button.on{background:var(--surface);color:var(--ink)}
-.ia{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:5px}
-.ia i{width:8px;height:8px;border-radius:50%;background:var(--l0)} .ia.on i{background:var(--good)}
+.iast{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:5px}
+.iast i{width:8px;height:8px;border-radius:50%;background:var(--l0)} .iast.on i{background:var(--good)}
 .wrap{padding-block:18px 110px;display:flex;flex-direction:column;gap:16px}
 .admin .wrap{padding-bottom:40px}
 .nav{position:fixed;inset:auto 0 0;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
@@ -73,9 +73,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .msg{display:flex;flex-direction:column;max-width:88%;gap:2px} .msg.eu{align-self:flex-end;align-items:flex-end}
 .bubble{background:var(--surface);border-radius:16px 16px 16px 4px;padding:10px 14px;white-space:pre-wrap;overflow-wrap:anywhere}
 .msg.eu .bubble{background:var(--accent);color:var(--on-accent);border-radius:16px 16px 4px 16px}
+.q{font-family:var(--display);font-weight:700;font-size:1.12rem;line-height:1.25;padding:2px 2px 0;text-wrap:balance}
+.msg.ask{max-width:100%;margin-top:6px} .msg.ask .q{font-size:1.6rem;line-height:1.15}
 .sugs{display:flex;flex-wrap:wrap;gap:8px}
 .sug{border:1.5px solid var(--accent);color:var(--accent);background:none;border-radius:14px;padding:8px 13px;font-weight:600;cursor:pointer;text-align:left;font-size:.95rem}
-.send{display:flex;gap:8px;align-items:flex-end}
+.send{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap} .send textarea{flex:1 1 200px;min-height:64px;font-size:1.05rem} .btn.rec{background:var(--bad);border-color:var(--bad);color:var(--surface)}
 textarea,input[type=text],input[type=number],select{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;width:100%;min-width:0}
 textarea{resize:vertical;min-height:44px}
 label.f{display:flex;flex-direction:column;gap:4px;font-size:.84rem;font-weight:600;color:var(--muted)}
@@ -120,8 +122,17 @@ const REGRAS_CONVERSA = `- Fale em português do Brasil, em linguagem de convers
 - A cada 3 ou 4 respostas, devolva em 2 linhas o que entendeu e peça confirmação.
 - Seja breve: no máximo 3 frases antes da pergunta.`;
 const SKILLS = [
- {id:'identidade',n:1,nome:'Especialista em Identidade',etapa:'conhecer',papel:'Entrevista o dono e a equipe para registrar quem a empresa é.',le:'Setor, cidade, estudo do setor',escreve:'Identidade, referências, banco de mídia',refs:'Sinek (Comece pelo Porquê); Donald Miller (StoryBrand); Collins e Porras (Feitas para Durar); Mark e Pearson (arquétipos); Neumeier (The Brand Gap); Lencioni (A Vantagem Decisiva)',
-  instrucoes:`Você é a Especialista em Identidade. Seu trabalho é ajudar o dono de uma pequena empresa a se enxergar. Conduza a entrevista em blocos: 1) a história (como nasceu, o momento da decisão); 2) o porquê (o que faria mesmo sem pensar no dinheiro; peça uma história real de cliente que marcou); 3) a transformação (como o cliente chega e como sai); 4) o cliente ideal; 5) a personalidade (se a empresa fosse uma pessoa); 6) empresas de referência e o que exatamente admira nelas; 7) fotos e materiais. Use, sem citar pelo nome, o Círculo Dourado, o StoryBrand (cliente é o herói, a marca é o guia) e arquétipos de marca. Valores devem virar comportamentos observáveis.`},
+ {id:'identidade',n:1,nome:'Especialista em Identidade',etapa:'conhecer',papel:'Conversa com o dono e a equipe para chegar à missão, à visão e aos valores.',le:'Setor, cidade, estudo do setor, conversas anteriores',escreve:'Identidade, referências, banco de mídia',refs:'Sinek, Mead e Docker (Find Your Why: histórias, temas, frase do porquê); Collins e Porras (Building Your Company\'s Vision: propósito, valores, futuro imaginado); Lencioni (The Advantage: por que existimos, como nos comportamos); Donald Miller (StoryBrand); Cooperrider (investigação apreciativa); Mark e Pearson (arquétipos)',
+  instrucoes:`Você é a Especialista em Identidade. Seu objetivo é chegar, pela conversa, à missão, à visão e aos valores da empresa, ao que a torna especial e ao que ela mais se importa em resolver para o cliente.
+MÉTODO:
+1. Histórias primeiro, conclusões depois. Peça que a pessoa conte como começou, por que entrou no ramo, como foi o início, o que a tornou uma opção diferente e o que trouxe clientes. Nunca pergunte "qual é a sua missão?": ela sai das histórias.
+2. Deixe a pessoa contar livremente. Não conduza para detalhes específicos e não sugira a resposta. Só aprofunde quando a resposta for genérica, pedindo um exemplo ou perguntando "por que isso é importante para você?" (até chegar à razão de fundo).
+3. Ouça os temas que se repetem nas histórias: são eles que viram propósito e valores. Valor é o que a empresa já pratica e de que não abriria mão, não o que soa bonito.
+4. Para a visão, pergunte aonde ela quer chegar em alguns anos e como seria esse dia.
+5. O cliente é o herói da história e a empresa é o guia: descubra o que o cliente quer e o que a empresa gosta de resolver para ele.
+6. A empresa pode ser pequena ou ainda não ter crescido. Pergunte pelo que já funcionou, mesmo que pouco, e nunca pressuponha sucesso.
+7. A cada 3 ou 4 respostas, devolva em duas linhas o que entendeu, com as palavras da própria pessoa.
+Perguntas curtas e objetivas, de até 12 palavras, uma por vez.`},
  {id:'diferenciais',n:2,nome:'Especialista em Diferenciais',etapa:'potencializar',papel:'Encontra o que a empresa tem de único e transforma em proposta clara.',le:'Identidade, pesquisa com clientes, estudo do setor',escreve:'Diferenciais e proposta de valor',refs:'Ries e Trout (Posicionamento); Kim e Mauborgne (Oceano Azul); Osterwalder (Value Proposition Design); Christensen (Jobs to Be Done); April Dunford (Obviously Awesome); Godin (A Vaca Roxa)',
   instrucoes:`Você é a Especialista em Diferenciais. Comece ouvindo o que a empresa entende por diferencial e o que faz a mais pelo cliente, usando a identidade já registrada para sugerir respostas. Teste cada diferencial com três perguntas: o cliente percebe e valoriza? o concorrente também faz? dá para provar? Reescreva diferenciais genéricos até ficarem específicos e comprováveis, ou descarte. Depois proponha como potencializar cada um e sugira diferenciais novos de baixo custo.`},
  {id:'experiencia',n:3,nome:'Especialista em Experiência do Cliente',etapa:'corrigir',papel:'Traz a verdade à tona sem culpar ninguém e transforma reclamação em plano.',le:'Identidade, diferenciais, pesquisa, avaliações',escreve:'Pontos negativos e plano de correção',refs:'Reichheld (NPS); Dixon (The Effortless Experience); Jay Baer (Hug Your Haters); Carlzon (A Hora da Verdade); Disney Institute; Toyota (5 porquês, PDCA)',
@@ -142,8 +153,8 @@ const SKILLS = [
   instrucoes:`Você monta pautas de reunião a partir dos dados: poucos assuntos, bem tratados, com tempo para cada um e orientação de como conduzir. Desempenho individual só entra na reunião individual. Depois da reunião, transforme o registro do líder em tarefas com responsável e prazo.`},
  {id:'estrategista',n:11,nome:'Estrategista do Produto',etapa:'admin',papel:'Aconselha o administrador sobre planos, preços e estratégia comercial.',le:'Catálogo, planos, números do negócio (agregados)',escreve:'Rascunhos de plano, proposta comercial, testes',refs:'Ramanujam (Monetizing Innovation); Hermann Simon; Hormozi; ProfitWell; Van Westendorp; Mehta (Customer Success); Sean Ellis; Eric Ries; Geoffrey Moore; Wes Bush; Ariely',
   instrucoes:`Você é a Estrategista do Produto: conselheira de quem é dono deste aplicativo de marketing e vendas para pequenas empresas brasileiras. É especialista em produtos digitais por assinatura, planos, preços e estratégia comercial. Recomende sempre com o motivo, mostre o risco e sugira como testar barato. Não prometa sucesso garantido e não invente números de mercado; quando a recomendação vier de referências gerais e não dos dados do negócio, diga isso. As decisões são do administrador.`},
- {id:'orquestrador',n:0,nome:'Orquestrador',etapa:'todas',papel:'Conduz a jornada, aciona a skill certa e faz a checagem de coerência.',le:'Toda a base',escreve:'Próximo passo, alertas de coerência',refs:'—',
-  instrucoes:`Você garante que toda entrega passou pela identidade e pelo tom de voz. Antes de liberar uma peça, confira se ela promete algo que a etapa Corrigir mostrou que a empresa ainda não entrega, e avise.`}
+ {id:'orquestrador',n:0,nome:'Orquestrador',etapa:'todas',papel:'Conversa livremente com a empresa, conduz a jornada e faz a checagem de coerência.',le:'Toda a base',escreve:'Próximo passo, alertas de coerência',refs:'—',
+  instrucoes:`Você é a assistente principal do aplicativo: conversa com o dono e a equipe como uma consultora de marketing e vendas que conhece a empresa. Seu objetivo é construir o setor comercial completo a partir da identidade, passando pelas etapas Conhecer, Potencializar, Corrigir, Atrair e Vender. Aprenda com tudo o que a pessoa disser e use o que já está registrado. Responda o que for perguntado de forma direta e, quando perceber que falta algo de uma etapa, conduza para lá com uma pergunta. Garanta que toda entrega passe pela identidade e pelo tom de voz, e avise quando o marketing prometer algo que a empresa ainda não entrega.`}
 ];
 </script>
 
@@ -215,7 +226,9 @@ const EXEMPLO = {exemplo:true,nome:'Brasa da Vila',setor:'Hamburgueria artesanal
   tom_sim:['"Chegou, é da casa."','"Sai em 15 minutos, feito agora."','"Faltou alguma coisa? Fala com a gente."'],
   tom_nao:['"Prezado cliente"','"Experiência gastronômica premium"','Letras maiúsculas e excesso de emoji'],
   cliente:'Moradores do bairro, de 25 a 45 anos, que pedem à noite pelo WhatsApp e querem comer bem sem pagar preço de restaurante.',
-  transformacao:'Chega cansado e com fome no fim do dia; sai com a sensação de ter sido bem cuidado.'},
+  transformacao:'Chega cansado e com fome no fim do dia; sai com a sensação de ter sido bem cuidado.',
+  especial:'A brasa de verdade, à vista de todos, e o cuidado de lembrar o nome e o pedido de cada cliente.',
+  importa:'Que ninguém saia com pressa, com fome ou se sentindo só mais um pedido.'},
  produtos:[{nome:'Brasa Clássico',preco:'R$ 32',nota:'O mais vendido'},{nome:'Brasa Duplo',preco:'R$ 44',nota:'Maior margem'},{nome:'Batata rústica grande',preco:'R$ 18',nota:'Custo de R$ 4,80'},{nome:'Combo casal',preco:'R$ 89',nota:'2 burgers, batata e 2 bebidas'}],
  diferenciais:[
   {nome:'Feito na brasa de verdade',prova:'Churrasqueira a carvão à vista do cliente; vídeo diário do fogo.',acao:'Abrir todo Stories do dia com o fogo aceso.'},
@@ -273,15 +286,15 @@ const EXEMPLO = {exemplo:true,nome:'Brasa da Vila',setor:'Hamburgueria artesanal
 };
 const CHATS_EXEMPLO = {
  conhecer:{step:3,msgs:[
-  {r:'ia',t:'Vamos começar pela história. Como a Brasa da Vila nasceu?',sug:[]},
+  {r:'ia',t:'Conte do seu jeito, como se estivesse conversando. Pode escrever ou falar.',q:'Como o seu negócio começou?'},
   {r:'eu',autor:'Rafael',t:'Eu era bancário e fazia hambúrguer na brasa pros amigos todo domingo. Um dia a fila na garagem ficou maior que a da agência.'},
-  {r:'ia',t:'Boa imagem, essa da fila. E o que você faria mesmo sem pensar no dinheiro, só pela alegria de ver o cliente?',sug:[]},
-  {r:'eu',autor:'Rafael',t:'Ver a pessoa dar a primeira mordida e fechar o olho. Isso eu faria de graça.'},
-  {r:'ia',t:'Entendi: o que move você é o momento em que a pessoa para tudo para comer com calma. Me conta um cliente que marcou.',sug:['Um cliente que virou amigo','Alguém que veio num dia difícil','Uma família que vem toda semana','Um cliente que reclamou e voltou']}]},
- potencializar:{step:1,msgs:[
-  {r:'ia',t:'Você contou que faz tudo na brasa e que conhece os clientes pelo nome. O que mais a Brasa faz que as outras hamburguerias do bairro não fazem?',sug:['Pão feito na casa todo dia','Trocamos o lanche errado sem discussão','A churrasqueira fica à vista','Lembramos o pedido de cada cliente']}]},
- corrigir:{step:1,msgs:[
-  {r:'ia',t:'Agora a parte que ninguém gosta, mas que mais ajuda. Qual foi a última reclamação que você recebeu de um cliente?',sug:['Demora na entrega','Demora para responder no WhatsApp','Pedido veio errado','Produto chegou frio ou murcho']}]}
+  {r:'ia',t:'A fila da garagem maior que a da agência. Boa imagem.',q:'Por que você escolheu esse ramo?'},
+  {r:'eu',autor:'Rafael',t:'Porque ver a pessoa dar a primeira mordida e fechar o olho eu faria até de graça.'},
+  {r:'ia',t:'Então o que move você é esse momento em que a pessoa para tudo para comer com calma.',q:'O que faz um cliente escolher você, e não outro?',sug:[]}]},
+ potencializar:{step:0,msgs:[
+  {r:'ia',t:'Você contou que faz tudo na brasa e que conhece os clientes pelo nome.',q:'O que mais a Brasa faz que as outras não fazem?',sug:['Pão feito na casa todo dia','Trocamos o lanche errado sem discussão','A churrasqueira fica à vista','Lembramos o pedido de cada cliente']}]},
+ corrigir:{step:0,msgs:[
+  {r:'ia',t:'Agora a parte que ninguém gosta, mas que mais ajuda.',q:'Qual foi a última reclamação de um cliente?',sug:['Demora na entrega','Demora para responder no WhatsApp','Pedido veio errado','Produto chegou frio ou murcho']}]}
 };
 </script>
 
@@ -296,14 +309,21 @@ const clone=x=>JSON.parse(JSON.stringify(x));
 const brl=n=>'R$ '+Number(n||0).toLocaleString('pt-BR');
 const KEY='cinco-etapas-v1';
 const PROPOSTA={publico:'Donos de pequenos negócios locais que atendem pelo WhatsApp e não têm equipe de marketing.',promessa:'Nós fazemos o marketing e conduzimos as vendas da sua empresa; você só conversa com a IA e aprova.',argumentos:'Começa pela identidade, então nada sai genérico.\nAlinha o que você promete com o que a equipe entrega.\nUm passo por dia, sem precisar aprender marketing.',objecoes:'"Não tenho tempo": são 10 minutos de conversa por dia no começo.\n"Já tentei agência": aqui o dono vê e aprova tudo, e a equipe é treinada junto.',entrada:'Teste de 7 dias com a etapa Conhecer completa e o documento de identidade entregue.'};
-function novoEstado(){return {v:1,cfg:clone(CFG),modo:'cliente',view:'inicio',tab:{},admin:null,empresa:clone(EXEMPLO),chats:clone(CHATS_EXEMPLO),feats:clone(FEATS),planos:clone(PLANOS),publicado:clone(PLANOS),instr:{},linhas:clone(LINHAS),log:[],autor:0,proposta:clone(PROPOSTA),sugestao:null}}
-function vazia(nome,setor,cidade,voce){return {exemplo:false,nome,setor,cidade,plano:'inicial',equipe:[{nome:voce||'Você',funcao:'Responsável',lider:1}],identidade:{historia:'',proposito:'',missao:'',visao:'',valores:[],personalidade:'',tom_sim:[],tom_nao:[],cliente:'',transformacao:''},produtos:[],diferenciais:[],proposta:'',divergencia:'',negativos:[],pesquisa:{respostas:[]},referencias:[],perfisRef:[],midia:[],estudo:null,perfis:{},pecas:[],oferta:null,anuncios:null,dia:{lembrete:'',desafio:'',pergunta:'O que um cliente elogiou esta semana?',sug:['O atendimento','O produto','A rapidez','O preço'],feito:false,historico:[]},respostasDia:[],reunioes:[],combinados:[],resultados:null,treinos:[],progresso:null}}
-let S=null; try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){} if(!S||S.v!==1) S=novoEstado();
+function novoEstado(){return {v:2,cfg:clone(CFG),modo:'cliente',view:'inicio',tab:{},admin:null,empresa:clone(EXEMPLO),chats:clone(CHATS_EXEMPLO),feats:clone(FEATS),planos:clone(PLANOS),publicado:clone(PLANOS),instr:{},linhas:clone(LINHAS),log:[],autor:0,proposta:clone(PROPOSTA),sugestao:null}}
+function vazia(nome,setor,cidade,voce){return {exemplo:false,nome,setor,cidade,plano:'inicial',equipe:[{nome:voce||'Você',funcao:'Responsável',lider:1}],identidade:{historia:'',proposito:'',missao:'',visao:'',valores:[],personalidade:'',tom_sim:[],tom_nao:[],cliente:'',transformacao:'',especial:'',importa:''},produtos:[],diferenciais:[],proposta:'',divergencia:'',negativos:[],pesquisa:{respostas:[]},referencias:[],perfisRef:[],midia:[],estudo:null,perfis:{},pecas:[],oferta:null,anuncios:null,dia:{lembrete:'',desafio:'',pergunta:'O que um cliente elogiou esta semana?',sug:['O atendimento','O produto','A rapidez','O preço'],feito:false,historico:[]},respostasDia:[],reunioes:[],combinados:[],resultados:null,treinos:[],progresso:null}}
+let S=null; try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){} if(!S||S.v!==2) S=novoEstado();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 let busy=null, gen=null, sampleFn=null, aiOff=false, thumbs=[], pesq={nota:null};
 const E=()=>S.empresa, skill=id=>{const s=SKILLS.find(s=>s.id===id);return {...s,instrucoes:S.instr[id]||s.instrucoes}};
 const aiOk=()=>!!sampleFn&&!aiOff;
 if(window.claude&&claude.use) claude.use('sample').then(f=>{sampleFn=f;render()}).catch(()=>{});
+let dict=null,dictOn=false,dictTo=null,dictBase='';
+function micUI(){document.querySelectorAll('[data-a=mic]').forEach(b=>{const on=dictOn&&dictTo==='in-'+b.dataset.id;b.textContent=on?'Parar':'Falar';b.classList.toggle('rec',on)})}
+if(window.claude&&claude.use) claude.use('dictation').then(d=>{if(!d)return;dict=d;
+ d.onPartial(({text})=>{const ta=dictTo&&$('#'+dictTo);if(ta)ta.value=(dictBase+(text?' '+text:'')).trim()});
+ d.onFinal(({text})=>{dictBase=(dictBase+text).trimStart();const ta=dictTo&&$('#'+dictTo);if(ta)ta.value=dictBase});
+ d.onState(({state,reason})=>{dictOn=state==='starting'||state==='listening';micUI();if(state==='idle'&&['not_granted','unavailable'].includes(reason)){dict=null;render();toast('O áudio não está liberado nesta visualização. Você pode escrever.')}});
+ render()}).catch(()=>{});
 function toast(t){const el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,4200)}
 function aiErro(e){const c=e&&e.code; if(c==='cancelled')return;
  if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(c)){aiOff=true;toast('A IA não está liberada nesta visualização. Seguindo com respostas simuladas.')}
@@ -323,7 +343,7 @@ const vazio=t=>`<p class="small">${esc(t)}</p>`;
 function kbTexto(){const e=E(),i=e.identidade;const L=[];
  L.push(`Empresa: ${e.nome}. Setor: ${e.setor}. Local: ${e.cidade}.`);
  L.push('Equipe: '+e.equipe.map(p=>`${p.nome} (${p.funcao})`).join('; '));
- for(const k of ['historia','proposito','missao','visao','personalidade','cliente','transformacao']) if(i[k])L.push(`${k}: ${i[k]}`);
+ for(const k of ['historia','proposito','missao','visao','especial','importa','personalidade','cliente','transformacao']) if(i[k])L.push(`${k}: ${i[k]}`);
  if(i.valores.length)L.push('Valores: '+i.valores.join(' | '));
  if(i.tom_sim.length)L.push('Falamos assim: '+i.tom_sim.join(' | ')+'. Não falamos assim: '+i.tom_nao.join(' | '));
  if(e.produtos.length)L.push('Produtos: '+e.produtos.map(p=>`${p.nome} ${p.preco} (${p.nota||''})`).join('; '));
@@ -335,26 +355,32 @@ function kbTexto(){const e=E(),i=e.identidade;const L=[];
  if(e.oferta)L.push(`Oferta ativa: ${e.oferta.nome} — ${e.oferta.oque} Limite: ${e.oferta.limite}`);
  if(e.respostasDia.length)L.push('Respostas da pergunta do dia: '+e.respostasDia.slice(-5).map(r=>r.t).join(' | '));
  return L.join('\n')}
-const conversa=id=>arr(S.chats[id]&&S.chats[id].msgs).map(m=>(m.r==='ia'?'IA: ':(m.autor||'Empresa')+': ')+m.t).join('\n');
+const fala=m=>[m.t,m.q].filter(Boolean).join('\n');
+const conversa=id=>arr(S.chats[id]&&S.chats[id].msgs).map(m=>(m.r==='ia'?'IA: ':(m.autor||'Empresa')+': ')+fala(m)).join('\n');
 
 /* ---------- configuração das conversas (com roteiro de reserva para quando não há IA) ---------- */
 const PERFIS_TREINO={preco:'Cliente que só quer saber o preço e acha caro',apressado:'Cliente apressado, com fome, quer saber o prazo',desconfiado:'Cliente desconfiado, nunca pediu, pergunta se é bom mesmo',reclama:'Cliente que recebeu o pedido errado e está irritado'};
 const CH={
- conhecer:{skill:'identidade',autor:1,fim:'Tenho o suficiente para montar a identidade. Abra a aba Documento e toque em "Gerar com a IA", ou continue me contando.',roteiro:[
-  {q:'Vamos começar pela história. Como a empresa nasceu?',sug:['Comecei sozinho, em casa','Herdei da família','Saí de um emprego para abrir','Vi uma oportunidade no bairro']},
-  {q:'O que você faria mesmo sem pensar no dinheiro, só pela alegria de ver o cliente satisfeito?',sug:['Ver a reação do cliente na hora','Resolver um problema que ninguém resolvia','Ensinar o que eu sei','Cuidar de cada detalhe']},
-  {q:'Me conta um cliente que marcou você. O que aconteceu?',sug:['Um que virou amigo','Um que chegou num dia difícil','Um que reclamou e depois voltou','Uma família que vem sempre']},
-  {q:'Como o cliente chega até você, e como ele sai?',sug:['Chega com pressa, sai tranquilo','Chega inseguro, sai confiante','Chega com um problema, sai resolvido','Chega curioso, sai fã']},
-  {q:'Quem é o cliente ideal, aquele que você queria ter todos os dias?',sug:['Moradores do bairro','Famílias','Profissionais com pouco tempo','Jovens que descobrem pelo Instagram']},
-  {q:'Se a empresa fosse uma pessoa, como ela seria?',sug:['Próxima e bem-humorada','Séria e confiável','Sofisticada e discreta','Simples e direta']},
-  {q:'Que empresas do seu ramo você admira? E o que exatamente admira nelas?',sug:['O visual','O jeito de falar','O atendimento','As ofertas']}]},
- potencializar:{skill:'diferenciais',autor:1,fim:'Já dá para montar os diferenciais. Abra a aba Documento e toque em "Gerar com a IA".',roteiro:[
+ conhecer:{skill:'identidade',autor:1,livre:1,historia:1,ph:'Conte do seu jeito',fim:'Já tenho história suficiente para montar a identidade. Abra a aba Documento e toque em "Gerar com a IA". Se quiser, continue me contando.',roteiro:[
+  {pre:'Conte do seu jeito, como se estivesse conversando. Pode escrever ou falar.',q:'Como o seu negócio começou?'},
+  {q:'Por que você escolheu esse ramo?'},
+  {q:'Como foi o começo? O que foi mais difícil?'},
+  {q:'O que faz um cliente escolher você, e não outro?'},
+  {q:'Com o que você mais se importa ao atender um cliente?'},
+  {q:'Que problema você mais gosta de resolver para o cliente?'},
+  {pre:'Vale mesmo que a empresa ainda seja pequena.',q:'O que mais trouxe clientes até hoje?'},
+  {q:'Conte um dia em que você pensou: "é por isso que eu faço isso".'},
+  {q:'Aonde você quer que a empresa chegue em cinco anos?',sug:['Ser a mais indicada do bairro','Abrir uma segunda unidade','Viver bem só da empresa','Ser referência na cidade']},
+  {q:'O que você não aceitaria fazer, mesmo dando dinheiro?',sug:['Enganar o cliente','Baixar a qualidade','Tratar mal a equipe','Prometer o que não entrego']}]},
+ geral:{skill:'orquestrador',tier:'quick',ph:'Escreva ou fale o que quiser',fim:'Sem a IA ao vivo eu não consigo conversar livremente. Abra o artefato no claude.ai e autorize a IA; enquanto isso, as etapas na tela Início funcionam com o roteiro.',roteiro:[
+  {q:'Oi! Pode me contar qualquer coisa sobre a empresa ou me perguntar o que quiser. Eu guardo o que você disser e uso em todas as etapas.',sug:['O que falta para eu começar a postar?','Me ajude a criar uma promoção','Como vender mais pelo WhatsApp?']}]},
+ potencializar:{skill:'diferenciais',autor:1,livre:1,fim:'Já dá para montar os diferenciais. Abra a aba Documento e toque em "Gerar com a IA".',roteiro:[
   {q:'O que a sua empresa faz que as outras do ramo não fazem?',sug:['Faço tudo na hora','Conheço cada cliente','Dou garantia','Uso material melhor']},
   {q:'O cliente percebe isso? Como você sabe?',sug:['Eles comentam','Está nas avaliações','Acho que não percebem','Nunca perguntei']},
   {q:'Um concorrente poderia dizer a mesma coisa?',sug:['Sim, todos dizem','Alguns sim','Não, só eu faço','Não sei']},
   {q:'Como você consegue provar isso para quem ainda não é cliente?',sug:['Mostrando o processo em vídeo','Com depoimentos','Com uma garantia escrita','Com números']},
   {q:'O que você faz a mais pelo cliente e nunca contou para ninguém?',sug:['Mimos na entrega','Acompanhamento depois da venda','Atendo fora do horário','Lembro datas e preferências']}]},
- corrigir:{skill:'experiencia',autor:1,fim:'Obrigada pela franqueza. Abra a aba Documento para gerar o plano de correção e a aba Pesquisa para ouvir os clientes.',roteiro:[
+ corrigir:{skill:'experiencia',autor:1,livre:1,fim:'Obrigada pela franqueza. Abra a aba Documento para gerar o plano de correção e a aba Pesquisa para ouvir os clientes.',roteiro:[
   {q:'Qual foi a última reclamação que você recebeu de um cliente?',sug:['Demora','Erro no pedido','Preço','Atendimento']},
   {q:'Por que você acha que isso aconteceu?',sug:['Falta de gente no horário de pico','Falha de comunicação','Processo confuso','Fornecedor']},
   {q:'Isso se repete? Com que frequência?',sug:['Toda semana','Nos dias de movimento','De vez em quando','Foi a primeira vez']},
@@ -374,31 +400,41 @@ const CH={
 function regras(id){const cfg=CH[id],sk=skill(cfg.skill);let extra=cfg.extra||'';
  if(id==='treino')extra=`Faça o papel deste cliente: ${PERFIS_TREINO[S.tab.perfil||'preco']}. O usuário é o atendente da empresa abaixo. Escreva só a fala do cliente, curta, como mensagem de WhatsApp.`;
  if(id==='estrategista')return `${sk.instrucoes}\n\nDADOS DO NEGÓCIO (os números de clientes são de exemplo):\nFuncionalidades: ${JSON.stringify(S.feats.map(f=>({id:f.id,nome:f.nome,custo_mensal_estimado:f.custo,situacao:f.st})))}\nPlanos em rascunho: ${JSON.stringify(S.planos)}\n\nResponda em português do Brasil, em até 6 frases curtas. Na última linha escreva exatamente "SUGESTOES: a | b | c" com 3 perguntas curtas que o administrador poderia fazer em seguida.`;
- const fmt=cfg.semSug?'FORMATO: responda só com a mensagem, em até 3 frases curtas.':'FORMATO: escreva sua fala e, na última linha, exatamente "SUGESTOES: a | b | c | d" com 3 ou 4 respostas curtas e prováveis para ESTA empresa responder à sua pergunta (o aplicativo mostra como botões e acrescenta o campo "Outro").';
- return `${sk.instrucoes}\n\n${extra}\n\nREGRAS DE CONVERSA:\n${REGRAS_CONVERSA}\n\nO QUE JÁ SABEMOS DA EMPRESA:\n${kbTexto()}\n\n${fmt}`}
-const limpa=t=>t.replace(/\n?\s*SUGEST[ÕO]ES:[\s\S]*$/i,'').trim();
-function parseIA(t){const m=t.match(/SUGEST[ÕO]ES:\s*([\s\S]*)$/i);return {t:limpa(t),sug:m?m[1].split('|').map(s=>s.trim()).filter(Boolean).slice(0,5):[]}}
-function getChat(id){const c=S.chats[id]||(S.chats[id]={msgs:[],step:0});if(!c.msgs.length){const q=CH[id].roteiro[0];c.msgs.push({r:'ia',t:q.q,sug:q.sug||[]})}return c}
-function chatHTML(id){const c=getChat(id),cfg=CH[id],last=c.msgs[c.msgs.length-1];
- return `<div class="chat">${c.msgs.map(m=>`<div class="msg ${m.r}">${m.autor?`<small>${esc(m.autor)}</small>`:''}<div class="bubble">${esc(m.t)}</div>${m.sim?SIM:''}</div>`).join('')}${busy===id?'<div class="msg ia"><div class="bubble" id="stream">Pensando…</div></div>':''}</div>
- ${last.r==='ia'&&arr(last.sug).length&&busy!==id?`<div class="sugs">${last.sug.map(s=>`<button class="sug" data-a="sug" data-id="${id}" data-t="${esc(s)}">${esc(s)}</button>`).join('')}</div>`:''}
- <form class="send" data-f="chat" data-id="${id}"><textarea id="in-${id}" rows="1" placeholder="${esc(cfg.ph||'Outro: escreva sua resposta')}" aria-label="Sua resposta"></textarea><button class="btn primary" ${busy?'disabled':''}>Enviar</button></form>`}
+ const outras=['geral','conhecer','potencializar','corrigir'].filter(c=>c!==id&&S.chats[c]&&S.chats[c].msgs.length>1).map(c=>'['+c+']\n'+conversa(c).slice(-1500)).join('\n\n');
+ const fmt=cfg.semSug?'FORMATO: responda só com a mensagem, em até 3 frases curtas.'
+  :cfg.livre?`FORMATO (obrigatório), em três partes:
+1) No máximo UMA frase curta mostrando que você ouviu (pode omitir).
+2) Uma linha começando com "PERGUNTA:" seguida de UMA pergunta aberta, objetiva, com no máximo 12 palavras.
+3) Uma linha "SUGESTOES:" ${cfg.historia?'vazia quando a pergunta pedir uma história; preencha com 3 exemplos curtos, separados por |, só se a pessoa disser que não sabe responder ou se a pergunta for de escolha.':'com 3 ou 4 respostas curtas e prováveis para ESTA empresa, separadas por |.'}`
+  :'FORMATO: responda em até 5 frases curtas. Na última linha escreva "SUGESTOES: a | b | c" com 3 coisas curtas que a pessoa poderia dizer ou perguntar em seguida.';
+ return `${sk.instrucoes}\n\n${extra}\n\nREGRAS DE CONVERSA:\n${REGRAS_CONVERSA}\n\nO QUE JÁ SABEMOS DA EMPRESA:\n${kbTexto()}${outras?'\n\nO QUE JÁ FOI DITO EM OUTRAS CONVERSAS:\n'+outras:''}\n\n${fmt}`}
+function parseIA(t){const s=t.match(/SUGEST[ÕO]ES:\s*([\s\S]*)$/i);let body=t.replace(/\n?\s*SUGEST[ÕO]ES:[\s\S]*$/i,'');let q='';const p=body.match(/PERGUNTA:\s*([\s\S]*)$/i);if(p){q=p[1].trim();body=body.slice(0,p.index)}
+ return {t:body.trim(),q,sug:s?s[1].split('|').map(x=>x.trim()).filter(x=>x.length>1).slice(0,5):[]}}
+const limpa=t=>fala(parseIA(t));
+const passo=(cfg,q)=>cfg.livre?{t:q.pre||'',q:q.q,sug:q.sug||[]}:{t:q.q,sug:q.sug||[]};
+function getChat(id){const c=S.chats[id]||(S.chats[id]={msgs:[],step:0});if(!c.msgs.length)c.msgs.push({r:'ia',...passo(CH[id],CH[id].roteiro[0])});return c}
+function chatHTML(id){const c=getChat(id),cfg=CH[id],last=c.msgs[c.msgs.length-1],n=c.msgs.length-1;
+ let sug=last.r==='ia'&&busy!==id?arr(last.sug):[];if(last.r==='ia'&&busy!==id&&!sug.length&&cfg.historia&&aiOk()&&last.q)sug=['Não sei por onde começar. Me dê exemplos.'];
+ return `<div class="chat">${c.msgs.map((m,k)=>`<div class="msg ${m.r} ${m.q&&k===n&&busy!==id?'ask':''}">${m.autor?`<small>${esc(m.autor)}</small>`:''}${m.t?`<div class="bubble">${esc(m.t)}</div>`:''}${m.q?`<div class="q">${esc(m.q)}</div>`:''}${m.sim?SIM:''}</div>`).join('')}${busy===id?'<div class="msg ia"><div class="bubble" id="stream">Pensando…</div></div>':''}</div>
+ ${sug.length?`<div class="sugs">${sug.map(s=>`<button class="sug" data-a="sug" data-id="${id}" data-t="${esc(s)}">${esc(s)}</button>`).join('')}</div>`:''}
+ <form class="send" data-f="chat" data-id="${id}"><textarea id="in-${id}" rows="2" placeholder="${esc(cfg.ph||'Outro: escreva sua resposta')}" aria-label="Sua resposta"></textarea>${dict?`<button type="button" class="btn ${dictOn&&dictTo==='in-'+id?'rec':''}" data-a="mic" data-id="${id}">${dictOn&&dictTo==='in-'+id?'Parar':'Falar'}</button>`:''}<button class="btn primary" ${busy?'disabled':''}>Enviar</button></form>
+ ${dict?'':'<small>Para falar em vez de escrever: abra no Chrome ou no aplicativo Claude do computador. No celular, use o microfone do teclado.</small>'}`}
 function fim(){requestAnimationFrame(()=>window.scrollTo({top:document.documentElement.scrollHeight}))}
 async function chatSend(id,text){text=str(text).trim();if(!text||busy)return;const c=getChat(id),cfg=CH[id];
  c.msgs.push({r:'eu',t:text,autor:cfg.autor?(E().equipe[S.autor]||E().equipe[0]).nome:''});c.step++;busy=id;render();fim();
  let out=null;
- if(aiOk()){try{const turns=[{role:'user',content:regras(id)},...c.msgs.slice(-14).map(m=>({role:m.r==='ia'?'assistant':'user',content:m.t}))];
+ if(aiOk()){try{const turns=[{role:'user',content:regras(id)},...c.msgs.slice(-14).map(m=>({role:m.r==='ia'?'assistant':'user',content:fala(m)}))];
   const r=await sampleFn(turns,{cache:false,modelTier:cfg.tier||'quick',onText:({text})=>{const el=$('#stream');if(el){el.textContent=limpa(text)||'Pensando…'}}});out=parseIA(r.text)}catch(e){aiErro(e)}}
- if(!out){const q=cfg.roteiro[c.step];out=q?{t:q.q,sug:q.sug||[]}:{t:cfg.fim,sug:[]};out.sim=true}
+ if(!out||!(out.t||out.q)){const q=cfg.roteiro[c.step];out=q?passo(cfg,q):{t:cfg.fim,sug:[]};out.sim=true}
  c.msgs.push({r:'ia',...out});busy=null;save();render();fim()}
 
 /* ---------- gerações estruturadas com a IA ---------- */
 const GER={
- conhecer:{skill:'identidade',chats:['conhecer'],pedido:'Monte a identidade da empresa a partir da entrevista. Use só o que foi dito; deixe em branco ("") o que não foi respondido.',formato:'{"historia":"","proposito":"","missao":"","visao":"","valores":["valor como comportamento observável"],"personalidade":"","tom_sim":["frase que a empresa diria"],"tom_nao":["frase que jamais diria"],"cliente":"","transformacao":""}',
-  aplicar:d=>{const i=E().identidade;for(const k of ['historia','proposito','missao','visao','personalidade','cliente','transformacao'])if(str(d[k]))i[k]=str(d[k]);for(const k of ['valores','tom_sim','tom_nao'])if(arr(d[k]).length)i[k]=arr(d[k]).map(str)}},
- potencializar:{skill:'diferenciais',chats:['conhecer','potencializar'],pedido:'Liste até 4 diferenciais específicos e comprováveis (descarte os genéricos) e escreva a proposta de valor em uma frase.',formato:'{"diferenciais":[{"nome":"","prova":"","acao":"como fortalecer"}],"proposta":""}',
+ conhecer:{skill:'identidade',chats:['conhecer','geral'],pedido:'Monte a identidade da empresa a partir das histórias contadas. Procure os temas que se repetem e use as palavras da própria pessoa. "proposito" é uma frase no formato "Fazer X para que Y". "missao" diz o que a empresa faz, para quem e como. "visao" descreve aonde ela quer chegar. Valores são comportamentos que ela já pratica. Use só o que foi dito; deixe em branco ("") o que não foi respondido.',formato:'{"historia":"","proposito":"","missao":"","visao":"","especial":"o que torna a empresa especial","importa":"com o que ela mais se importa pelo cliente","valores":["valor como comportamento observável"],"personalidade":"","tom_sim":["frase que a empresa diria"],"tom_nao":["frase que jamais diria"],"cliente":"","transformacao":""}',
+  aplicar:d=>{const i=E().identidade;for(const k of ['historia','proposito','missao','visao','especial','importa','personalidade','cliente','transformacao'])if(str(d[k]))i[k]=str(d[k]);for(const k of ['valores','tom_sim','tom_nao'])if(arr(d[k]).length)i[k]=arr(d[k]).map(str)}},
+ potencializar:{skill:'diferenciais',chats:['conhecer','potencializar','geral'],pedido:'Liste até 4 diferenciais específicos e comprováveis (descarte os genéricos) e escreva a proposta de valor em uma frase.',formato:'{"diferenciais":[{"nome":"","prova":"","acao":"como fortalecer"}],"proposta":""}',
   aplicar:d=>{if(arr(d.diferenciais).length)E().diferenciais=arr(d.diferenciais).map(x=>({nome:str(x.nome),prova:str(x.prova),acao:str(x.acao)}));if(str(d.proposta))E().proposta=str(d.proposta)}},
- corrigir:{skill:'experiencia',chats:['corrigir'],pedido:'Monte o plano de correção: agrupe os problemas por tema, a partir da conversa e da pesquisa com clientes.',formato:'{"negativos":[{"tema":"","causa":"","acao":"","resp":"nome de alguém da equipe","prazo":"","medida":"como medir"}]}',
+ corrigir:{skill:'experiencia',chats:['corrigir','geral'],pedido:'Monte o plano de correção: agrupe os problemas por tema, a partir da conversa e da pesquisa com clientes.',formato:'{"negativos":[{"tema":"","causa":"","acao":"","resp":"nome de alguém da equipe","prazo":"","medida":"como medir"}]}',
   aplicar:d=>{if(arr(d.negativos).length)E().negativos=arr(d.negativos).map(x=>({tema:str(x.tema),causa:str(x.causa),acao:str(x.acao),resp:str(x.resp),prazo:str(x.prazo),medida:str(x.medida),st:'andamento'}))}},
  perfis:{skill:'marketing',chats:[],pedido:'Escreva os textos de configuração dos perfis, no tom de voz da empresa.',formato:'{"WhatsApp Business":{"Descrição":"","Mensagem de saudação":"","Mensagem de ausência":""},"Instagram":{"Nome":"","Bio":"","Destaques":""},"Perfil da Empresa no Google":{"Descrição":""}}',
   aplicar:d=>{const o={};for(const k in d)if(d[k]&&typeof d[k]==='object'){o[k]={};for(const f in d[k])o[k][f]=str(d[k][f])}if(Object.keys(o).length)E().perfis=o}},
@@ -437,6 +473,7 @@ V.inicio=()=>{const e=E(),et=S.cfg.etapas,prox=et.find(x=>prog(x.id)<100)||et[4]
  <div class="row"><button class="chip" style="border:0;cursor:pointer" data-a="ir" data-v="planos">Plano ${esc(planoAtual().nome)} ›</button>
  <button class="btn sm" data-a="${e.exemplo?'zero':'exemplo'}">${e.exemplo?'Começar do zero':'Ver empresa de exemplo'}</button></div>
  <div class="card next"><small>Próximo passo</small><h2>${esc(prox.nome)}</h2><p>${esc(prox.frase)}</p><div><button class="btn sun" data-a="ir" data-v="${prox.id}">Continuar</button></div></div>
+ <div class="card"><h3>Converse com a IA</h3><p class="small">Conte ou pergunte o que quiser, escrevendo ou falando. Ela guarda o que você disser e usa em todas as etapas.</p><div><button class="btn primary" data-a="ir" data-v="conversa">Abrir conversa</button></div></div>
  ${e.divergencia?`<div class="card"><small class="st-warn">Checagem de coerência</small><p>${esc(e.divergencia)}</p></div>`:''}
  <h2>${esc(S.cfg.metodo)}</h2>
  <div class="flat">${et.map((x,i)=>{const p=prog(x.id);return `<button class="step ${p>=100?'done':''}" data-a="ir" data-v="${x.id}"><b class="n">${i+1}</b><span class="nm">${esc(x.nome)}</span><span class="pc">${p}%</span><span class="ph">${esc(x.frase)}</span><span class="meter"><i style="width:${p}%"></i></span></button>`}).join('')}</div>
@@ -448,6 +485,7 @@ V.inicio=()=>{const e=E(),et=S.cfg.etapas,prox=et.find(x=>prog(x.id)<100)||et[4]
  <form class="send" data-f="respdia"><input type="text" id="in-dia" placeholder="Outro: escreva" aria-label="Outra resposta"><button class="btn">Enviar</button></form>
  ${e.respostasDia.length?`<small>Respostas de hoje: ${e.respostasDia.map(r=>esc(r.quem+': '+r.t)).join(' · ')}</small>`:''}</div>`};
 
+V.conversa=()=>`<div><h1>Conversa</h1><p>Fale livremente. O que você contar aqui vale para todas as etapas.</p></div>${quem()}${chatHTML('geral')}<div><button class="btn sm" data-a="limpachat" data-id="geral">Recomeçar conversa</button></div>`;
 function cabEtapa(id){const x=S.cfg.etapas.find(e=>e.id===id);return `<div><small>Etapa ${S.cfg.etapas.indexOf(x)+1} de 5</small><h1>${esc(x.nome)}</h1><p>${esc(x.frase)}</p></div>`}
 function tabs(key,list){const cur=S.tab[key]||list[0];return `<div class="tabs" role="tablist">${list.map(t=>`<button class="${t===cur?'on':''}" data-a="tab" data-k="${key}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>`}
 const quem=()=>`<label class="f">Quem está respondendo<select data-c="autor">${E().equipe.map((p,i)=>`<option value="${i}" ${i==S.autor?'selected':''}>${esc(p.nome)} — ${esc(p.funcao)}</option>`).join('')}</select></label>`;
@@ -456,8 +494,8 @@ const ed=(path,v)=>`<div contenteditable="true" data-edit="${path}">${esc(v)}</d
 V.conhecer=()=>{const t=S.tab.conhecer||'Conversa',i=E().identidade;
  return cabEtapa('conhecer')+tabs('conhecer',['Conversa','Documento'])+(t==='Conversa'?quem()+chatHTML('conhecer'):
  (i.missao||i.historia?`<div class="card"><h2>Identidade da empresa</h2><small>Toque em qualquer texto para editar.</small><dl>
-  ${[['historia','Nossa história'],['proposito','Por que existimos'],['missao','Missão'],['visao','Visão'],['personalidade','Personalidade'],['cliente','Cliente ideal'],['transformacao','A transformação que entregamos']].map(([k,l])=>`<dt>${l}</dt><dd>${ed('identidade.'+k,i[k])}</dd>`).join('')}
-  <dt>Valores (como comportamento)</dt><dd><ul class="cl">${i.valores.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd>
+  ${[['missao','Missão'],['visao','Visão'],['proposito','Por que existimos'],['especial','O que nos torna especiais'],['importa','Com o que mais nos importamos'],['historia','Nossa história'],['personalidade','Personalidade'],['cliente','Cliente ideal'],['transformacao','A transformação que entregamos']].map(([k,l])=>`<dt>${l}</dt><dd>${ed('identidade.'+k,i[k])}</dd>`).join('')}
+  <dt>Valores (o que já praticamos)</dt><dd><ul class="cl">${i.valores.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd>
   <dt>Falamos assim</dt><dd><ul class="cl">${i.tom_sim.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd>
   <dt>Não falamos assim</dt><dd><ul class="cl">${i.tom_nao.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></dd></dl></div>`:`<div class="card">${vazio('O documento de identidade aparece aqui depois da conversa.')}</div>`)
  +`<div class="row">${btnGerar('conhecer',i.missao?'Atualizar com a IA a partir da conversa':'Gerar com a IA')}</div>`)};
@@ -608,12 +646,12 @@ const ATABS=['Estrategista','Funcionalidades','Planos','Números','Proposta','M�
 const NAV=[['inicio','Início'],['empresa','Empresa'],['atrair',null],['vender',null],['evoluir',null]];
 let lastKey='';
 function render(){const adm=S.modo==='admin';const key=S.modo+'|'+S.view+'|'+JSON.stringify(S.tab);const open=[...document.querySelectorAll('main details')].map(d=>d.open);document.body.classList.toggle('admin',adm);
- const top=`<div class="top"><div><div class="brand"><span></span>${esc(S.cfg.app)}</div><div class="ia ${aiOk()?'on':''}"><i></i>${aiOk()?'IA ao vivo':'IA simulada'}</div>
+ const top=`<div class="top"><div><div class="brand"><span></span>${esc(S.cfg.app)}</div><div class="iast ${aiOk()?'on':''}"><i></i>${aiOk()?'IA ao vivo':'IA simulada'}</div>
  <div class="seg"><button class="${adm?'':'on'}" data-a="modo" data-m="cliente">Cliente</button><button class="${adm?'on':''}" data-a="modo" data-m="admin">Administrador</button></div></div></div>`;
  let body,nav='';
  if(adm){body=S.admin?`<div class="row"><small class="grow">Entrou como ${esc(S.admin)}</small><button class="btn sm" data-a="sair">Sair</button></div>${tabs('admin',ATABS)}${A[S.tab.admin||ATABS[0]]()}`:A.login()}
  else{const v=V[S.view]?S.view:'inicio';body=V[v]();
-  const sec=['conhecer','potencializar','corrigir','planos'].includes(v)?'inicio':v;
+  const sec=['conhecer','potencializar','corrigir','planos','conversa'].includes(v)?'inicio':v;
   nav=v==='entrada'?'':`<nav class="nav"><div>${NAV.map(([id,l])=>`<button class="${sec===id?'on':''}" data-a="ir" data-v="${id}">${esc(l||(id==='evoluir'?S.cfg.evoluir.nome:S.cfg.etapas.find(e=>e.id===id).nome))}</button>`).join('')}</div></nav>`}
  $('#app').innerHTML=top+`<main class="wrap">${body}</main>`+nav;
  const ds=document.querySelectorAll('main details');if(key===lastKey&&ds.length===open.length)ds.forEach((d,i)=>d.open=open[i]);lastKey=key}
@@ -624,6 +662,7 @@ function setPath(path,val){const p=path.split('.');const roots={feats:S.feats,li
 const ACT={
  modo:d=>{S.modo=d.m},ir:d=>{S.view=d.v;window.scrollTo(0,0)},tab:d=>{S.tab[d.k]=d.t},
  sug:d=>{chatSend(d.id,d.t);return false},
+ mic:d=>{if(!dict)return false;if(dict.active()){dict.stop().catch(()=>{});return false}const ta=$('#in-'+d.id);dictTo='in-'+d.id;dictBase=ta?ta.value:'';dict.start().catch(e=>{if(e&&e.code==='rate_limited')toast('Muitos áudios ao mesmo tempo. Tente de novo em instantes.');else if(e&&!['stopped','dismissed'].includes(e.code))toast('Não consegui abrir o microfone. Você pode escrever.')});return false},
  gerar:d=>{gerar(d.k);return false},
  exemplo:()=>{S.empresa=clone(EXEMPLO);S.chats=clone(CHATS_EXEMPLO);S.view='inicio';S.autor=0},
  zero:()=>{S.view='entrada'},
@@ -667,8 +706,8 @@ const CH_={
 };
 document.addEventListener('change',ev=>{const el=ev.target.closest('[data-c]');if(!el)return;const fn=CH_[el.dataset.c];if(!fn)return;fn(el);save();if(el.dataset.c!=='instr')render()});
 const FORMS={
- chat:f=>{const ta=f.querySelector('textarea');const t=ta.value;ta.value='';chatSend(f.dataset.id,t);return false},
- criar:()=>{S.empresa=vazia($('#n-nome').value.trim(),$('#n-setor').value.trim(),$('#n-cidade').value.trim(),$('#n-voce').value.trim());S.chats={};S.autor=0;S.view='conhecer';S.tab.conhecer='Conversa';const c=getChat('conhecer');c.msgs[0].t=`Prazer! Vamos começar pela história. Como a ${S.empresa.nome} nasceu?`},
+ chat:f=>{const ta=f.querySelector('textarea');const t=ta.value;ta.value='';dictBase='';if(dict&&dict.active())dict.stop().catch(()=>{});chatSend(f.dataset.id,t);return false},
+ criar:()=>{S.empresa=vazia($('#n-nome').value.trim(),$('#n-setor').value.trim(),$('#n-cidade').value.trim(),$('#n-voce').value.trim());S.chats={};S.autor=0;S.view='conhecer';S.tab.conhecer='Conversa';const c=getChat('conhecer');c.msgs[0].q=`Como a ${S.empresa.nome} começou?`},
  respdia:()=>{respDia($('#in-dia').value)},
  equipe:()=>{const n=$('#eq-nome').value.trim();if(n)E().equipe.push({nome:n,funcao:$('#eq-func').value.trim()||'Colaborador'})},
  ref:()=>{const n=$('#rf-nome').value.trim();if(n)E().referencias.push({nome:n,motivo:$('#rf-mot').value.trim()||'—'})},

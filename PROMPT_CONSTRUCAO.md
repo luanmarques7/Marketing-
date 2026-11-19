@@ -76,20 +76,39 @@ Você pode acrescentar referências que julgar sólidas e ajustar a divisão das
 
 #### Skill 1 — Especialista em Identidade (etapa Conhecer)
 
-**Papel:** entrevistador que ajuda o dono a se enxergar. É a skill mais importante, porque todas as outras dependem dela.
+**Papel:** conversa com o dono e a equipe para chegar à **missão, à visão e aos valores** da empresa, ao que a torna especial e ao que ela mais se importa em resolver para o cliente. É a skill mais importante, porque todas as outras dependem dela.
 
-**Condução da entrevista**, em blocos curtos:
-1. **A história.** Como a empresa nasceu, o que o dono fazia antes, qual foi o momento da decisão, as dificuldades do começo.
-2. **O porquê.** Por que escolheu esse ramo. O que ele faria mesmo sem pensar no dinheiro, só pela satisfação de ver a alegria do cliente ao receber o produto, o serviço, a transformação. Peça uma história real de um cliente que marcou.
-3. **A transformação.** Como o cliente chega e como ele sai. Qual problema ou desejo o traz, e o que muda na vida dele.
-4. **O cliente.** Quem é o cliente ideal, quem é o cliente que dá trabalho e não vale a pena, onde ele mora, como decide a compra.
-5. **A personalidade.** Se a empresa fosse uma pessoa, como seria: como fala, como se veste, o que jamais diria. Ofereça pares de opções (mais séria ou mais brincalhona, mais próxima ou mais sofisticada).
-6. **As referências.** Empresas do setor que ela admira (sugeridas pela IA mais "Outro") e o motivo.
-7. **O material.** Envio de logotipo, cores, fotos do espaço, dos produtos, dos donos e dos colaboradores que vão aparecer nas campanhas. Registre a autorização de uso de imagem de cada pessoa fotografada.
+**Como conduz (conversa livre, não questionário):**
+- **Histórias primeiro, conclusões depois.** A pessoa conta como começou, por que entrou no ramo, como foi o início, o que a tornou uma opção diferente e o que trouxe clientes. A skill nunca pergunta "qual é a sua missão?"; a missão sai das histórias.
+- **Deixa a pessoa contar livremente.** Não conduz para detalhes específicos nem sugere a resposta. Só aprofunda quando a resposta é genérica, pedindo um exemplo ou perguntando "por que isso é importante para você?".
+- **Perguntas curtas e objetivas**, de até 12 palavras, uma por vez, mostradas em letra grande. A resposta pode ser escrita ou falada (áudio transcrito).
+- **Sugestões de resposta só quando ajudam:** em perguntas de história não há botões; eles aparecem quando a pergunta é de escolha ou quando a pessoa diz que não sabe por onde começar.
+- **Não pressupõe sucesso.** A empresa pode ser pequena ou ainda não ter crescido; a skill pergunta pelo que já funcionou, mesmo que pouco.
+- **Devolve o que entendeu** a cada 3 ou 4 respostas, com as palavras da própria pessoa.
 
-**Entregas:** história da empresa em versão curta e longa; propósito; **missão, visão e valores** (valores descritos como comportamentos observáveis, não palavras soltas); personalidade e arquétipo da marca; **guia de tom de voz** com exemplos de "falamos assim / não falamos assim"; perfil do cliente ideal; a transformação que a empresa entrega em uma frase; lista de referências.
+**Roteiro de base** (a IA adapta a ordem e as palavras ao que ouve):
+1. Como o seu negócio começou?
+2. Por que você escolheu esse ramo?
+3. Como foi o começo? O que foi mais difícil?
+4. O que faz um cliente escolher você, e não outro?
+5. Com o que você mais se importa ao atender um cliente?
+6. Que problema você mais gosta de resolver para o cliente?
+7. O que mais trouxe clientes até hoje?
+8. Conte um dia em que você pensou: "é por isso que eu faço isso".
+9. Aonde você quer que a empresa chegue em cinco anos?
+10. O que você não aceitaria fazer, mesmo dando dinheiro?
 
-**Base de referências:** Simon Sinek (*Comece pelo Porquê*, Círculo Dourado); Donald Miller (*StoryBrand*, o cliente como herói e a marca como guia); Jim Collins e Jerry Porras (*Feitas para Durar*, ideologia central) e Collins (*Empresas Feitas para Vencer*, conceito do porco-espinho); Margaret Mark e Carol Pearson (*O Herói e o Fora da Lei*, arquétipos de marca); Marty Neumeier (*The Brand Gap*); Patrick Lencioni (*A Vantagem Decisiva*, valores reais versus valores de parede).
+Depois da conversa, a skill pede as empresas de referência e o envio de logotipo, cores e fotos do espaço, dos produtos e das pessoas, registrando a autorização de uso de imagem de cada pessoa fotografada.
+
+**Métodos em que a condução se apoia:**
+- **Descoberta do porquê por histórias** (Sinek, Mead e Docker, *Find Your Why*): reunir histórias, identificar os temas que se repetem e só então escrever a frase do propósito, no formato "Fazer X para que Y".
+- **Propósito, valores e futuro imaginado** (Collins e Porras, *Building Your Company's Vision* e *Feitas para Durar*): perguntar "por quê" repetidas vezes até chegar à razão de fundo; valores são poucos, já praticados, e a empresa não abriria mão deles; a visão descreve um futuro concreto.
+- **Por que existimos e como nos comportamos** (Lencioni, *A Vantagem Decisiva*): separar os valores reais dos que só soam bem.
+- **O cliente como herói, a empresa como guia** (Donald Miller, *StoryBrand*).
+- **Investigação apreciativa** (Cooperrider): partir do que já funcionou, o que serve também a empresas que ainda não cresceram.
+- **Arquétipos de marca** (Mark e Pearson, *O Herói e o Fora da Lei*) para a personalidade e o tom de voz.
+
+**Entregas:** missão, visão e valores (valores descritos como comportamentos já praticados); propósito; o que torna a empresa especial; com o que ela mais se importa pelo cliente; história em versão curta e longa; personalidade e **guia de tom de voz** com exemplos de "falamos assim / não falamos assim"; perfil do cliente ideal; a transformação que entrega; lista de referências.
 
 #### Skill 2 — Especialista em Diferenciais (etapa Potencializar)
 
@@ -333,6 +352,7 @@ O artefato é um protótipo navegável que demonstra o produto inteiro e nos per
 
 1. **Entrada e convite:** criar a empresa, escolher o setor, convidar sócios e colaboradores com função.
 2. **Tela inicial (jornada):** as etapas com nome simples, a frase do objetivo, o progresso de cada uma e o próximo passo em destaque. Em seguida, o desafio e a pergunta do dia.
+   Uma **conversa livre com a IA**, por texto ou áudio, fica sempre à mão: a pessoa conta ou pergunta o que quiser, e o que for dito vale para todas as etapas.
 3. **Conversa com a IA:** a tela principal de cada etapa, no formato de entrevista descrito na seção 3, com sugestões tocáveis, campo "Outro", envio de fotos e resumo para confirmar.
 4. **Minha empresa:** a base de conhecimento visível e editável (seção 4), com os documentos entregues por etapa.
 5. **Pesquisa com clientes:** criação do link, mensagem pronta para enviar, a página que o cliente final vê, e o painel de resultados.
