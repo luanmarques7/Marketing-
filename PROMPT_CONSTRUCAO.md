@@ -266,14 +266,66 @@ Para saber quais vendas vieram de anúncio, o agente de atendimento e os atenden
 
 Acima das skills há um orquestrador que conduz o cliente pela jornada: sabe em que etapa a empresa está, o que falta, qual skill acionar, e garante que toda entrega passou pela identidade e pelo tom de voz antes de chegar ao cliente. Ele também roda uma **checagem de coerência**: confere se as peças de marketing prometem algo que a etapa Corrigir mostrou que a empresa ainda não entrega, e avisa.
 
-### 6. Pacotes
+### 6. Funcionalidades, planos e a administração do negócio
 
-- **Pacote inicial:** etapas Conhecer, Potencializar e Corrigir completas (identidade, missão, visão, valores, diferenciais, plano de correção, pesquisa com clientes); rotina Evoluir (lembrete, desafio e pergunta diários); estudo do setor; pautas das reuniões de equipe; relatório geral de marketing e vendas; configuração dos perfis; posts com fotos; direcionamentos e roteiros para Stories e Reels.
-- **Pacote avançado (mais caro):** tudo do inicial, mais **vídeos e imagens realistas gerados por IA** a partir das fotos da empresa, dos donos e dos colaboradores autorizados, no contexto dos produtos e da marca e guiados pelas referências escolhidas; agente de atendimento no WhatsApp; treinador de equipe com simulações e relatórios; pautas das reuniões individuais com cada vendedor (que dependem das notas e das conversas analisadas); gestão de anúncios patrocinados.
+O aplicativo é um produto que nós vamos vender e fazer crescer. Por isso ele precisa de uma estrutura que nos permita **acrescentar soluções novas, decidir em que plano cada uma entra e montar a estratégia comercial**, tudo dentro de um login de administrador, sem depender de reprogramar o aplicativo a cada mudança.
 
-A verba dos anúncios é sempre paga pela empresa diretamente à plataforma, à parte do pacote.
+#### 6.1 Catálogo de funcionalidades
 
-No artefato, mostre os recursos do pacote avançado como visíveis porém bloqueados para quem está no inicial, com uma prévia do que fazem.
+Tudo que o aplicativo faz é registrado como uma **funcionalidade** em um catálogo. Nenhuma tela ou skill decide sozinha se está liberada: ela consulta o catálogo e o plano da empresa. Cada funcionalidade tem uma ficha:
+
+| Campo | O que contém |
+|---|---|
+| **Nome e descrição** | Como aparece para o cliente, em linguagem simples |
+| **Benefício** | O resultado que o cliente ganha (é o texto usado na venda do plano) |
+| **Etapa do método** | Conhecer, Potencializar, Corrigir, Atrair, Vender ou Evoluir |
+| **Skill responsável** | Qual skill executa |
+| **Depende de** | Outras funcionalidades necessárias para esta funcionar |
+| **Limites** | Quantidades que podem variar por plano (posts por mês, usuários da equipe, vídeos, simulações, perfis) |
+| **Custo estimado para nós** | Quanto custa entregar (uso de IA, geração de imagem e vídeo, mensagens de WhatsApp), para calcular a margem de cada plano |
+| **Situação** | Ideia, em construção, em teste com alguns clientes, disponível, desativada |
+| **Planos** | Em quais planos está incluída, ou se é vendida como adicional avulso |
+
+**Criar uma funcionalidade nova** segue a mesma lógica do Laboratório de estratégias: o administrador descreve a ideia em texto livre, a IA do administrador (6.3) preenche a ficha, sugere a skill, as dependências, o plano e o preço, e a funcionalidade nasce como "ideia". Funcionalidades que são só configuração de algo que já existe (uma nova linha de conteúdo, um novo tipo de reunião, um novo relatório, uma nova skill feita de instruções) podem ser ativadas pelo próprio administrador. As que exigem programação nova ficam registradas com a especificação pronta para o desenvolvimento. Deixe essa diferença clara na tela.
+
+#### 6.2 Construtor de planos
+
+O administrador cria **quantos planos quiser** (um, dois, três ou mais) e define para cada um: nome, a quem se destina, frase de venda, preço mensal e anual, taxa de implantação se houver, período de teste, as funcionalidades incluídas e os limites de cada uma. A tela principal é uma **grade de funcionalidades por planos**, em que se marca o que entra em cada plano e se ajustam os limites. Também é possível criar **adicionais avulsos** (por exemplo, um pacote extra de vídeos).
+
+- O sistema avisa quando uma funcionalidade é colocada em um plano sem aquilo de que ela depende.
+- Para cada plano, mostra o custo estimado de entrega e a margem.
+- Mudanças são salvas como rascunho, podem ser pré-visualizadas como o cliente verá e só valem depois de publicadas. Clientes atuais mantêm o que contrataram até o administrador decidir a migração.
+- A partir dos planos publicados, o aplicativo gera a **página de planos** que o cliente vê, com a comparação entre eles.
+- Dentro do aplicativo do cliente, o que não está no plano dele aparece visível porém bloqueado, com uma prévia do que faz e o caminho para subir de plano.
+
+**Configuração inicial** (ponto de partida, totalmente editável; os nomes são provisórios):
+
+- **Plano inicial:** etapas Conhecer, Potencializar e Corrigir completas (identidade, missão, visão, valores, diferenciais, plano de correção, pesquisa com clientes); rotina Evoluir (lembrete, desafio e pergunta diários); estudo do setor; pautas das reuniões de equipe; relatório geral de marketing e vendas; configuração dos perfis; posts com fotos; direcionamentos e roteiros para Stories e Reels.
+- **Plano avançado (mais caro):** tudo do inicial, mais **vídeos e imagens realistas gerados por IA** a partir das fotos da empresa, dos donos e dos colaboradores autorizados, no contexto dos produtos e da marca e guiados pelas referências escolhidas; agente de atendimento no WhatsApp; treinador de equipe com simulações e relatórios; pautas das reuniões individuais com cada vendedor (que dependem das notas e das conversas analisadas); gestão de anúncios patrocinados.
+
+A verba dos anúncios é sempre paga pela empresa diretamente à plataforma, à parte do plano.
+
+#### 6.3 Skill 11 — Estrategista do Produto (a IA do administrador)
+
+**Papel:** conselheira de negócio que conversa com o administrador. É especialista em produtos digitais por assinatura, em definição de planos e preços e em estratégia comercial, e o objetivo dela é fazer o **nosso** aplicativo vender mais e reter mais clientes em todos os planos. É, na prática, o nosso método aplicado a nós mesmos.
+
+**O que ela faz, conversando:**
+- **Estrutura os planos:** sugere quantos planos ter, o nome de cada um, o que entra em cada, os limites e o preço, explicando o raciocínio. Cuida para que o plano de entrada já entregue um resultado que o cliente perceba rápido, para que exista um plano claramente "ideal para a maioria" e para que o plano completo tenha um motivo forte para existir.
+- **Avalia cada funcionalidade nova:** em que plano deve entrar, se vale mais como adicional avulso, quanto custa entregar e se a margem fecha.
+- **Constrói a proposta comercial:** para quem é cada plano, a promessa, os argumentos, as respostas às objeções, a oferta de entrada (teste, garantia, condição de lançamento), o texto da página de planos e o roteiro de venda.
+- **Define a estratégia de crescimento:** por quais setores começar, por quais canais chegar ao pequeno empresário, parcerias (contadores, associações comerciais, agências), programa de indicação, e o caminho que leva um cliente do plano básico para os superiores.
+- **Acompanha os números do negócio:** clientes por plano, receita recorrente, novos clientes, cancelamentos e seus motivos, subidas e descidas de plano, funcionalidades mais e menos usadas, custo de entrega e margem por plano. Usa a mesma ordem dos outros relatórios: o que aconteceu, por quê, o que fazer.
+- **Propõe testes:** mudanças de preço, de nome ou de composição de plano entram como experimento com uma hipótese e um indicador; ela acompanha e diz se funcionou.
+
+**Como ela aprende:** com os dados de uso e de venda do próprio aplicativo, com os resultados dos testes, com as respostas da pesquisa de cancelamento, com pesquisa na internet sobre concorrentes e preços do mercado (sempre com fonte) e com as decisões e correções do administrador, que ficam registradas em uma memória própria do negócio. Enquanto houver poucos clientes, ela diz claramente que a recomendação vem de referências do mercado e ainda não de dados nossos.
+
+**Honestidade:** ela não promete sucesso garantido nem inventa números de mercado. Recomenda com o motivo, mostra o risco, sugere como testar barato e mede o resultado. As decisões são sempre do administrador; ela nunca publica plano ou preço sozinha.
+
+**Base de referências:** Madhavan Ramanujam (*Monetizing Innovation*, desenhar o produto em torno do preço que o cliente aceita pagar); Hermann Simon (*Confissões do Mestre do Preço*); Alex Hormozi (*$100M Offers*, construção de oferta); Patrick Campbell e a ProfitWell (pesquisa de preço e de retenção em assinaturas); pesquisa de sensibilidade a preço de Van Westendorp; Nick Mehta (*Customer Success*, retenção e expansão); Sean Ellis (*Hacking Growth*, experimentos e a pergunta de adequação do produto ao mercado); Eric Ries (*A Startup Enxuta*, testar antes de construir); Geoffrey Moore (*Atravessando o Abismo*, começar por um nicho); Wes Bush (*Product-Led Growth*, teste e plano de entrada); Aaron Ross (*Receita Previsível*); Dan Ariely (*Previsivelmente Irracional*, como as pessoas comparam opções de preço).
+
+#### 6.4 Login e permissões
+
+Há dois ambientes separados: o **aplicativo do cliente** (dono e equipe de cada empresa) e o **painel do administrador** (nós). O painel tem login próprio e papéis (por exemplo: dono do negócio, com acesso a tudo; e operador, sem acesso a preços e finanças). Toda alteração em planos, preços, skills e funcionalidades fica registrada com autor e data. Os dados de cada empresa cliente aparecem para a Skill 11 de forma agregada; o conteúdo das conversas e dos clientes de cada empresa não é usado para a nossa estratégia comercial.
 
 ### 7. O que construir agora (o artefato)
 
@@ -287,7 +339,13 @@ O artefato é um protótipo navegável que demonstra o produto inteiro e nos per
 6. **Atrair:** configuração de cada perfil com textos prontos para copiar, tela de referências, estudo do setor com fontes e plano sob medida, calendário de conteúdo com as linhas identificadas por cor e rótulo, visualização de cada peça com aprovar / pedir ajuste, construtor de oferta irresistível, e a área de anúncios patrocinados (plano e verba, campanhas para aprovar, painel de resultados).
 7. **Vender:** prévia do agente de atendimento (uma conversa de teste), simulador de treino com nota ao final, relatório de desempenho por atendente.
 8. **Evoluir:** histórico de desafios e perguntas, participação da equipe, evolução ao longo do tempo; **Reuniões** (agenda da semana, pauta pronta de cada reunião, registro rápido do que foi combinado, acompanhamento dos combinados); **Resultados** (painel geral de marketing, patrocinado, vendas, equipe e clientes, com o resumo semanal e o relatório mensal).
-9. **Área do administrador (nossa):** cadastro e edição das skills (papel, instruções, referências), do nome e das etapas do método, das linhas de conteúdo, e o Laboratório de estratégias.
+9. **Painel do administrador (nosso), com login próprio:**
+   - **Catálogo de funcionalidades** com as fichas e a criação de funcionalidade nova por conversa;
+   - **Construtor de planos** com a grade de funcionalidades por planos, limites, preços, margem, rascunho, pré-visualização e publicação;
+   - **Conversa com a Estrategista do Produto** (Skill 11), que lê o catálogo, os planos e os números, e cujas sugestões podem ser aplicadas como rascunho com um toque;
+   - **Números do negócio** (clientes por plano, receita recorrente, cancelamentos, uso por funcionalidade), com dados de exemplo marcados como simulados;
+   - **Proposta comercial** (documento vivo com público, promessa, argumentos e página de planos);
+   - cadastro e edição das skills (papel, instruções, referências), do nome e das etapas do método, das linhas de conteúdo, e o Laboratório de estratégias.
 
 **Requisitos do artefato:**
 - Pensado primeiro para **celular**, pois é onde o pequeno empresário vai usar. Visual limpo, letras grandes, poucos elementos por tela, linguagem do dia a dia.
