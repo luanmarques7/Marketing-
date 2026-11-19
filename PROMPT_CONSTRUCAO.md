@@ -30,9 +30,9 @@ O método é uma jornada de etapas com **nomes simples, de uma palavra, que qual
 | 3 | **Corrigir** | Ouvir o que deu errado e eliminar os pontos negativos. |
 | 4 | **Atrair** | Montar os perfis, os conteúdos e as ofertas que trazem clientes. |
 | 5 | **Vender** | Atender bem, converter e treinar a equipe. |
-| Contínuo | **Evoluir** | Um desafio e uma pergunta por dia para a empresa melhorar sempre. |
+| Contínuo | **Evoluir** | Desafio e pergunta do dia, reuniões com pauta pronta e relatórios de resultado, para a empresa melhorar sempre. |
 
-**[DECIDIR]** O método foi descrito como "4 pilares", mas a descrição tem cinco etapas distintas. O padrão aqui é manter as cinco, mais a rotina diária. Se preferirmos quatro, a alternativa é juntar Potencializar e Corrigir em uma só etapa ("Melhorar"). Construa de modo que os nomes e a quantidade de etapas fiquem em um único lugar de configuração, fáceis de trocar. O método ainda não tem nome; deixe o nome do método e do aplicativo como texto configurável.
+O método tem **cinco etapas**, mais a rotina contínua Evoluir. Ele ainda não tem nome: deixe o nome do método, o nome do aplicativo e os nomes das etapas em um único lugar de configuração, fáceis de trocar.
 
 As etapas são sequenciais na primeira passagem (cada uma usa o que a anterior produziu), mas depois ficam todas abertas: a empresa volta a qualquer uma quando quiser, e tudo que for alterado se propaga para as seguintes.
 
@@ -62,6 +62,9 @@ Tudo que é respondido, enviado e aprovado alimenta uma **base de conhecimento �
 - Canais (perfis configurados, calendário de conteúdo, campanhas, ofertas)
 - Atendimento (perguntas frequentes, objeções, roteiros, conversas analisadas)
 - Equipe (pessoas, funções, notas de desempenho, histórico de desafios)
+- Anúncios patrocinados (campanhas, verba, públicos, resultados)
+- Reuniões (pautas, registros, combinados e o andamento de cada combinado)
+- Resultados (indicadores de marketing, patrocinado, vendas, equipe e clientes ao longo do tempo)
 - Aprendizados (o que funcionou e o que não funcionou, com dados)
 
 Cada skill declara o que **lê** e o que **escreve** nessa base. As skills aprendem continuamente: cada nova resposta, pesquisa de cliente, conversa analisada ou resultado de campanha refina o que elas sabem.
@@ -209,14 +212,67 @@ Os temas seguem um ciclo que cobre identidade, diferenciais, pontos negativos, a
 
 **Base de referências:** James Clear (*Hábitos Atômicos*); BJ Fogg (*Micro-Hábitos*); Charles Duhigg (*O Poder do Hábito*); Chris McChesney, Sean Covey e Jim Huling (*As 4 Disciplinas da Execução*); Verne Harnish (*Scaling Up*, reunião diária); John Doerr (*Avalie o que Importa*, OKR); filosofia kaizen de melhoria contínua.
 
+#### Skill 8 — Especialista em Anúncios Patrocinados (etapa Atrair)
+
+**Papel:** gestor de tráfego pago da empresa. Planeja, cria, acompanha e melhora os anúncios no Instagram/Facebook (Meta), Google (pesquisa e mapa/Perfil da Empresa) e TikTok, sempre explicando tudo em linguagem simples.
+
+**Condução:**
+- Pergunta o objetivo (mais mensagens no WhatsApp, mais visitas à loja, mais agendamentos, mais pedidos), a região de atendimento e **quanto a empresa pode investir**. Ofereça faixas de verba como sugestão e diga com honestidade o que dá para esperar de cada uma. A verba de anúncio é paga pela empresa diretamente à plataforma, separada do nosso pacote.
+- Escolhe o que patrocinar a partir do que já existe: a **oferta irresistível** é a primeira candidata, e as peças orgânicas que tiveram melhor resultado viram anúncio. Para pequenos negócios locais, o padrão é o anúncio que abre conversa no WhatsApp, onde o agente de atendimento continua a venda.
+- Define público (região, perfil do cliente ideal, quem já interagiu, quem já é cliente), cria variações de imagem, vídeo e texto no tom da marca, e monta a campanha.
+- **Começa pequeno e testa:** poucas variações, verba baixa, alguns dias; mantém o que funciona, pausa o que não funciona, e só então aumenta a verba.
+- **Nada é gasto sem aprovação.** A empresa aprova a verba, o limite diário e cada campanha. A skill avisa quando recomenda aumentar, reduzir ou pausar, e por quê.
+
+**Índices que acompanha, sempre traduzidos:** quanto foi investido; quantas pessoas viram (alcance, impressões, frequência); quantas clicaram (taxa de cliques, custo por clique); **quantas chamaram no WhatsApp e quanto custou cada conversa**; quantas viraram venda (taxa de conversão); **quanto custou conquistar cada cliente**; quanto voltou em vendas para cada real investido (retorno sobre o investimento em anúncios); valor médio de compra. No painel, o nome simples vem primeiro e a sigla técnica (CPM, CTR, CPC, CAC, ROAS) aparece como detalhe para quem quiser.
+
+Para saber quais vendas vieram de anúncio, o agente de atendimento e os atendentes registram a origem de cada contato e o resultado de cada conversa. Onde esse registro faltar, o relatório mostra "sem dado" em vez de estimar.
+
+**Entregas:** plano de anúncios com verba e meta; campanhas prontas; painel de resultados do patrocinado; resumo semanal com o que aconteceu, o que foi ajustado e a recomendação para a semana seguinte.
+
+**Base de referências:** Claude Hopkins (*A Ciência da Propaganda*, testar e medir tudo); David Ogilvy (*Confissões de um Publicitário*); Eugene Schwartz (*Breakthrough Advertising*); Alex Hormozi (*$100M Leads*, anúncios pagos); Perry Marshall (*Ultimate Guide to Google Ads* e *80/20 Sales and Marketing*); materiais oficiais de formação e políticas de anúncios de Meta, Google e TikTok, que mudam com frequência e devem ser consultados na versão atual.
+
+#### Skill 9 — Analista de Resultados (rotina Evoluir)
+
+**Papel:** dar ao dono uma **visão geral, em uma tela**, de como estão o marketing e as vendas, e dizer o que fazer com isso.
+
+**O que o painel reúne:**
+- **Marketing:** alcance e crescimento dos perfis, desempenho por linha de conteúdo (qual linha traz mais mensagens, qual traz mais alcance), melhores e piores peças, avaliações no Google, de onde vieram os contatos.
+- **Patrocinado:** os índices da Skill 8.
+- **Vendas:** contatos recebidos, tempo de resposta, taxa de conversão, receita, valor médio de compra, clientes novos e clientes que voltaram, motivos de perda, resultado por atendente.
+- **Equipe:** notas dos treinos, participação nos desafios e perguntas do dia, andamento dos combinados das reuniões.
+- **Clientes:** nota de recomendação, reclamações abertas e resolvidas, andamento do plano da etapa Corrigir.
+
+**Como entrega:** resumo semanal curto por WhatsApp e relatório mensal completo. Todo relatório segue a mesma ordem: **o que aconteceu, por que aconteceu, o que fazer agora** (no máximo três recomendações, em ordem de impacto), sempre comparando com o período anterior e com a meta. A skill nunca inventa nem arredonda para melhor: número que não existe aparece como "sem dado", com a indicação de como passar a coletá-lo. No aplicativo real, os números vêm das integrações; o que não tiver integração (por exemplo, vendas fechadas no balcão) é informado pela empresa em um registro rápido.
+
+**Base de referências:** John Doerr (*Avalie o que Importa*, OKR); Chris McChesney, Sean Covey e Jim Huling (*As 4 Disciplinas da Execução*, medidas de direção e de resultado, placar visível); Avinash Kaushik (*Web Analytics 2.0*, métrica só vale se leva a uma ação); Aaron Ross (*Receita Previsível*, funil de vendas); Fred Reichheld (NPS).
+
+#### Skill 10 — Condutor de Reuniões (rotina Evoluir)
+
+**Papel:** ajudar o líder a se reunir com a equipe. Muitos donos de pequenas empresas não fazem reunião, ou fazem sem pauta e sem resultado. A skill entrega a **pauta pronta**, definida pela IA a partir dos dados, e acompanha o que foi combinado.
+
+**Tipos de reunião:**
+- **Individual semanal com cada vendedor ou atendente** (15 a 30 minutos). Pauta montada com os dados daquela pessoa: resultados da semana, notas dos treinos, conversas reais analisadas (uma que foi bem, uma que poderia ter sido melhor), o ponto a melhorar e o reconhecimento do que evoluiu. Inclui perguntas para o líder fazer e ouvir, o treino recomendado para a semana e a meta combinada.
+- **Semanal com toda a equipe** (30 a 45 minutos). Pauta com os números da semana, o que deu certo, o ponto negativo em foco e a ação para corrigi-lo, o diferencial a reforçar, as campanhas e ofertas que entram no ar (para que todos saibam o que está sendo prometido ao cliente), e os combinados com responsável e prazo.
+- **Diária rápida** (5 a 10 minutos, em pé), quando for necessário: semana de campanha forte, queda de resultado, problema recorrente com cliente, equipe nova. Pauta: meta do dia, oferta do dia, desafio do dia, um aviso. A skill **recomenda** quando ligar e quando desligar a diária, com o motivo.
+
+**Como a pauta é definida:** a skill cruza os relatórios (Skill 9), as notas de desempenho (Skill 6), o plano de correção (etapa Corrigir), as respostas da pergunta do dia e os combinados em aberto, e escolhe **o que o grupo mais precisa melhorar agora**. Prefere poucos assuntos bem tratados a uma lista longa.
+
+**O que o líder recebe:** antes da reunião, a pauta com o tempo de cada assunto, os dados de apoio e orientações de como conduzir, incluindo como dar retorno difícil com respeito e como reconhecer em público. Depois da reunião, registra em um minuto (texto ou voz) o que foi combinado; a skill transforma em tarefas com responsável e prazo, lembra cada pessoa durante a semana e abre a reunião seguinte conferindo o que foi cumprido.
+
+**Cuidados:** assuntos de desempenho individual ficam na reunião individual, nunca são expostos na reunião de equipe. Cada atendente vê os próprios dados; só o líder vê os de todos.
+
+**Base de referências:** Andrew Grove (*Gestão de Alta Performance*, a reunião individual); Patrick Lencioni (*Death by Meeting*, tipos de reunião e *Os 5 Desafios das Equipes*); Verne Harnish (*Scaling Up*, ritmo de reuniões diária e semanal); McChesney, Covey e Huling (*As 4 Disciplinas da Execução*, reunião semanal de compromissos); Kim Scott (*Empatia Assertiva*); Michael Bungay Stanier (*The Coaching Habit*, liderar perguntando).
+
 #### Orquestrador
 
 Acima das skills há um orquestrador que conduz o cliente pela jornada: sabe em que etapa a empresa está, o que falta, qual skill acionar, e garante que toda entrega passou pela identidade e pelo tom de voz antes de chegar ao cliente. Ele também roda uma **checagem de coerência**: confere se as peças de marketing prometem algo que a etapa Corrigir mostrou que a empresa ainda não entrega, e avisa.
 
 ### 6. Pacotes
 
-- **Pacote inicial:** etapas Conhecer, Potencializar e Corrigir completas (identidade, missão, visão, valores, diferenciais, plano de correção, pesquisa com clientes); rotina Evoluir (lembrete, desafio e pergunta diários); estudo do setor; configuração dos perfis; posts com fotos; direcionamentos e roteiros para Stories e Reels.
-- **Pacote avançado (mais caro):** tudo do inicial, mais **vídeos e imagens realistas gerados por IA** a partir das fotos da empresa, dos donos e dos colaboradores autorizados, no contexto dos produtos e da marca e guiados pelas referências escolhidas; agente de atendimento no WhatsApp; treinador de equipe com simulações e relatórios.
+- **Pacote inicial:** etapas Conhecer, Potencializar e Corrigir completas (identidade, missão, visão, valores, diferenciais, plano de correção, pesquisa com clientes); rotina Evoluir (lembrete, desafio e pergunta diários); estudo do setor; pautas das reuniões de equipe; relatório geral de marketing e vendas; configuração dos perfis; posts com fotos; direcionamentos e roteiros para Stories e Reels.
+- **Pacote avançado (mais caro):** tudo do inicial, mais **vídeos e imagens realistas gerados por IA** a partir das fotos da empresa, dos donos e dos colaboradores autorizados, no contexto dos produtos e da marca e guiados pelas referências escolhidas; agente de atendimento no WhatsApp; treinador de equipe com simulações e relatórios; pautas das reuniões individuais com cada vendedor (que dependem das notas e das conversas analisadas); gestão de anúncios patrocinados.
+
+**[DECIDIR]** em qual pacote entra a gestão de anúncios patrocinados; o padrão acima a coloca no avançado. A verba dos anúncios é sempre paga pela empresa à plataforma, à parte.
 
 No artefato, mostre os recursos do pacote avançado como visíveis porém bloqueados para quem está no inicial, com uma prévia do que fazem.
 
@@ -229,9 +285,9 @@ O artefato é um protótipo navegável que demonstra o produto inteiro e nos per
 3. **Conversa com a IA:** a tela principal de cada etapa, no formato de entrevista descrito na seção 3, com sugestões tocáveis, campo "Outro", envio de fotos e resumo para confirmar.
 4. **Minha empresa:** a base de conhecimento visível e editável (seção 4), com os documentos entregues por etapa.
 5. **Pesquisa com clientes:** criação do link, mensagem pronta para enviar, a página que o cliente final vê, e o painel de resultados.
-6. **Atrair:** configuração de cada perfil com textos prontos para copiar, tela de referências, estudo do setor com fontes e plano sob medida, calendário de conteúdo com as linhas identificadas por cor e rótulo, visualização de cada peça com aprovar / pedir ajuste, construtor de oferta irresistível.
+6. **Atrair:** configuração de cada perfil com textos prontos para copiar, tela de referências, estudo do setor com fontes e plano sob medida, calendário de conteúdo com as linhas identificadas por cor e rótulo, visualização de cada peça com aprovar / pedir ajuste, construtor de oferta irresistível, e a área de anúncios patrocinados (plano e verba, campanhas para aprovar, painel de resultados).
 7. **Vender:** prévia do agente de atendimento (uma conversa de teste), simulador de treino com nota ao final, relatório de desempenho por atendente.
-8. **Evoluir:** histórico de desafios e perguntas, participação da equipe, evolução ao longo do tempo.
+8. **Evoluir:** histórico de desafios e perguntas, participação da equipe, evolução ao longo do tempo; **Reuniões** (agenda da semana, pauta pronta de cada reunião, registro rápido do que foi combinado, acompanhamento dos combinados); **Resultados** (painel geral de marketing, patrocinado, vendas, equipe e clientes, com o resumo semanal e o relatório mensal).
 9. **Área do administrador (nossa):** cadastro e edição das skills (papel, instruções, referências), do nome e das etapas do método, das linhas de conteúdo, e o Laboratório de estratégias.
 
 **Requisitos do artefato:**
@@ -247,7 +303,9 @@ O artefato é um protótipo navegável que demonstra o produto inteiro e nos per
 - **Privacidade (LGPD):** conversas de WhatsApp exportadas e respostas de pesquisa contêm dados pessoais de clientes. Peça consentimento, explique o uso, permita apagar, e use esses dados só para a empresa dona deles.
 - **Uso de imagem:** só gere imagens e vídeos de pessoas reais (donos, colaboradores) com autorização registrada de cada uma, com opção de revogar. Nunca gere imagens de clientes ou de terceiros.
 - **Verdade na comunicação:** nada de depoimento inventado, resultado prometido sem base, escassez falsa ou comparação enganosa com concorrentes.
-- **Regras das plataformas:** o envio de mensagens por WhatsApp no aplicativo real dependerá da API oficial e de suas regras de consentimento e de modelos de mensagem. Projete as mensagens diárias e o agente de atendimento já considerando isso.
+- **Dinheiro do cliente:** nenhuma verba de anúncio é gasta ou aumentada sem aprovação expressa, e toda campanha tem limite diário.
+- **Dados da equipe:** notas e desempenho individuais são visíveis só para a própria pessoa e para o líder.
+- **Regras das plataformas:** os anúncios seguem as políticas de Meta, Google e TikTok. o envio de mensagens por WhatsApp no aplicativo real dependerá da API oficial e de suas regras de consentimento e de modelos de mensagem. Projete as mensagens diárias e o agente de atendimento já considerando isso.
 - **Transparência:** o agente de atendimento não se passa por humano quando o cliente pergunta.
 
 ### 9. Como entregar
