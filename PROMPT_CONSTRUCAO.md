@@ -305,7 +305,7 @@ O artefato é um protótipo navegável que demonstra o produto inteiro e nos per
 - **Verdade na comunicação:** nada de depoimento inventado, resultado prometido sem base, escassez falsa ou comparação enganosa com concorrentes.
 - **Dinheiro do cliente:** nenhuma verba de anúncio é gasta ou aumentada sem aprovação expressa, e toda campanha tem limite diário.
 - **Dados da equipe:** notas e desempenho individuais são visíveis só para a própria pessoa e para o líder.
-- **Regras das plataformas:** os anúncios seguem as políticas de Meta, Google e TikTok. o envio de mensagens por WhatsApp no aplicativo real dependerá da API oficial e de suas regras de consentimento e de modelos de mensagem. Projete as mensagens diárias e o agente de atendimento já considerando isso.
+- **Regras das plataformas:** os anúncios seguem as políticas de Meta, Google e TikTok. O envio de mensagens por WhatsApp no aplicativo real dependerá da API oficial e de suas regras de consentimento e de modelos de mensagem. Projete as mensagens diárias e o agente de atendimento já considerando isso.
 - **Transparência:** o agente de atendimento não se passa por humano quando o cliente pergunta.
 
 ### 9. Como entregar
